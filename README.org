@@ -1,0 +1,3 @@
+#+TITLE: My stars
+
+This is the star files for my lunarymacs config, the framework file is in [[https://github.com/casouri/lunarymacs-stars][casouri/lunarymacs-stars]].
