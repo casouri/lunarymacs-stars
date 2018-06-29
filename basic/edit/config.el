@@ -95,18 +95,6 @@
 (setq-default buffer-file-coding-system 'utf-8)
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-(defun open-next-line (arg)
-      "Move to the next line and then opens a line.
-    See also `newline-and-indent'."
-      (interactive "p")
-      (end-of-line)
-      (open-line arg)
-      (next-line 1)
-      (when newline-and-indent
-        (indent-according-to-mode)))
-
-(global-set-key (kbd "C-o") 'open-next-line)
-
 ;; never tested
 ;; http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
 (defadvice ivy-find-file (after find-file-sudo activate)
@@ -115,3 +103,14 @@
                (file-writable-p buffer-file-name))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+
+;;
+;; return cancel auto complete
+;;
+
+(defun moon-reurn-cancel-completion ()
+  "Cancel completion and return."
+  (keyboard-quit)
+  (newline))
+
+(global-set-key (kbd "S-<return>") #'moon-reurn-cancel-completion)
