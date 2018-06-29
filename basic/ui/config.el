@@ -32,11 +32,34 @@
 ;; Package
 ;;
 
+(use-package| atom-one-dark-theme
+  :defer t
+  :config
+  ;; (set-face-attribute 'company-tooltip-common nil :foreground "#C678DD")
+  (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD")
+  ;; (set-face-attribute 'company-preview-common nil :foreground "#C678DD")
+  )
+
+(use-package| doom-themes
+  :config
+  (add-to-list 'moon-toggle-theme-list 'doom-one)
+  (customize|
+   (set-face-attribute 'mode-line nil :background "#603D8E")
+   (set-face-attribute 'lazy-highlight nil :inherit 'default :background nil :foreground "#CFD7E5" :distant-foreground nil)
+   (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD")))
+
 (use-package| spacemacs-theme
   :defer t
-  :init
+  :config
   (add-to-list 'custom-theme-load-path (car (directory-files moon-package-dir "spacemacs-theme.+")) t)
-  ;; (load-theme 'spacemacs-dark t)
+  (custom-set-variables '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
+                        '((bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
+                          (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
+                          (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
+                          (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+                          (act2       . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+                          (border     . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+                          )))
   )
 
 (use-package| rainbow-delimiters
@@ -358,3 +381,46 @@ and saveing desktop."
 (global-set-key (kbd "C-x C-l") #'buf-move-right)
 (global-set-key (kbd "C-x C-j") #'buf-move-down)
 (global-set-key (kbd "C-x C-k") #'buf-move-up)
+
+
+;;
+;; highlight symbol
+;;
+
+(defun moon-highlight-symbol ()
+  "Hightlight symbol at point."
+  (interactive)
+  (evil-ex-search-activate-highlight `(,(thing-at-point 'symbol) t t)))
+
+(post-config| general
+  (default-leader
+    "ah" #'moon-highlight-symbol))
+
+;;
+;; auto highlight
+;;
+
+(defvar moon-auto-highlight nil
+  "Wehther to highlight symbol at point after a delay.")
+
+(defun moon-auto-highlight ()
+  "Hightlight thing at point."
+  (evil-ex-search-activate-highlight `(,(thing-at-point 'symbol) t t))
+  (add-hook 'pre-command-hook #'moon-auto-highlight-hook))
+
+
+(defun moon-auto-highlight-hook ()
+  "Clean hightlight and remove self from `pre-command-hook'."
+    (evil-ex-nohighlight)
+    (remove-hook 'pre-command-hook #'moon-auto-highlight-hook))
+
+(defvar moon-auto-highlight-timer nil
+  "Idle timer of moon-auto-hightlight-mode.")
+
+(define-minor-mode moon-auto-highlight-mode
+  "Highlight symbol at point automatically after a delay."
+  :global
+  :lighter "AutoH"
+  (if moon-auto-highlight-mode
+      (setq moon-auto-highlight-timer (run-with-idle-timer 1 t #'moon-auto-highlight))
+    (cancel-timer moon-auto-highlight-timer)))
