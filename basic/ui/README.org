@@ -8,12 +8,8 @@ This star configures most of the ui features of lunarymacs.
     - spacemacs-dark
     - spacemacs-light
 - rainbow-delimiters
-- hlinum
-- nlinum
 - highlight-parentheses
 - hl-todo
-- spaceline
-- powerline
 - rainbow-mode
 - nyan-mode
 - eyebrowse
@@ -27,8 +23,8 @@ This star configures most of the ui features of lunarymacs.
 - cursor:
 | theme           | normal | insert |
 |-----------------+--------+--------|
-| spacemacs-dark  | yellow | pink   |
-| spacemacs-light | purple | pink   |
+| spacemacs-dark  | yellow | white |
+| spacemacs-light | purple | white |
 
 * eyebrowse & winum
 | key         | command                                                       |
@@ -42,9 +38,9 @@ In the very left on lunaryline:
 
 #+BEGIN_SRC
 window number
-      v
-[1 2] 1
-  ^
+ v
+ 1 [1 2]
+     ^
 workspace indicator
 #+END_SRC
 
@@ -53,12 +49,10 @@ is current workspace
 
 * Other commands
 
-| key     | command              |
-|---------+----------------------|
-| SPC w r | recover last session |
-| SPC b m | mcon-switch          |
-| S-tab   | c-tab-graphic        |
-| C-tab   | c-tab-graphic        |
+| key     | command               |
+|---------+-----------------------|
+| SPC w r | recover last session  |
+| SPC a h | moon-highlight-symbol |
 
 * nyan-cat
 
