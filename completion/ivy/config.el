@@ -72,4 +72,5 @@
   :config (setq smex-save-file (concat moon-local-dir "smex-items")))
 
 (use-package| (ivy-filthy-rich :repo "casouri/ivy-filthy-rich" :fetcher github)
+  :after counsel
   :config (ivy-filthy-rich-mode))
