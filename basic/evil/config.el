@@ -152,7 +152,8 @@
     (default-leader
       "sc" #'moon/clear-evil-search
       "ij" #'evil-insert-line-below
-      "ik" #'evil-insert-line-above)
+      "ik" #'evil-insert-line-above
+      "uu" #'undo-tree-visualize)
 
     (default-leader
       :keymaps 'term-mode-map
