@@ -111,6 +111,16 @@
 (defun moon-reurn-cancel-completion ()
   "Cancel completion and return."
   (keyboard-quit)
-  (newline))
+  (newline nil t))
 
 (global-set-key (kbd "S-<return>") #'moon-reurn-cancel-completion)
+
+
+(use-package| (auto-mark :url "https://www.emacswiki.org/emacs/download/auto-mark.el" :fetcher url)
+  :after history)
+
+(use-package| history
+  :config
+  (add-to-list 'history-advised-before-functions 'push-mark)
+  (global-set-key (kbd "C-M-k") #'history-prev-history)
+  (global-set-key (kbd "C-M-j") #'history-next-history))
