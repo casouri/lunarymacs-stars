@@ -34,9 +34,6 @@
     "?"   #'counsel-apropos
     ;; insert
     "iu"  #'counsel-unicode-char
-    ;; register/ring
-    "ry"  #'counsel-yank-pop
-    "rm"  #'counsel-mark-ring
     ;; search
     "si"  #'counsel-imenu
     "ss"  #'counsel-grep-or-swiper
@@ -48,13 +45,20 @@
     )
   )
 
-(global-set-key (kbd "C-x C-y") #'counsel-yank-pop)
-(global-set-key (kbd "C-c C-y") #'counsel-yank-pop)
+(global-set-key (kbd "C-c C-p") #'counsel-yank-pop)
+(global-set-key (kbd "C-c C-m") #'counsel-mark-ring)
 (global-set-key (kbd "C-c C-r") #'ivy-resume)
 
 (use-package| swiper :commands (swiper swiper-all))
 (use-package| counsel
-  :config (counsel-mode 1)
+  :config
+  (counsel-mode 1)
+  (after-load| evil
+    (defun moon-override-yank-pop (&optional arg)
+      "Delete the region before inserting poped string."
+      (when (and evil-mode (eq 'visual evil-state))
+        (kill-region (region-beginning) (region-end))))
+    (advice-add 'counsel-yank-pop :before #'moon-override-yank-pop))
   :commands (counsel-ag counsel-rg counsel-pt
                         counsel-apropos counsel-bookmark
                         counsel-describe-function
