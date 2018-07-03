@@ -1,8 +1,8 @@
 ;;; -*- lexical-binding: t -*-
 
-;;
-;; Config
-;;
+;;;
+;;; Config
+;;;
 
 (global-hl-line-mode 1)
 
@@ -11,9 +11,8 @@
 (global-set-key (kbd "C-c C-h") #'hs-hide-block)
 (global-set-key (kbd "C-c C-s") #'hs-show-block)
 
-;;
-;; Cursor Color
-;;
+;;;;
+;;;; Cursor Color
 
 
 (defun smart-cursor-color ()
@@ -28,9 +27,9 @@
   (add-hook 'evil-insert-state-entry-hook #'smart-cursor-color)
   (add-hook 'moon-load-theme-hook #'smart-cursor-color))
 
-;;
-;; Package
-;;
+;;;
+;;; Package
+;;;
 
 (use-package| atom-one-dark-theme
   :defer t
@@ -59,12 +58,10 @@
                           (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
                           (act2       . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
                           (border     . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
-                          )))
-  )
+                          ))))
 
 (use-package| rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode)
-  )
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package| rainbow-mode
   :commands rainbow-mode)
@@ -78,12 +75,11 @@
   (setq hl-paren-colors '("green"))
   ;; red in light theme, green in dark
   (change-by-theme '((spacemacs-dark . (progn (setq hl-paren-colors '("green")) (hl-paren-color-update)))
-                     (spacemacs-light . (progn (setq hl-paren-colors '("red")) (hl-paren-color-update)))))
-  )
+                     (spacemacs-light . (progn (setq hl-paren-colors '("red")) (hl-paren-color-update))))))
 
 
-;;
-;; Mode-line
+;;;;
+;;;; Mode-line
 
 (post-config| moody
   (use-package minions
@@ -118,7 +114,7 @@ minor-modes that is usually displayed directly in the mode line."
                    'minions-mode-line-modes
                    mode-line-format)))
 
-    (minions-mode 1)))
+   (minions-mode 1)))
 
 (use-package| moody
   :config
@@ -126,8 +122,8 @@ minor-modes that is usually displayed directly in the mode line."
   (setq x-underline-at-descent-line t)
   (moon/setup-moody))
 
-;;
-;; Line number
+;;;;
+;;;; Line number
 
 (defvar moon-enable-nlinum-relative nil
   "Whether to enable relative line number.")
@@ -159,6 +155,9 @@ minor-modes that is usually displayed directly in the mode line."
 ;; absolute line number
 (global-display-line-numbers-mode)
 
+;;;;
+;;;; Misc
+
 (use-package| nyan-mode
   :init (setq nyan-wavy-trail t
               nyan-bar-length 12))
@@ -170,6 +169,19 @@ minor-modes that is usually displayed directly in the mode line."
   (default-leader
     "tl" #'nlinum-mode ; toggle relative linum
     "tL" #'display-line-numbers-mode))
+
+;; form feed
+(use-package| form-feed
+  :defer 3
+  :config
+  (defface form-feed-line
+    `((((type graphic)
+        (background light)) :strike-through ,spacemacs-light-purple)
+      (((type graphic)
+        (background dark)) :strike-through ,doom-blue)
+      (((type tty)) :inherit font-lock-comment-face :underline t))
+    "Face for form-feed-mode lines."
+    :group 'form-feed))
 
 
 ;; I don't show minor mode
@@ -195,6 +207,22 @@ minor-modes that is usually displayed directly in the mode line."
 ;;      (flyspell-mode " Ⓢ" flyspell)
 ;;      ))
 ;;   )
+
+
+;;;;
+;;;; Desktop, Windows & buffer
+
+(use-package| buffer-move
+  :commands
+  (buf-move-up
+   buf-move-dowan
+   buf-move-left
+   buf-move-right))
+
+(global-set-key (kbd "C-x C-h") #'buf-move-left)
+(global-set-key (kbd "C-x C-l") #'buf-move-right)
+(global-set-key (kbd "C-x C-j") #'buf-move-down)
+(global-set-key (kbd "C-x C-k") #'buf-move-up)
 
 (use-package| eyebrowse
   :commands
@@ -280,9 +308,8 @@ minor-modes that is usually displayed directly in the mode line."
   )
 
 
-;;
-;; Desktop
-;;
+;;;;
+;;;; Desktop resume
 
 (post-config| general
   (default-leader
@@ -327,21 +354,9 @@ and saveing desktop."
 )
 
 
-;; form feed
-(use-package| form-feed
-  :defer 3
-  :config
-  (defface form-feed-line
-    `((((type graphic)
-        (background light)) :strike-through ,spacemacs-light-purple)
-      (((type graphic)
-        (background dark)) :strike-through ,doom-blue)
-      (((type tty)) :inherit font-lock-comment-face :underline t))
-    "Face for form-feed-mode lines."
-    :group 'form-feed))
+;;;;
+;;;; Tab
 
-
-;; nerdtab
 (use-package| nerdtab
   :defer 2
   :config
@@ -369,23 +384,8 @@ and saveing desktop."
     "bM9" #'nerdtab-move-to-9))
 
 
-;; buffer swap
-(use-package| buffer-move
-  :commands
-  (buf-move-up
-   buf-move-dowan
-   buf-move-left
-   buf-move-right))
-
-(global-set-key (kbd "C-x C-h") #'buf-move-left)
-(global-set-key (kbd "C-x C-l") #'buf-move-right)
-(global-set-key (kbd "C-x C-j") #'buf-move-down)
-(global-set-key (kbd "C-x C-k") #'buf-move-up)
-
-
-;;
-;; highlight symbol
-;;
+;;;;
+;;;; Syntax
 
 (defun moon-highlight-symbol ()
   "Hightlight symbol at point."

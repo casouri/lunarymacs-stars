@@ -1,5 +1,12 @@
 ;;; -*- lexical-binding: t -*-
 
+;;;
+;;; Package
+;;;
+
+;;;;
+;;;; Edit
+
 (use-package| expand-region
   :commands er/expand-region)
 
@@ -16,9 +23,18 @@
   (setq undo-tree-visualizer-timestamps t
         undo-tree-visualizer-diff t))
 
+(use-package| hungry-delete
+  :defer 2
+  :config
+  (global-set-key (kbd "M-DEL") #'hungry-delete-backward))
+
+
+;;;;
+;;;; Navigation
+
+
 (use-package| recentf-ext
-  :commands (recentf counsel-recentf)
-  )
+  :commands (recentf counsel-recentf))
 
 (use-package| avy
   :defer 2
@@ -49,23 +65,48 @@
 (load| switch-input-mode)
 
 
-(use-package| hungry-delete
-  :defer 2
-  :config
-  (global-set-key (kbd "M-DEL") #'hungry-delete-backward))
-
 (use-package| (bicycle :repo "tarsius/bicycle" :fetcher github)
   :after outline
-  :bind (:map outline-minor-mode-map
-              ([C-tab] . bicycle-cycle)
-              ([S-tab] . bicycle-cycle-global))
   :init
   (add-hook 'prog-mode-hook 'outline-minor-mode)
   (add-hook 'prog-mode-hook 'hs-minor-mode))
 
-;;
-;; Config
-;;
+(post-config| general
+  (default-cc-leader
+    :keymaps 'outline-minor-mode-map
+    "C-c <tab>" #'bicycle-cycle
+    "C-C s-<tab>" #'bicycle-cycle-global))
+
+
+(use-package| (auto-mark :url "https://www.emacswiki.org/emacs/download/auto-mark.el" :fetcher url)
+  :after history
+  :config (auto-mark-mode))
+
+(use-package| history
+  :config
+  (add-to-list 'history-advised-before-functions 'push-mark)
+  (global-set-key (kbd "C-M-k") #'history-prev-history)
+  (global-set-key (kbd "C-M-j") #'history-next-history)
+  (history-mode))
+
+
+;;;;
+;;;; code structure
+
+
+(use-package| outshine
+  :init
+  (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+  (add-hook 'prog-mode-hook 'outline-minor-mode)
+  (defvar outline-minor-mode-prefix (kbd "C-c o")))
+
+
+;;;
+;;; Config
+;;;
+
+;;;;
+;;;; Default
 
 (electric-pair-mode 1)
 
@@ -95,18 +136,10 @@
 (setq-default buffer-file-coding-system 'utf-8)
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
-;; never tested
-;; http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
-(defadvice ivy-find-file (after find-file-sudo activate)
-  "Find file as root if necessary."
-  (unless (and buffer-file-name
-               (file-writable-p buffer-file-name))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 
-;;
-;; return cancel auto complete
-;;
+;;;;
+;;;; Fix
 
 (defun moon-reurn-cancel-completion ()
   "Cancel completion and return."
@@ -115,12 +148,10 @@
 
 (global-set-key (kbd "S-<return>") #'moon-reurn-cancel-completion)
 
-
-(use-package| (auto-mark :url "https://www.emacswiki.org/emacs/download/auto-mark.el" :fetcher url)
-  :after history)
-
-(use-package| history
-  :config
-  (add-to-list 'history-advised-before-functions 'push-mark)
-  (global-set-key (kbd "C-M-k") #'history-prev-history)
-  (global-set-key (kbd "C-M-j") #'history-next-history))
+;; never tested
+;; http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
+(defadvice ivy-find-file (after find-file-sudo activate)
+  "Find file as root if necessary."
+  (unless (and buffer-file-name
+               (file-writable-p buffer-file-name))
+    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
