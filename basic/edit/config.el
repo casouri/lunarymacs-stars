@@ -1,10 +1,11 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 ;;;
+
 ;;; Package
 ;;;
 
-;;;;
+    
 ;;;; Edit
 
 (use-package| expand-region
@@ -29,7 +30,7 @@
   (global-set-key (kbd "M-DEL") #'hungry-delete-backward))
 
 
-;;;;
+    
 ;;;; Navigation
 
 
@@ -74,8 +75,12 @@
 (post-config| general
   (default-cc-leader
     :keymaps 'outline-minor-mode-map
-    "C-c <tab>" #'bicycle-cycle
-    "C-C s-<tab>" #'bicycle-cycle-global))
+    "<tab>" #'bicycle-cycle
+    "<backtab>" #'bicycle-cycle-global)
+  (default-leader
+    :keymaps 'outline-minor-mode-map
+    "o <tab>" #'bicycle-cycle
+    "o <backtab>" #'bicycle-cycle-global))
 
 
 (use-package| (auto-mark :url "https://www.emacswiki.org/emacs/download/auto-mark.el" :fetcher url)
@@ -90,7 +95,7 @@
   (history-mode))
 
 
-;;;;
+    
 ;;;; code structure
 
 

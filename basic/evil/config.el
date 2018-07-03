@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (use-package| evil
   :config
@@ -10,8 +10,7 @@
   ;; setting this directly doesn't work
   ;; you have to set it through customize
   ;; (customize-set-variable evil-search-module 'evil-search)
-  (setq evil-ex-substitute-global t)
-  )
+  (setq evil-ex-substitute-global t))
 
 (after-load| evil-search
   ;; . in visual mode
@@ -68,8 +67,7 @@
 (use-package| evil-matchit
   :after evil
   :defer 2
-  :config (evil-matchit-mode)
-  )
+  :config (evil-matchit-mode))
 
 ;; (use-package| evil-surround
 ;;   :after evil
@@ -106,9 +104,9 @@
   :config (evil-embrace-enable-evil-surround-integration))
 
 
-;;
-;; Config
-;;
+;;;
+;;; Config
+;;;
 
 ;;
 ;; Replace some keys
