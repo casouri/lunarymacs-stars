@@ -136,8 +136,8 @@
      :states 'insert
      "M-n" #'next-line
      "M-p" #'previous-line
-     "C-a" #'evil-beginning-of-line
-     "C-e" #'evil-end-of-line)
+     "C-a" #'beginning-of-line
+     "C-e" #'end-of-line)
 
     (general-define-key
      :states 'normal
@@ -175,3 +175,8 @@
       (isearch-push-state)
       (isearch-yank-string region))))
 (add-hook 'isearch-mode-hook #'moon-isearch-with-region)
+
+
+
+
+
