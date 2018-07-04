@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (defvar moon-smart-toggle-lsp-ui t
   "Whether to toggle lsp-ui doc and sideline automatically

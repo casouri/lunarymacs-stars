@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (defvar switch-input-mode-second-input "com.apple.inputmethod.SCIM"
   "Name of the second input.")

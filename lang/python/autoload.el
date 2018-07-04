@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 ;;;###autoload
 (defun moon/kill-python-interpreter ()

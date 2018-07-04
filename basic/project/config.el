@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (use-package| projectile
   :init (setq projectile-known-projects-file

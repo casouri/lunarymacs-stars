@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (use-package| lispyville
   :hook (emacs-lisp-mode . lispyville-mode))

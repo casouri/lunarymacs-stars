@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 (use-package| flyspell
   :commands moon/toggle-spell-check

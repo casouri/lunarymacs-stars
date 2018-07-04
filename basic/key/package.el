@@ -1,2 +1,2 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
