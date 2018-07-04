@@ -49,19 +49,20 @@
    "q" '(:ignore t :which-key "quit")
    "m" '(:ignore t :which-key "major-mode")
    "e" '(:ignore t :which-key "error")
+   "a" '(:ignore t :which-key "action")
    "t" '(:ignore t :which-key "toggle")
    "g" '(:ignore t :which-key "git")
    "p" '(:ignore t :which-key "project")
    "u" '(:ignore t :which-key "utility")
-   "o" '(:ignore t :which-key "misc")
-   "c" '(:ignore t :which-key "change visual")
+   "o" '(:ignore t :which-key "outline")
+   "C-o" '(:ignore t :which-key "open")
    ;; Frame
    "Fd" #'delete-frame
    ;; align
    "="  #'align-regexp
    ;; open
-   "ot"  #'moon/open-in-iterm
-   "of"  #'moon/open-in-finder
+   "C-o t"  #'moon/open-in-iterm
+   "C-o f"  #'moon/open-in-finder
    ;; file
    "fR"  #'moon/rename-file
    "fs"  #'save-buffer
