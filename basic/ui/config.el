@@ -11,21 +11,6 @@
 (global-set-key (kbd "C-c C-h") #'hs-hide-block)
 (global-set-key (kbd "C-c C-s") #'hs-show-block)
 
-;;;;
-;;;; Cursor Color
-
-
-(defun smart-cursor-color ()
-  "smart cursor color."
-  (pcase evil-state
-    ('normal (face-spec-set 'cursor `((((background dark)) :background ,lunary-yellow)
-                                      (((background light)) :background ,spacemacs-light-purple))))
-    ('insert (face-spec-set 'cursor `((t :background ,lunary-white))))))
-
-(post-config| evil
-  (add-hook 'evil-normal-state-entry-hook #'smart-cursor-color)
-  (add-hook 'evil-insert-state-entry-hook #'smart-cursor-color)
-  (add-hook 'moon-load-theme-hook #'smart-cursor-color))
 
 ;;;
 ;;; Package

@@ -77,7 +77,8 @@
 ;; (setq moon-log-news t)
 
 (when window-system
-  (setq evil-insert-state-cursor 'box))
+  (setq evil-insert-state-cursor `(box ,lunary-white)))
+(setq evil-normal-state-cursor lunary-yellow)
 
 
 ;; (setq mac-command-modifier 'control)
