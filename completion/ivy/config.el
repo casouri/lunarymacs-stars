@@ -42,6 +42,7 @@
     "Ts"  #'counsel-load-theme
     ;; buffer
     "bb"  #'ivy-switch-buffer
+    "RET" #'counsel-recentf
     )
   )
 
