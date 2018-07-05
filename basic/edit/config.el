@@ -149,7 +149,7 @@
 (defun moon/return-cancel-completion ()
   "Cancel completion and return."
   (interactive)
-  (call-interactively #'keyboard-quit)
+  (company-abort)
   (newline nil t))
 
 (global-set-key (kbd "S-<return>") #'moon/return-cancel-completion)
@@ -161,3 +161,4 @@
   (unless (and buffer-file-name
                (file-writable-p buffer-file-name))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
+
