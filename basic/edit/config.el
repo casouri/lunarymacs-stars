@@ -146,12 +146,13 @@
 ;;;;
 ;;;; Fix
 
-(defun moon-reurn-cancel-completion ()
+(defun moon/return-cancel-completion ()
   "Cancel completion and return."
-  (keyboard-quit)
+  (interactive)
+  (call-interactively #'keyboard-quit)
   (newline nil t))
 
-(global-set-key (kbd "S-<return>") #'moon-reurn-cancel-completion)
+(global-set-key (kbd "S-<return>") #'moon/return-cancel-completion)
 
 ;; never tested
 ;; http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
