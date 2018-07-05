@@ -8,8 +8,8 @@
 (defvar moon-do-draw-image-moon nil
   "Whether to draw image moon.")
 
-(defvar moon-image-moon (create-image (expand-file-name "moon-300.xpm" (concat moon-star-dir "basic/homepage")))
-  "Image moon.")
+(defvar moon-image-moon "moon-300.xpm"
+  "Image moon file name.")
 
 
 
@@ -149,7 +149,7 @@
 
 (defun moon-draw-image-moon (beg end)
   "Put an image moon as overlay from BEG to END."
-  (overlay-put (make-overlay beg end) 'display moon-image-moon))
+  (overlay-put (make-overlay beg end) 'display (create-image (expand-file-name moon-image-moon (concat moon-star-dir "basic/homepage")))))
 
 (defun moon-draw-moon (banner short-banner)
   "Draw moon."
