@@ -102,12 +102,17 @@
   (general-define-key :states '(normal visual)
                       "TAB" #'indent-for-tab-command
                       "RET" #'ivy-switch-buffer
-                      "C-e" #'end-of-line)
+                      "C-e" #'end-of-line
+                      "C-a" #'beginning-of-line)
   (general-define-key
    :keymaps 'override
    "<escape>" (lambda () (interactive)
                 (keyboard-escape-quit)
-                (evil-force-normal-state)))
+                (evil-force-normal-state))
+   "s-h" #'windmove-left
+   "s-j" #'windmove-down
+   "s-k" #'windmove-up
+   "s-l" #'windmove-right)
   )
 
 (use-package| which-key
@@ -124,7 +129,3 @@
     ("v" recenter-top-bottom "recenter")
     ("q" nil "quit")))
 
-(global-set-key (kbd "s-h") #'windmove-left)
-(global-set-key (kbd "s-j") #'windmove-down)
-(global-set-key (kbd "s-k") #'windmove-up)
-(global-set-key (kbd "s-l") #'windmove-right)
