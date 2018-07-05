@@ -6,15 +6,20 @@
         company-minimum-prefix-length 2
         company-dabbrev-downcase nil
         company-tooltip-limit 15)
-  (define-key company-active-map (kbd "M-n") nil)
-  (define-key company-active-map (kbd "M-p") nil)
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous)
-  (global-company-mode 1)
-  (define-key company-active-map [(shift return)] #'moon/cancel-completion-and-next-line)
-  )
+  (setq-default company-search-filtering t)
+  (global-company-mode 1))
+
+(post-config| general
+  (general-define-key
+   :keymaps '(company-active-map
+              company-search-map)
+   "<escape>" #'company-search-abort
+   "C-j"      #'company-search-candidates
+   "C-p"      #'company-select-previous
+   "C-n"      #'company-select-next))
 
 (use-package| company-box
+  :defer t
   ;; TODO common face
   :init
   ;; (defface company-box-candidates
