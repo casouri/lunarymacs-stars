@@ -11,6 +11,8 @@
 (defvar moon-image-moon (create-image (expand-file-name "moon-300.xpm" (concat moon-star-dir "basic/homepage")))
   "Image moon.")
 
+
+
 (defvar moon-banner "
 ███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗    ███████╗███╗   ███╗ █████╗  ██████╗███████╗
 ████╗ ████║██╔═══██╗██╔═══██╗████╗  ██║    ██╔════╝████╗ ████║██╔══██╗██╔════╝██╔════╝
@@ -110,6 +112,14 @@
 ██████████████████████████████████      ████████████████████████      ██████████████████████████████████████████████████████      ██████████████████████████████
 ")
 
+(defvar moon-long-banner moon-moon-banner-1
+  "The longer banner.")
+
+(defvar moon-short-banner moon-moon-banner-1
+  "The short banner.")
+
+(defvar moon-homepage-footer moon-footer-1
+  "Footer for homepage.")
 
 ;;
 ;;; Func
@@ -182,9 +192,10 @@ MOON is used when buffer's width is less than 86."
           (insert (make-string (/ (- (window-width) 50) 2) ?\s))
           (moon-draw-image-moon (1- (point)) (point)))
       (insert (make-string 5 ?\n))
-      (moon-draw-moon `(,moon-moon-banner-1 40) `(,moon-moon-banner-1 20)))
+      (moon-draw-moon `(,moon-long-banner 40) `(,moon-short-banner 20)))
     (goto-char (point-max))
-    (moon-draw-footer moon-footer-1 (if (and moon-do-draw-image-moon window-system) 20 0))
+    (when moon-do-draw-footer
+      (moon-draw-footer moon-footer (if (and moon-do-draw-image-moon window-system) 20 0)))
     (moon/log-news))
   (goto-char (point-min)))
 
