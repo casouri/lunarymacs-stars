@@ -66,11 +66,11 @@
 (load| switch-input-mode)
 
 
-(use-package| (bicycle :repo "tarsius/bicycle" :fetcher github)
-  :after outline
-  :init
-  (add-hook 'prog-mode-hook 'outline-minor-mode)
-  (add-hook 'prog-mode-hook 'hs-minor-mode))
+;; (use-package| (bicycle :repo "tarsius/bicycle" :fetcher github)
+;;   :after outline
+;;   :init
+;;   (add-hook 'prog-mode-hook 'outline-minor-mode)
+;;   (add-hook 'prog-mode-hook 'hs-minor-mode))
 
 (post-config| general
   (default-cc-leader
