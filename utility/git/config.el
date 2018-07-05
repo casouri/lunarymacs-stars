@@ -15,4 +15,8 @@
   :hook (magit-mode . (lambda () (require 'evil-magit))))
 
 (use-package| (magit-todos :repo "alphapapa/magit-todos" :fetcher github)
-  :after magit)
+  :hook (magit-mode . magit-todos-mode)
+  :init
+  (setq magit-todos-section-map (let ((map (make-sparse-keymap)))
+    (define-key map "jT" #'magit-todos-jump-to-todos)
+    map)))
