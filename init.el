@@ -92,6 +92,9 @@
 ;; server
 (run-with-idle-timer 2 nil #'server-start)
 
+(setq moon-do-draw-footer t)
+;; (setq moon-do-draw-image-moon t)
+
 ;;
 ;; Settings to overwrite configs in stars i.e. user-config
 ;;
