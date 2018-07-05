@@ -25,5 +25,5 @@
 | K          | moon/scroll-up-reserve-point   |
 | C-,        | embrace                        |
 | S-return   | moon-return-cancel-completion  |
-| M-DEL      | hungry-delete-backward         |
+| S-DEL      | hungry-delete-backward         |
 
