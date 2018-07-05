@@ -5,7 +5,7 @@
   (setq company-idle-delay 0
         company-minimum-prefix-length 2
         company-dabbrev-downcase nil
-        company-tooltip-limit 20)
+        company-tooltip-limit 15)
   (define-key company-active-map (kbd "M-n") nil)
   (define-key company-active-map (kbd "M-p") nil)
   (define-key company-active-map (kbd "C-n") #'company-select-next)
