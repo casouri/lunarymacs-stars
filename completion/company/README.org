@@ -8,7 +8,9 @@
 
 * Commands
 
-| key | command                 |
-|-----+-------------------------|
-| C-n | company-select-next     |
-| C-p | company-select-previous |
+| key   | command                      |
+|-------+------------------------------|
+| C-n   | company-select-next          |
+| C-p   | company-select-previous      |
+| C-j   | company-search-candidates    |
+| S-RET | cancel completion and return |
