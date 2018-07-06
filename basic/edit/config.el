@@ -27,7 +27,7 @@
 (use-package| hungry-delete
   :defer 2
   :config
-  (global-set-key (kbd "S-DEL") #'hungry-delete-backward))
+  (global-set-key (kbd "<S-backspace>") #'hungry-delete-backward))
 
 
     
