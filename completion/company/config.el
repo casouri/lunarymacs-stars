@@ -13,10 +13,12 @@
   (general-define-key
    :keymaps '(company-active-map
               company-search-map)
-   "<escape>" #'company-search-abort
    "C-j"      #'company-search-candidates
    "C-p"      #'company-select-previous
-   "C-n"      #'company-select-next))
+   "C-n"      #'company-select-next)
+  (general-define-key
+   :keymaps 'company-search-map
+   "<escape>" #'company-abort))
 
 ;; (use-package| company-box
 ;;   ;; TODO common face
