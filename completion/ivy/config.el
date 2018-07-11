@@ -7,7 +7,8 @@
    ivy-use-selectable-prompt t ; so I can chose what I actually typed
    ivy-initial-inputs-alist nil ; don't use ^ as initial input
    ivy-format-function 'ivy-format-function-arrow
-   )
+   ivy-use-virtual-buffers t
+   ivy-virtual-abbreviate 'abbreviate)
   (ivy-mode)
   )
 
@@ -44,11 +45,12 @@
     "bb"  #'ivy-switch-buffer
     "RET" #'counsel-recentf
     )
+  (general-define-key
+   :keymaps 'override
+   "C-c C-p" #'counsel-yank-pop
+   "C-c C-m" #'counsel-mark-ring
+   "C-c C-r" #'ivy-resume)
   )
-
-(global-set-key (kbd "C-c C-p") #'counsel-yank-pop)
-(global-set-key (kbd "C-c C-m") #'counsel-mark-ring)
-(global-set-key (kbd "C-c C-r") #'ivy-resume)
 
 (use-package| swiper :commands (swiper swiper-all))
 (use-package| counsel
