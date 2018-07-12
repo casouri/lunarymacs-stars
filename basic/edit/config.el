@@ -1,9 +1,8 @@
 ;; -*- lexical-binding: t -*-
 
-;;;
-
+;;
 ;;; Package
-;;;
+;;
 
     
 ;;;; Edit
@@ -16,7 +15,10 @@
     "v" #'er/expand-region))
 
 (use-package| embrace
-  :commands (embrace-add embrace-delete embrace-change embrace-commander))
+  :commands (embrace-add embrace-delete embrace-change embrace-commander)
+  :init
+  (add-hook 'org-mode-hook #'embrace-org-mode-hook)
+  (add-hook 'emacs-lisp-hook #'embrace-emacs-lisp-mode-hook))
 
 
 (use-package| undo-tree
@@ -29,8 +31,13 @@
   :config
   (global-set-key (kbd "<S-backspace>") #'hungry-delete-backward))
 
+(use-package| smartparens
+  :defer 2
+  :config
+  (require 'smartparens-config)
+  (setq sp-escape-quotes-after-insert t)
+  (smartparens-global-mode))
 
-    
 ;;;; Navigation
 
 
@@ -83,17 +90,12 @@
     "o <backtab>" #'bicycle-cycle-global))
 
 
-(use-package| (auto-mark :url "https://www.emacswiki.org/emacs/download/auto-mark.el" :fetcher url)
-  :after history
-  :config (auto-mark-mode))
-
 (use-package| history
   :config
   (add-to-list 'history-advised-before-functions 'push-mark)
   (global-set-key (kbd "C-M-k") #'history-prev-history)
   (global-set-key (kbd "C-M-j") #'history-next-history)
   (history-mode))
-
 
     
 ;;;; code structure
@@ -105,6 +107,11 @@
   (add-hook 'prog-mode-hook 'outline-minor-mode)
   (defvar outline-minor-mode-prefix (kbd "C-c o")))
 
+(use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
+  :defer 3)
+(use-package| (moccur-edit :fetcher url :url "https://www.emacswiki.org/emacs/download/moccur-edit.el")
+  :after color-moccur)
+
 
 ;;;
 ;;; Config
@@ -113,7 +120,7 @@
 ;;;;
 ;;;; Default
 
-(electric-pair-mode 1)
+;; (electric-pair-mode 1)
 
 ;; smooth scrolling
 (setq scroll-conservatively 101)
