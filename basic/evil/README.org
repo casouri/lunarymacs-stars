@@ -72,5 +72,5 @@ Normal state:
 
 
 * Note
-You need to set =evil-search-module= to ='evil-search= in customize for 
+You need to set =evil-search-module= to evil search module in customize for 
 =gn= to work.
