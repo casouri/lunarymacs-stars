@@ -1,5 +1,5 @@
 #+TITLE: My stars
 
-[[https://img.shields.io/travis/USER/REPO.svg?style=flat-square]]
+[[https://img.shields.io/travis/casouri/lunarymacs-stars.svg?style=flat-square]]
 
 This is the star files for my lunarymacs config, the framework file is in [[https://github.com/casouri/lunarymacs][casouri/lunarymacs]].
