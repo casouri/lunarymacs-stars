@@ -108,6 +108,11 @@
 
 (post-config| general
   (after-load| evil
+    (after-load| swiper
+      (default-leader
+       :states 'visual
+       "s p" #'moon/swiper-region))
+
     (general-define-key
      :states 'normal
      "Q" #'evil-record-macro
