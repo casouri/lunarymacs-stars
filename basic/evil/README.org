@@ -24,13 +24,19 @@ In visual-mode
 | key | command                        |
 |-----+--------------------------------|
 | .   | put region into search history |
+| s   | isolate-quick-add              |
+| S   | isolate-long-add               |
 
-* Other avaliable options
- 
-#+BEGIN_SRC lisp
-(moon/override-vim-binding)
-(moon/override-emacs-binding)
-#+END_SRC
+In normal mode
+
+| key | command              |
+|-----+----------------------|
+| c s | isolate-quick-change |
+| c S | isolate-long-change  |
+| d s | isolate-quick-delete |
+| d S | isolate-long-delete  |
+
+
 * Note
 You need to set =evil-search-module= to ='evil-search= in customize for 
 =gn= to work.
