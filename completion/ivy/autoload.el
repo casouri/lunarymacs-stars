@@ -2,9 +2,11 @@
 
 
 ;;;###autoload
-(defun moon/swiper-region ()
-  "Use region as swiper input."
+(defun moon/smart-swiper ()
+  "Use region as swiper input if region is active."
   (interactive)
-  (swiper (buffer-substring-no-properties
-           (region-beginning)
-           (region-end))))
+  (swiper (if mark-active
+              (buffer-substring-no-properties
+               (region-beginning)
+               (region-end))
+            nil)))

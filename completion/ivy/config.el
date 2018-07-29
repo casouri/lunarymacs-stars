@@ -37,7 +37,7 @@
     "iu"  #'counsel-unicode-char
     ;; search
     "si"  #'counsel-imenu
-    "ss"  #'counsel-grep-or-swiper
+    "ss"  #'moon/smart-swiper
     "sr"  #'counsel-rg
     ;; themes
     "Ts"  #'counsel-load-theme
