@@ -13,20 +13,58 @@
 
 
 * Commands
-
   
-In visual-mode
+  
+Prefix by SPC:
 
-| key | command                        |
-|-----+--------------------------------|
-| .   | put region into search history |
-| s   | isolate-quick-add              |
-| S   | isolate-long-add               |
+| Key | Command                            |
+|-----+------------------------------------|
+| bl  | evil-switch-to-windows-last-buffer |
+| uu  | undo-tree-visualize                |
+| ik  | evil-insert-line-above             |
+| ij  | evil-insert-line-below             |
+| sc  | moon/clear-evil-search             |
 
-In normal mode
+Insert state:
 
-| key | command              |
-|-----+----------------------|
+| M-d | evil-scroll-up                     |
+
+Normal state:
+
+| U   | undo-tree-redo                     |
+| P   | evil-paste-from-register           |
+| L   | evil-end-of-line                   |
+| H   | evil-beginning-of-line             |
+| C-e | end-of-line                        |
+| C-a | beginning-of-line                  |
+
+Insert state:
+
+| M-p | previous-line                      |
+| M-n | next-line                          |
+
+Visual state:
+
+| .   | moon/make-region-search-history    |
+| x   | exchange-point-and-mark            |
+| S   | isolate-long-add                   |
+| s   | isolate-quick-add                  |
+
+Normal state:
+
+| q   | evil-backward-word-end             |
+| Q   | evil-record-macro                  |
+| c   | evilnc-comment-operator            |
+
+
+Visual state:
+
+| . | put region into search history |
+| s | isolate-quick-add              |
+| S | isolate-long-add               |
+
+Normal state:
+
 | c s | isolate-quick-change |
 | c S | isolate-long-change  |
 | d s | isolate-quick-delete |

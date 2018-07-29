@@ -3,28 +3,33 @@
 This star configures most of the ui features of lunarymacs.
 
 * Package list
+
+- atom-one-dark-theme
+- doom-themes
 - spacemacs-theme
-  - default themes: (switch with =moon/switch-theme=, see more in wiki)
-    - spacemacs-dark
-    - spacemacs-light
 - rainbow-delimiters
-- highlight-parentheses
-- hl-todo
 - rainbow-mode
+- highlight-parentheses
+- minions
+- moody
+- nlinum
+- nlinum-relative
 - nyan-mode
+- hl-todo
+- form-feed
+- dim
+- buffer-move
 - eyebrowse
 - winum
+- nerdtab
+
 
 * Default font and cursor settings
 
 - font (switch with =moon/load-font=, see more in wiki):
   - SF Mono
   - Source Code Pro
-- cursor:
-| theme           | normal | insert |
-|-----------------+--------+--------|
-| spacemacs-dark  | yellow | white |
-| spacemacs-light | purple | white |
+- cursor: yellow for normal state, white for insert state
 
 * eyebrowse & winum
 | key         | command                                                       |
@@ -32,7 +37,8 @@ This star configures most of the ui features of lunarymacs.
 | SPC w 1-9   | switch to workspace 1-9                                       |
 | SPC w w     | kill-other-window                                             |
 | SPC 1-9     | switch to window 1-9 (split screen with h/j/k/l if not exist) |
-| SPC w k 1-9 | kill buffer in window 1-9            |
+| SPC w k 1-9 | kill buffer in window 1-9                                     |
+| S-h/j/k/l   | Go to window on left/bottom/top/right                         |
 
 In the very left on lunaryline:
 
@@ -54,14 +60,11 @@ is current workspace
 | SPC w r | recover last session  |
 | SPC a h | moon-highlight-symbol |
 
-* nyan-cat
-
-#+BEGIN_SRC lisp
-(setq moon-enable-nyan t)
-#+END_SRC
 
 * line number
+
 ** relative line number
+
 #+BEGIN_SRC lisp
 (setq moon-relative-line-number t)
 #+END_SRC
