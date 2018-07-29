@@ -21,6 +21,7 @@
     (let ((region (strip-text-properties (funcall region-extract-function nil))))
       (push region evil-ex-search-history)
       (setq evil-ex-search-pattern (evil-ex-make-search-pattern region))
+      (evil-ex-search-activate-highlight evil-ex-search-pattern)
       (deactivate-mark)))
 
 
