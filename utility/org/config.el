@@ -17,21 +17,9 @@
     '((shell . t)))
    ))
 
-(defvar moon-enable-org-bullets nil
-  "Whether to enable org-bullet")
-
-(use-package| org-bullets
-  :defer t
-  :init (add-hook
-         'org-mode-hook
-         (lambda ()
-           (when moon-enable-org-bullets
-             (org-bullets-mode 1)))))
-
-
-(use-package| ox-hugo
-  :after ox)
-
+(use-package| toc-org
+  :commands (toc-org-enable
+             toc-org-insert-toc))
 
 ;;
 ;; Config
