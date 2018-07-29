@@ -4,14 +4,13 @@
 * Package list
   
 - evil
-- evil-nerd-commenter
-- evil-search-highlight-persist
-- evil-terminal-cursor-changer
 - evil-matchit
-- vi-tilde-fringe
-- evil-multiedit
+- evil-surround
+- evil-nerd-commenter
+- evil-escape
 - evil-ediff
-- evil-collection
+- evil-vimish-fold
+
 
 * Commands
 
