@@ -148,8 +148,8 @@
 
     (default-leader
       "sc" #'moon/clear-evil-search
-      "ij" #'evil-insert-line-below
-      "ik" #'evil-insert-line-above
+      "ij" '((lambda () (interactive) evil-insert-line-below) :which-key "insert-line-below")
+      "ik" '((lambda () (interactive) evil-insert-line-above) :which-key "insert-line-above")
       "uu" #'undo-tree-visualize)
 
     (default-leader

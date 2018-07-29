@@ -73,13 +73,15 @@
    ;; quit
    "qq"  #'save-buffers-kill-emacs
    ;; buffer
-   "bm" (lambda () (interactive) (switch-to-buffer "*Messages*"))
+   "bm"  '((lambda () (interactive) (switch-to-buffer "*Messages*"))
+           :which-key "goto message buffer")
    "bd"  #'kill-buffer-and-window
    "bh"  #'moon/close-help
    "bo"  #'moon/kill-other-buffer
    "bh"  #'moon/kill-helper
    "bb"  #'list-buffers
-   "bs"  (lambda () (interactive) (switch-to-buffer "*scratch*"))
+   "bs"  '((lambda () (interactive) (switch-to-buffer "*scratch*"))
+           :which-key "goto scratch buffer")
    ;; eval
    "`"   #'eval-expression
    ;; toggle
@@ -106,9 +108,6 @@
                       "C-a" #'beginning-of-line)
   (general-define-key
    :keymaps 'override
-   "<escape>" (lambda () (interactive)
-                (keyboard-escape-quit)
-                (evil-force-normal-state))
    "s-h" #'windmove-left
    "s-j" #'windmove-down
    "s-k" #'windmove-up
