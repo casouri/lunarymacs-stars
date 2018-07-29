@@ -117,8 +117,12 @@
      :states 'normal
      "Q" #'evil-record-macro
      "q" #'evil-backward-word-end
-     "c" (general-key-dispatch 'evil-change "s" #'embrace-change)
-     "d" (general-key-dispatch 'evil-delete "s" #'embrace-delete))
+     "c" (general-key-dispatch 'evil-change
+           "s" #'isolate-quick-change
+           "S" #'isolate-long-change)
+     "d" (general-key-dispatch 'evil-delete
+           "s" #'isolate-quick-delete
+           "S" #'isolate-long-delete))
     
     (general-define-key
      :states 'visual
@@ -127,7 +131,8 @@
      ;; if you don't want "c" to be affected in visual state, you should add this
      "c" #'evil-change
      "d" #'evil-delete
-     "s" #'embrace-add
+     "s" #'isolate-quick-add
+     "S" #'isolate-long-add
      "x" #'exchange-point-and-mark ; for expand-region
      "." #'moon/make-region-search-history
      )

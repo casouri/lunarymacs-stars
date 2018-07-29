@@ -20,6 +20,14 @@
   (add-hook 'org-mode-hook #'embrace-org-mode-hook)
   (add-hook 'emacs-lisp-hook #'embrace-emacs-lisp-mode-hook))
 
+(use-package| (isolate :fetcher github :repo "casouri/isolate")
+  :commands (isolate-quick-add
+             isolate-quick-change
+             isolate-quick-delete
+             isolate-long-add
+             isolate-long-change
+             isolate-long-delete))
+
 
 (use-package| undo-tree
   :config (global-undo-tree-mode)
@@ -30,13 +38,6 @@
   :defer 2
   :config
   (global-set-key (kbd "<S-backspace>") #'hungry-delete-backward))
-
-(use-package| smartparens
-  :defer 2
-  :config
-  (require 'smartparens-config)
-  (setq sp-escape-quotes-after-insert t)
-  (smartparens-global-mode))
 
 ;;;; Navigation
 
@@ -120,7 +121,7 @@
 ;;;;
 ;;;; Default
 
-;; (electric-pair-mode 1)
+(electric-pair-mode 1)
 
 ;; smooth scrolling
 (setq scroll-conservatively 101)
@@ -129,7 +130,7 @@
 
 (post-config| general
   (general-define-key
-   :states 'insert
+   :states '(normal insert)
    "<C-return>" #'moon/jump-newline-below
    "<C-S-return>" #'moon/jump-newline-above
    "C-;" #'moon/insert-semi-at-eol
