@@ -14,12 +14,6 @@
   (default-leader
     "v" #'er/expand-region))
 
-(use-package| embrace
-  :commands (embrace-add embrace-delete embrace-change embrace-commander)
-  :init
-  (add-hook 'org-mode-hook #'embrace-org-mode-hook)
-  (add-hook 'emacs-lisp-hook #'embrace-emacs-lisp-mode-hook))
-
 (use-package| (isolate :fetcher github :repo "casouri/isolate")
   :commands (isolate-quick-add
              isolate-quick-change
