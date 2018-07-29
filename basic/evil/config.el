@@ -98,12 +98,6 @@
   :init (setq vimish-fold-dir (concat moon-local-dir "vimish-fold")))
 
 
-(use-package| evil-embrace
-  ;; doesn't need defer, embrace is autoloaded
-  :after embrace evil
-  :config (evil-embrace-enable-evil-surround-integration))
-
-
 ;;;
 ;;; Config
 ;;;
