@@ -111,8 +111,10 @@
    "s-h" #'windmove-left
    "s-j" #'windmove-down
    "s-k" #'windmove-up
-   "s-l" #'windmove-right)
-  )
+   "s-l" #'windmove-right
+   "<escape>" (lambda () (interactive)
+                (keyboard-escape-quit)
+                (evil-force-normal-state))))
 
 (use-package| which-key
   :config (which-key-mode 1))
