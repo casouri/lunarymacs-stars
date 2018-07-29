@@ -22,7 +22,7 @@
 ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝    ╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
                                                                                       ")
 
-(defvar moon-short-banner "
+(defvar moon-small-banner "
 ███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗
 ████╗ ████║██╔═══██╗██╔═══██╗████╗  ██║
 ██╔████╔██║██║   ██║██║   ██║██╔██╗ ██║
@@ -195,7 +195,7 @@ MOON is used when buffer's width is less than 86."
       (moon-draw-moon `(,moon-long-banner 40) `(,moon-short-banner 20)))
     (goto-char (point-max))
     (when moon-do-draw-footer
-      (moon-draw-footer moon-footer (if (and moon-do-draw-image-moon window-system) 20 0)))
+      (moon-draw-footer moon-footer-2 (if (and moon-do-draw-image-moon window-system) 20 0)))
     (moon/log-news))
   (goto-char (point-min)))
 
