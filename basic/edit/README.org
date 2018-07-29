@@ -6,11 +6,16 @@
 - expand-region
 - isolate
 - undo-tree
-- avy
+- hungry-delete
 - recentf-ext
-- smooth-scrolling
-- minimap
 - avy
+- minimap
+- bicycle
+- history
+- outshine
+- color-moccur
+- moccur-edit
+
 
 * Commands
 

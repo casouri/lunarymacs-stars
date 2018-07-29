@@ -145,8 +145,6 @@
      "P"   #'evil-paste-from-register
      "U"   #'undo-tree-redo
      "M-d" #'evil-scroll-up)
-    
-    (default-g-leader "s" #'embrace-commander)
 
     (default-leader
       "sc" #'moon/clear-evil-search
