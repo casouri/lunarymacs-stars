@@ -31,13 +31,10 @@ Normal state:
 
 Prefix SPC:
 
-| o <backtab>  | bicycle-cycle-global           |
-| o <tab>      | bicycle-cycle                  |
-
-Prefix C-c:
-
-| <backtab>    | bicycle-cycle-global           |
-| <tab>        | bicycle-cycle                  |
+| o s          | outline-show-entry             |
+| o h          | outline-hide-entry             |
+| o C-o        | outline-hide-body              |
+| o M-o        | outline-show-all               |
 
 Prefix SPC:
 

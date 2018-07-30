@@ -83,10 +83,10 @@
     "o" '(:ignore t :which-key "outline")
     "os"    #'outline-show-entry
     "oh"    #'outline-hide-entry
-    "o C-b" #'outline-show-entry
-    "o M-b" #'outline-hide-entry
-    "o C-o" #'outline-show-all
-    "o M-o" #'outline-hide-body))
+    "o M-b" #'outline-show-entry
+    "o C-b" #'outline-hide-entry
+    "o M-o" #'outline-show-all
+    "o C-o" #'outline-hide-body))
 
 (use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
   :defer 3)
