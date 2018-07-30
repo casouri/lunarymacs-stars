@@ -9,7 +9,7 @@
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
 (global-set-key (kbd "C-c C-h") #'hs-hide-block)
-(global-set-key (kbd "C-c C-s") #'hs-show-block)
+(global-set-key (kbd "C-c M-h") #'hs-show-block)
 
 
 ;;;
