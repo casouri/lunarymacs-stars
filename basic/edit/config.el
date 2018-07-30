@@ -68,31 +68,6 @@
 (load| switch-input-mode)
 
 
-;; (use-package| (bicycle :repo "tarsius/bicycle" :fetcher github)
-;;   :after outline
-;;   :init
-;;   (add-hook 'prog-mode-hook 'outline-minor-mode)
-;;   (add-hook 'prog-mode-hook 'hs-minor-mode))
-
-(post-config| general
-  (default-cc-leader
-    :keymaps 'outline-minor-mode-map
-    "<tab>" #'bicycle-cycle
-    "<backtab>" #'bicycle-cycle-global)
-  (default-leader
-    :keymaps 'outline-minor-mode-map
-    "o <tab>" #'bicycle-cycle
-    "o <backtab>" #'bicycle-cycle-global))
-
-
-(use-package| history
-  :config
-  (add-to-list 'history-advised-before-functions 'push-mark)
-  (global-set-key (kbd "C-M-k") #'history-prev-history)
-  (global-set-key (kbd "C-M-j") #'history-next-history)
-  (history-mode))
-
-    
 ;;;; code structure
 
 
@@ -101,6 +76,17 @@
   (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
   (add-hook 'prog-mode-hook 'outline-minor-mode)
   (defvar outline-minor-mode-prefix (kbd "C-c o")))
+
+(post-config| general
+  (default-leader
+    :keymaps 'outline-minor-mode-map
+    "o" '(:ignore t :which-key "outline")
+    "os"    #'outline-show-entry
+    "oh"    #'outline-hide-entry
+    "o C-b" #'outline-show-entry
+    "o M-b" #'outline-hide-entry
+    "o C-o" #'outline-show-all
+    "o M-o" #'outline-hide-body))
 
 (use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
   :defer 3)
