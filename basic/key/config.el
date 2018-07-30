@@ -1,5 +1,10 @@
 ;; -*- lexical-binding: t -*-
 
+(defvar moon-leader "SPC"
+  "Leader.")
+
+(defvar moon-non-normal-leader "S-SPC"
+  "Non-normal Leader.")
 
 ;;
 ;; Package
@@ -7,9 +12,7 @@
 
 (use-package| general
   :after which-key
-  :init
-  (setq moon-leader "SPC")
-  (setq moon-non-normal-leader "S-SPC")
+  :init (setq moon-leader (mve "SPC" "C-SPC"))
   :config
   (general-override-mode)
 
@@ -103,7 +106,6 @@
 
   (general-define-key :states '(normal visual)
                       "TAB" #'indent-for-tab-command
-                      "RET" #'ivy-switch-buffer
                       "C-e" #'end-of-line
                       "C-a" #'beginning-of-line)
   (general-define-key

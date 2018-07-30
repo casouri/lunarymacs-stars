@@ -13,6 +13,12 @@
   )
 
 (post-config| general
+  (mve (general-define-key
+        :states '(normal visual)
+        "RET" #'ivy-switch-buffer)
+       (general-define-key
+        :keymaps 'override
+        "C-RET" #'ivy-switch-buffer))
   (default-leader
     ;; other
     "SPC" #'counsel-M-x

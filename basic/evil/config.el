@@ -1,5 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
+(setq moon-evil t)
+
 (use-package| evil
   :config
   (evil-mode 1)
