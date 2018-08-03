@@ -18,7 +18,7 @@
         "RET" #'ivy-switch-buffer)
        (general-define-key
         :keymaps 'override
-        "C-RET" #'ivy-switch-buffer))
+        "<C-return>" #'ivy-switch-buffer))
   (default-leader
     ;; other
     "SPC" #'counsel-M-x
