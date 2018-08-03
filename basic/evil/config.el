@@ -24,7 +24,8 @@
       (push region evil-ex-search-history)
       (setq evil-ex-search-pattern (evil-ex-make-search-pattern region))
       (evil-ex-search-activate-highlight evil-ex-search-pattern)
-      (deactivate-mark)))
+      (deactivate-mark))
+    (goto-char (1- (point))))
 
 
   ;; / in visual mode will start search immediatly
@@ -131,7 +132,7 @@
      "s" #'isolate-quick-add
      "S" #'isolate-long-add
      "x" #'exchange-point-and-mark ; for expand-region
-     "." #'moon/make-region-search-history
+     "+" #'moon/make-region-search-history
      )
 
     (general-define-key
