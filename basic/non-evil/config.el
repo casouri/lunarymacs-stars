@@ -4,15 +4,16 @@
 
 ;;; Key remap for macOS
 
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'super)
-(setq mac-function-modifier 'hyper)
+(setq mac-command-modifier 'control)
+(setq mac-function-modifier 'super)
 
 ;;; Leader key
 
 (global-set-key (kbd "C-v") #'set-mark-command)
-(cua-selection-mode)
-(global-set-key (kbd "M-v") #'cua-set-rectangle-mark)
+(cua-selection-mode 1)
+(global-set-key (kbd "C-M-v") #'cua-set-rectangle-mark)
+
+;;; Evil actions
 
 (defun moon/line-select ()
   "Select whole line."
@@ -21,4 +22,196 @@
   (set-mark-command nil)
   (forward-line))
 
-(global-set-key (kbd "C-M-v") #'moon/line-select)
+(global-set-key (kbd "M-v") #'moon/line-select)
+
+;;;; Delete
+
+(defun moon/forward-delete-char-untabify (arg)
+  "Delete ARG char forward, default 1."
+  (interactive "*P")
+  (backward-delete-char-untabify (* -1 (or arg 1))))
+
+(global-set-key (kbd "S-DEL") #'moon/forward-delete-char-untabify)
+
+(defun moon-next-word (forward &optional separator-list include-beg include-end)
+  "Return the count of characters to boundary of WORD.
+SEPARATOR-LIST is default to `moon-word-separator-list'.
+If FORWARD, return positive number,
+if BACKWARD, return negative number."
+  (let* ((stepper (if forward '1+ '1-))
+           (char-func (if forward 'char-after 'char-before))
+           (count (if forward 1 -1))
+           (separator-list (or separator-list moon-word-separator-list))
+           (point (point))
+           (first-char (funcall char-func (point))))
+      (catch 'return
+        (while (equal (funcall char-func (+ point count)) ?\s)
+          (setq count (funcall stepper count)))
+        (when (> (abs count) 1)
+          (throw 'return count))
+        (if (and (not include-beg)
+                 (member first-char separator-list))
+            (throw 'return count)
+          (while t
+            (if (member (funcall char-func (+ point count)) separator-list)
+                (if (and (not include-end)
+                         (not (member (funcall char-func (+ point count)) separator-list)))
+                    (throw 'return (apply stepper count))
+                  (throw 'return count))
+              (setq count (funcall stepper count))))))))
+
+(defvar moon-WORD-separator-list '(?\s)
+  "Separator for WORD.")
+
+(defvar moon-word-separator-list '(?\s ?\( ?\) ?< ?, ?> ?.
+                                       ?? ?/ ?: ?\; ?\" ?'
+                                       ?{ ?\[ ?} ?\] ?| ?\\
+                                       ?_ ?- ?+ ?= ?~ ?` ?!
+                                       ?@ ?# ?$ ?% ?^ ?& ?*)
+  "Separator for word.")
+
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+                                  (add-to-list 'moon-WORD-separator-list ?\()
+                                  (add-to-list 'moon-WORD-separator-list ?\))))
+
+(defun moon/backward-delete-WORD (arg)
+  "Delete ARG vim WORD backward."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (delete-char (moon-next-word nil nil t))))
+
+(global-set-key (kbd "<C-M-backspace>") #'moon/backward-delete-WORD)
+
+(defun moon/forward-delete-WORD (arg)
+  "Delete ARG vim WORD forward."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (delete-char (moon-next-word t nil t))))
+
+(global-set-key (kbd "<C-M-delete>") #'moon/forward-delete-WORD)
+
+(defun moon/backward-delete-word (arg)
+  "Delete ARG vim word backward."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (delete-char (moon-next-word nil nil t))))
+
+(global-set-key (kbd "<C-backspace>") #'moon/backward-delete-word)
+
+(defun moon/forward-delete-word (arg)
+  "Delete ARG vim word forward."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (delete-char (moon-next-word t nil t))))
+
+(global-set-key (kbd "<C-s-backspace>") #'moon/forward-delete-word)
+
+;;; Search and replace
+
+(defun moon/smart-query-replace ()
+  "If region active, use region as replace input."
+  ;; replace in place
+  ;; TODO
+  )
+
+(post-config| general
+  (default-leader
+    "rr" #'moon/smart-query-replace
+    "rR" #'query-replace-regexp))
+
+;;; Jumping
+
+;;;; Back & forward
+
+(global-set-key (kbd "C-M-;") #'goto-last-change)
+(global-set-key (kbd "C-M-'") #'goto-last-change-reverse)
+
+(defun moon/forward-word (arg)
+  "Forward ARG word."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (goto-char (+ (point) (moon-next-word t nil t)))))
+
+(global-set-key (kbd "M-f") #'moon/forward-word)
+
+(defun moon/backward-word (arg)
+  "Backward ARG word."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (goto-char (+ (point) (moon-next-word nil nil t)))))
+
+(global-set-key (kbd "M-b") #'moon/backward-word)
+
+(defun moon/forward-WORD (arg)
+  "Forward ARG WORD."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (goto-char (+ (point) (moon-next-word t moon-WORD-separator-list nil t)))))
+
+(global-set-key (kbd "C-M-f") #'moon/forward-WORD)
+
+(defun moon/backward-WORD (arg)
+  "Backward ARG WORD."
+  (interactive "*p")
+  (dotimes (_ (abs arg)) (goto-char (+ (point) (moon-next-word nil moon-WORD-separator-list nil t)))))
+
+(global-set-key (kbd "C-M-b") #'moon/backward-WORD)
+
+
+;;;; Line below
+
+(defun moon-back-to-indentation ()
+  "Move point to the first non-whitespace character on this line."
+  (interactive "^")
+  (beginning-of-line 1)
+  (skip-syntax-forward " " (line-end-position))
+  ;; Move back over chars that have whitespace syntax but have the p flag.
+  (backward-prefix-chars))
+
+(defun moon/open-line-below ()
+  "Open line-below."
+  (interactive)
+  (end-of-line)
+  (insert "\n")
+  (indent-for-tab-command))
+
+(global-set-key (kbd "C-o") #'moon/open-line-below)
+
+(defun moon/open-line-above ()
+  "Open line-below."
+  (interactive)
+  (beginning-of-line)
+  (insert "\n")
+  (previous-line)
+  (indent-for-tab-command))
+
+(global-set-key (kbd "C-M-o") #'moon/open-line-above)
+
+
+;;; Surround
+
+(global-set-key (kbd "C-s") #'isolate-quick-add)
+(global-set-key (kbd "C-M-s") #'isolate-long-add)
+
+(post-config| gerneral
+  (default-leader
+    "cs" #'isolate-quick-change
+    "cS" #'isolate-long-change
+    "ds" #'isolate-quick-delete
+    "dS" #'isolate-long-delete))
+
+;;; Commenter
+
+(use-package| evil-nerd-commenter
+  :commands evilnc-comment-operator)
+
+(post-config| general
+  (default-leader
+   "cc" #'evilnc-comment-operator))
+
+;;; Search
+
+;; This way "/" respects the current region
+;; but not when you use 'evil-search as evil-search-module
+;; https://stackoverflow.com/questions/202803/searching-for-marked-selected-text-in-emacs
+(defun moon-isearch-with-region ()
+  "Use region as the isearch text."
+  (when mark-active
+    (let ((region (funcall region-extract-function nil)))
+      (deactivate-mark)
+      (isearch-push-state)
+      (isearch-yank-string region))))
+(add-hook 'isearch-mode-hook #'moon-isearch-with-region)
