@@ -177,7 +177,3 @@
       (isearch-yank-string region))))
 (add-hook 'isearch-mode-hook #'moon-isearch-with-region)
 
-
-
-
-
