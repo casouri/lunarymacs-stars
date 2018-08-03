@@ -1,10 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-(defvar moon-leader "SPC"
-  "Leader.")
-
-(defvar moon-non-normal-leader "S-SPC"
-  "Non-normal Leader.")
 
 ;;
 ;; Package
@@ -12,15 +7,20 @@
 
 (use-package| general
   :after which-key
-  :init (setq moon-leader (mve "SPC" "C-SPC"))
   :config
   (general-override-mode)
 
-  (general-create-definer default-leader
+  (mve
+   (general-create-definer default-leader
     :states '(normal visual insert emacs jpnb)
     :keymaps 'override
-    :prefix moon-leader
-    :non-normal-prefix moon-non-normal-leader)
+    :prefix "SPC"
+    :non-normal-prefix "S-SPC")
+   
+  (general-create-definer default-leader
+    :keymaps 'override
+    :prefix "C-SPC"
+    ))
 
   (general-create-definer default-no-leader
     :states '(normal visual insert emacs jpnb)
