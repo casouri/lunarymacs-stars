@@ -7,6 +7,10 @@
     
 ;;;; Edit
 
+(use-package| (evil-moccur :fetcher github :repo "casouri/evil-moccur")
+  :defer 2
+  :config (evil-moccur-mode))
+
 (use-package| expand-region
   :commands er/expand-region)
 
