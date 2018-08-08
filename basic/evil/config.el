@@ -14,7 +14,7 @@
   ;; (customize-set-variable evil-search-module 'evil-search)
   (setq evil-ex-substitute-global t))
 
-;; . in visual mode
+;; + in visual mode
 ;; binded below by general.el
 (defun moon/make-region-search-history ()
   "Make region a histroy so I can use cgn."
