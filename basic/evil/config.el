@@ -14,59 +14,66 @@
   ;; (customize-set-variable evil-search-module 'evil-search)
   (setq evil-ex-substitute-global t))
 
-(after-load| evil-search
-  ;; . in visual mode
-  ;; binded below by general.el
-  (defun moon/make-region-search-history ()
-    "Make region a histroy so I can use cgn."
-    (interactive)
-    (let ((region (strip-text-properties (funcall region-extract-function nil))))
-      (push region evil-ex-search-history)
-      (setq evil-ex-search-pattern (evil-ex-make-search-pattern region))
-      (evil-ex-search-activate-highlight evil-ex-search-pattern)
-      (deactivate-mark))
-    (goto-char (1- (point))))
+;; . in visual mode
+;; binded below by general.el
+(defun moon/make-region-search-history ()
+  "Make region a histroy so I can use cgn."
+  (interactive)
+  (let ((region (strip-text-properties (funcall region-extract-function nil))))
+    (push region evil-ex-search-history)
+    (setq evil-ex-search-pattern (evil-ex-make-search-pattern region))
+    (evil-ex-search-activate-highlight evil-ex-search-pattern)
+    (deactivate-mark))
+  (goto-char (1- (point))))
+
+(defun moon/pop-kill-ring-to-search-history ()
+  "Pop text in kill ring to search history."
+  (interactive)
+  (let ((text (car kill-ring)))
+    (push text evil-ex-search-history)
+    (setq evil-ex-search-pattern (evil-ex-make-search-pattern text))
+    (evil-ex-search-activate-highlight evil-ex-search-pattern)))
 
 
-  ;; / in visual mode will start search immediatly
-  (defun moon-evil-ex-start-search-with-region-string ()
-    (let ((selection (with-current-buffer (other-buffer (current-buffer) 1)
-                       (when (evil-visual-state-p)
-                         (let ((selection (buffer-substring-no-properties (region-beginning)
-                                                                          (1+ (region-end)))))
-                           (evil-normal-state)
-                           selection)))))
-      (when selection
-        (evil-ex-remove-default)
-        (insert selection)
-        (evil-ex-search-activate-highlight (list selection
-                                                 evil-ex-search-count
-                                                 evil-ex-search-direction)))))
+;; / in visual mode will start search immediatly
+(defun moon-evil-ex-start-search-with-region-string ()
+  (let ((selection (with-current-buffer (other-buffer (current-buffer) 1)
+                     (when (evil-visual-state-p)
+                       (let ((selection (buffer-substring-no-properties (region-beginning)
+                                                                        (1+ (region-end)))))
+                         (evil-normal-state)
+                         selection)))))
+    (when selection
+      (evil-ex-remove-default)
+      (insert selection)
+      (evil-ex-search-activate-highlight (list selection
+                                               evil-ex-search-count
+                                               evil-ex-search-direction)))))
 
-  (advice-add #'evil-ex-search-setup :after #'moon-evil-ex-start-search-with-region-string)
+(advice-add #'evil-ex-search-setup :after #'moon-evil-ex-start-search-with-region-string)
 
-  ;; # in visual mode
-  (defun moon-evil-ex-search-word-backward-advice (old-func count &optional symbol)
-    (if (evil-visual-state-p)
-        (let ((region (buffer-substring-no-properties
-                       (region-beginning) (1+ (region-end)))))
-          (setq evil-ex-search-pattern region)
-          (deactivate-mark)
-          (evil-ex-search-full-pattern region count 'backward))
-      (apply old-func count symbol)))
+;; # in visual mode
+(defun moon-evil-ex-search-word-backward-advice (old-func count &optional symbol)
+  (if (evil-visual-state-p)
+      (let ((region (buffer-substring-no-properties
+                     (region-beginning) (1+ (region-end)))))
+        (setq evil-ex-search-pattern region)
+        (deactivate-mark)
+        (evil-ex-search-full-pattern region count 'backward))
+    (apply old-func count symbol)))
 
-  ;; * in visual mode
-  (defun moon-evil-ex-search-word-forward-advice (old-func count &optional symbol)
-    (if (evil-visual-state-p)
-        (let ((region (buffer-substring-no-properties
-                       (region-beginning) (1+ (region-end)))))
-          (setq evil-ex-search-pattern region)
-          (deactivate-mark)
-          (evil-ex-search-full-pattern region count 'forward))
-      (apply old-func count symbol)))
+;; * in visual mode
+(defun moon-evil-ex-search-word-forward-advice (old-func count &optional symbol)
+  (if (evil-visual-state-p)
+      (let ((region (buffer-substring-no-properties
+                     (region-beginning) (1+ (region-end)))))
+        (setq evil-ex-search-pattern region)
+        (deactivate-mark)
+        (evil-ex-search-full-pattern region count 'forward))
+    (apply old-func count symbol)))
 
-  (advice-add #'evil-ex-search-word-backward :around #'moon-evil-ex-search-word-backward-advice)
-  (advice-add #'evil-ex-search-word-forward :around #'moon-evil-ex-search-word-forward-advice))
+(advice-add #'evil-ex-search-word-backward :around #'moon-evil-ex-search-word-backward-advice)
+(advice-add #'evil-ex-search-word-forward :around #'moon-evil-ex-search-word-forward-advice)
 
 (use-package| evil-matchit
   :after evil
@@ -143,18 +150,17 @@
      "C-e" #'end-of-line)
 
     (general-define-key
-     :states 'normal
+     :states '(normal visual)
      "H"   #'evil-beginning-of-line
      "L"   #'evil-end-of-line
-     "P"   #'evil-paste-from-register
-     "U"   #'undo-tree-redo
-     "M-d" #'evil-scroll-up)
-
+     "P"   #'evil-paste-from-register)
+    
     (default-leader
       "sc" #'moon/clear-evil-search
       "ij" '((lambda () (interactive) evil-insert-line-below) :which-key "insert-line-below")
       "ik" '((lambda () (interactive) evil-insert-line-above) :which-key "insert-line-above")
-      "uu" #'undo-tree-visualize)
+      "uu" #'undo-tree-visualize
+      "+" #'moon/pop-kill-ring-to-search-history)
 
     (default-leader
       :keymaps 'term-mode-map
