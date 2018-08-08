@@ -137,9 +137,6 @@ minor-modes that is usually displayed directly in the mode line."
     ;; line number doesn't update when scrolling
     (setq nlinum-relative-redisplay-delay 0.1)))
 
-;; absolute line number
-(global-display-line-numbers-mode)
-
 ;;;;
 ;;;; Misc
 
@@ -148,12 +145,16 @@ minor-modes that is usually displayed directly in the mode line."
               nyan-bar-length 12))
 
 (use-package| hl-todo
-  :init (global-hl-todo-mode))
+  :defer 3
+  :config
+  (add-to-list 'hl-todo-keyword-faces
+               '("TOTEST" . "#d0bf8f"))
+  (global-hl-todo-mode))
 
 (post-config| general
   (default-leader
     "tl" #'nlinum-mode ; toggle relative linum
-    "tL" #'display-line-numbers-mode))
+    "tL" #'global-display-line-numbers-mode))
 
 ;; form feed
 (use-package| form-feed
