@@ -7,6 +7,7 @@
 (post-config| general
   (default-leader
     "gs" #'magit-status
+    "gf" '(:ignore t :which-key "file")
     "gfc" #'magit-file-checkout
     "gfl" #'magit-log-buffer-file))
 
@@ -16,7 +17,6 @@
 
 (use-package| (magit-todos :repo "alphapapa/magit-todos" :fetcher github)
   :hook (magit-mode . magit-todos-mode)
-  :init
-  (setq magit-todos-section-map (let ((map (make-sparse-keymap)))
-    (define-key map "jT" #'magit-todos-jump-to-todos)
-    map)))
+  :config
+  (evil-define-key 'normal 'magit-status-mode-map "gT" #'magit-todos-jump-to-todos)
+  (setq magit-todos-section-map (make-sparse-keymap)))
