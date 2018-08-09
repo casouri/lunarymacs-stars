@@ -15,6 +15,8 @@
   :commands er/expand-region)
 
 (post-config| general
+  (default-g-leader
+    "v" #'er/expand-region)
   (default-leader
     "v" #'er/expand-region))
 
@@ -73,7 +75,6 @@
 
 
 ;;;; code structure
-
 
 (use-package| outshine
   :init
