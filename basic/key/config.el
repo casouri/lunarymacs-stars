@@ -14,7 +14,8 @@
    (general-create-definer moon--default-leader
     :states '(normal visual insert emacs jpnb)
     :keymaps 'override
-    :prefix "SPC")
+    :prefix "SPC"
+    :non-normal-prefix "S-SPC")
    
   (general-create-definer moon--default-leader
     :keymaps 'override
