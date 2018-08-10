@@ -174,7 +174,11 @@
               (term-char-mode)
               (evil-insert-state)) :which-key "char-mode")
       "l" #'term-line-mode
-      "bl" #'evil-switch-to-windows-last-buffer)))
+      "bl" #'evil-switch-to-windows-last-buffer)
+
+    (general-define-key
+     :keymaps 'override
+     "S-e" #'evil-local-mode)))
 
 ;; This way "/" respects the current region
 ;; but not when you use 'evil-search as evil-search-module
