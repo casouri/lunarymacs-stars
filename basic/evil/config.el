@@ -5,9 +5,11 @@
 (use-package| evil
   :config
   (evil-local-mode)
+  ;; enabled evil when editing text
   (add-hook 'prog-mode-hook #'evil-local-mode)
   (add-hook 'text-mode-hook #'evil-local-mode)
   (add-hook 'fundamental-mode-hook #'evil-local-mode)
+
   ;; fix paste issue in evil visual mode
   ;; http://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
   (fset 'evil-visual-update-x-selection 'ignore)
