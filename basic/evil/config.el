@@ -65,7 +65,7 @@
         (evil-ex-search-full-pattern region count 'backward))
     (apply old-func count symbol)))
 
-;; * in visual mode
+;; \* in visual mode
 (defun moon-evil-ex-search-word-forward-advice (old-func count &optional symbol)
   (if (evil-visual-state-p)
       (let ((region (buffer-substring-no-properties
