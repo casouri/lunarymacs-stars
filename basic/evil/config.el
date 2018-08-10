@@ -2,14 +2,6 @@
 
 (setq moon-evil t)
 
-
-(defvar moon-evil-hook-list
-  '(prog-mode-hook
-    text-mode-hook
-    fundamental-mode-hook
-    lisp-interaction-mode-hook)
-  "Hooks of modes in where you want evil enable.")
-
 (defvar moon-evil-mode-list
   '(lisp-interaction-mode
     text-mode
@@ -21,8 +13,6 @@
   :config
   (evil-local-mode)
   ;; enabled evil when editing text
-  ;; (dolist (hook moon-evil-hook-list)
-  ;;   (add-hook hook #'evil-local-mode))
   (add-hook 'after-change-major-mode-hook #'moon-smart-evil)
 
   ;; fix paste issue in evil visual mode
