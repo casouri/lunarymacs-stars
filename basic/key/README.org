@@ -37,3 +37,15 @@
 | SPC e h   | hydra-error/first-error      |
 | SPC t m   | toggle-frame-maximized       |
 
+
+* Relationship between SPC u , SPC a & SPC i
+  
+They correspond to =utility=, =action= and =insert=.
+
+- =utility= contains commands that opens a utility.
+  A utility is a somewhat standalone application compare to =action= and =insert=.
+  
+- =insert= contains commands that insert something into current buffer.
+
+- =action= contains commands that performs some action but doesn't insert anything.
+
