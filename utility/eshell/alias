@@ -1,0 +1,6 @@
+alias gs magit-status
+alias ff find-file $1
+alias d dired $1
+alias ac aria2c
+alias la ls -al
+alias ll ls -l
