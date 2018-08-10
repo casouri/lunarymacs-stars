@@ -2,13 +2,20 @@
 
 (setq moon-evil t)
 
+
+(defvar moon-evil-hook-list
+  '(prog-mode-hook
+    text-mode-hook
+    fundamental-mode-hook
+    lisp-interaction-mode-hook)
+  "Hooks of modes in where you want evil enable.")
+
 (use-package| evil
   :config
   (evil-local-mode)
   ;; enabled evil when editing text
-  (add-hook 'prog-mode-hook #'evil-local-mode)
-  (add-hook 'text-mode-hook #'evil-local-mode)
-  (add-hook 'fundamental-mode-hook #'evil-local-mode)
+  (dolist (hook moon-evil-hook-list)
+    (add-hook hook #'evil-local-mode))
 
   ;; fix paste issue in evil visual mode
   ;; http://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
@@ -180,7 +187,7 @@
 
     (general-define-key
      :keymaps 'override
-     "S-e" #'evil-local-mode)))
+     "s-e" #'evil-local-mode)))
 
 ;; This way "/" respects the current region
 ;; but not when you use 'evil-search as evil-search-module
