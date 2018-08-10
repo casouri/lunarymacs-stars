@@ -11,12 +11,5 @@
     "gfc" #'magit-file-checkout
     "gfl" #'magit-log-buffer-file))
 
-(use-package| evil-magit
-  :defer t
-  :hook (magit-mode . (lambda () (require 'evil-magit))))
-
 (use-package| (magit-todos :repo "alphapapa/magit-todos" :fetcher github)
-  :hook (magit-mode . magit-todos-mode)
-  :config
-  (evil-define-key 'normal 'magit-status-mode-map "gT" #'magit-todos-jump-to-todos)
-  (setq magit-todos-section-map (make-sparse-keymap)))
+  :hook (magit-mode . magit-todos-mode))
