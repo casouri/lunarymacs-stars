@@ -37,5 +37,5 @@
 
 (post-config| general
   (general-define-key
-   :keymaps 'override
+   :keymaps 'dired-mode-map
    "F" #'dired-narrow-fuzzy))
