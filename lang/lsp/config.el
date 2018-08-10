@@ -55,7 +55,7 @@ if under, turn them off.")
 (post-config| general
   (after-load| lsp-mode
     (after-load| lsp-ui
-      (default-leader
+      (moon-default-leader
         "lr" #'lsp-ui-peek-find-references
         "ld" #'lsp-ui-peek-find-definitions
         "lR" #'lsp-rename

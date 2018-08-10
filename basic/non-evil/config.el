@@ -111,7 +111,7 @@ if BACKWARD, return negative number."
   )
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "rr" #'moon/smart-query-replace
     "rR" #'query-replace-regexp))
 
@@ -187,7 +187,7 @@ if BACKWARD, return negative number."
 (global-set-key (kbd "C-M-s") #'isolate-long-add)
 
 (post-config| gerneral
-  (default-leader
+  (moon-default-leader
     "cs" #'isolate-quick-change
     "cS" #'isolate-long-change
     "ds" #'isolate-quick-delete
@@ -199,7 +199,7 @@ if BACKWARD, return negative number."
   :commands evilnc-comment-operator)
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
    "cc" #'evilnc-comment-operator))
 
 ;;; Search

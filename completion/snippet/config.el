@@ -32,6 +32,6 @@
 
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "iaa" #'aya-create
     "iae" #'aya-expand))

@@ -152,7 +152,7 @@ minor-modes that is usually displayed directly in the mode line."
   (global-hl-todo-mode))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "tl" #'nlinum-mode ; toggle relative linum
     "tL" #'global-display-line-numbers-mode))
 
@@ -232,7 +232,7 @@ minor-modes that is usually displayed directly in the mode line."
   :config (winum-mode 1))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     ;; eyebrowse
     "ww"  #'delete-other-windows
     "w1"  #'eyebrowse-switch-to-window-config-1
@@ -298,7 +298,7 @@ minor-modes that is usually displayed directly in the mode line."
 ;;;; Desktop resume
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "wr" #'moon/desktop-read))
 
 (add-hook 'moon-post-init-hook #'moon-setup-save-session)
@@ -354,7 +354,7 @@ and saveing desktop."
     (global-set-key (kbd (format "C-s-%d" index)) (intern (format "nerdtab-kill-%d" index)))))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "tb" #'nerdtab-mode
     "bj" #'nerdtab-jump
     "bM" '(:ignore t :which-key "move tab to ")
@@ -379,7 +379,7 @@ and saveing desktop."
   (evil-ex-search-activate-highlight `(,(thing-at-point 'symbol) t t)))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "ah" #'moon-highlight-symbol))
 
 ;;

@@ -46,7 +46,7 @@
 
 (post-config| general
   (after-load| ein
-    (default-leader
+    (moon-default-leader
       :keymaps '(ein:notebook-mode-map
                  ein:notebook-multilang-mode-map
                  ein:notebook-python-mode-map

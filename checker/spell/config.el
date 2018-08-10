@@ -9,7 +9,7 @@
 
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "ts" #'moon/toggle-spell-check))
 
 
@@ -20,5 +20,5 @@
   (setq flyspell-issue-message-flag nil))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "ef" #'flyspell-correct-previous))

@@ -4,7 +4,10 @@
 
 (use-package| evil
   :config
-  (evil-mode 1)
+  (evil-local-mode)
+  (add-hook 'prog-mode-hook #'evil-local-mode)
+  (add-hook 'text-mode-hook #'evil-local-mode)
+  (add-hook 'fundamental-mode-hook #'evil-local-mode)
   ;; fix paste issue in evil visual mode
   ;; http://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
   (fset 'evil-visual-update-x-selection 'ignore)
@@ -155,14 +158,14 @@
      "L"   #'evil-end-of-line
      "P"   #'evil-paste-from-register)
     
-    (default-leader
+    (moon-default-leader
       "sc" #'moon/clear-evil-search
       "ij" '((lambda () (interactive) evil-insert-line-below) :which-key "insert-line-below")
       "ik" '((lambda () (interactive) evil-insert-line-above) :which-key "insert-line-above")
       "uu" #'undo-tree-visualize
       "+" #'moon/pop-kill-ring-to-search-history)
 
-    (default-leader
+    (moon-default-leader
       :keymaps 'term-mode-map
       "c" '((lambda ()
               (interactive)

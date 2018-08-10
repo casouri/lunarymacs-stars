@@ -29,7 +29,7 @@
 ;; org-capture
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "uo" '(:ignore t :which-key "org")
     "uoc" #'org-capture
     ))

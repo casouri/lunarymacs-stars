@@ -11,6 +11,6 @@
   :commands latex-preview-pane-mode)
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     :keymaps 'tex-mode-map
     "tp" #'latex-preview-pane-mode))

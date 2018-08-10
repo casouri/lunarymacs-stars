@@ -15,7 +15,7 @@
   :config (counsel-projectile-mode 1))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "p SPC" #' counsel-projectile
     "pf"    #'counsel-projectile-find-file
     "pd"    #'counsel-projectile-find-dir

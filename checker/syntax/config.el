@@ -9,6 +9,6 @@
   )
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "el" #'flycheck-list-errors))
 

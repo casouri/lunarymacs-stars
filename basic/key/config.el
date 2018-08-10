@@ -11,32 +11,39 @@
   (general-override-mode)
 
   (mve
-   (general-create-definer default-leader
+   (general-create-definer moon--default-leader
     :states '(normal visual insert emacs jpnb)
     :keymaps 'override
-    :prefix "SPC"
-    :non-normal-prefix "S-SPC")
+    :prefix "SPC")
    
-  (general-create-definer default-leader
+  (general-create-definer moon--default-leader
     :keymaps 'override
-    :prefix "C-SPC"
-    ))
+    :prefix "C-SPC"))
 
-  (general-create-definer default-no-leader
-    :states '(normal visual insert emacs jpnb)
+  (general-create-definer moon-global-leader
+    :prefix "S-SPC"
     :keymaps 'override)
 
-  (general-create-definer default-g-leader
+  (general-create-definer moon-g-leader
     :states '(normal visual)
     :keymaps 'override
-    :prefix "g"
-    )
-  (general-create-definer default-cc-leader
+    :prefix "g")
+
+  (general-create-definer moon-cc-leader
     :state '(normal visual insert emacs jpnb)
     :keymaps 'override
     :prefix "C-c")
-  
-  (default-leader
+
+  (defmacro moon-default-leader (&rest args)
+    "Define for both default leader and global leader."
+    (declare (indent defun))
+    `(progn
+       (moon--default-leader
+        ,@args)
+       (moon-global-leader
+        ,@args)))
+
+  (moon-default-leader
    "f" '(:ignore t :which-key "file")
    "F" '(:ignore t :which-key "Frame")
    "i" '(:ignore t :which-key "insert")
@@ -113,10 +120,21 @@
    "s-h" #'windmove-left
    "s-j" #'windmove-down
    "s-k" #'windmove-up
-   "s-l" #'windmove-right
-   "<escape>" (lambda () (interactive)
-                (keyboard-escape-quit)
-                (evil-force-normal-state))))
+   "s-l" #'windmove-right)
+
+  (general-define-key
+   :keymaps 'override
+   "<escape>" #'moon/quit-maybe-normal)
+  )
+
+(defun moon/quit-maybe-normal ()
+  "Perform `keyboard-escape-quit', if in evil-mode, enter normal state."
+  (interactive)
+  (keyboard-escape-quit)
+  (when (or (bound-and-true-p evil-mode)
+            (bound-and-true-p evil-local-mode))
+      (evil-force-normal-state)))
+
 
 (use-package| which-key
   :config (which-key-mode 1))

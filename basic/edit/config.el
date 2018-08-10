@@ -8,16 +8,15 @@
 ;;;; Edit
 
 (use-package| (evil-moccur :fetcher github :repo "casouri/evil-moccur")
-  :defer 2
-  :config (evil-moccur-mode))
+  :defer 2)
 
 (use-package| expand-region
   :commands er/expand-region)
 
 (post-config| general
-  (default-g-leader
+  (moon-g-leader
     "v" #'er/expand-region)
-  (default-leader
+  (moon-default-leader
     "v" #'er/expand-region))
 
 (use-package| (isolate :fetcher github :repo "casouri/isolate")
@@ -52,7 +51,7 @@
   (setq avy-all-windows nil))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "k" #'avy-goto-char-timer))
 
 (use-package| minimap
@@ -68,7 +67,7 @@
   :commands minimap-mode)
 
 (post-config| general
-  (default-leader "tm" #'minimap-mode))
+  (moon-default-leader "tm" #'minimap-mode))
 
 ;; used for chinese editiing on macOS
 (load| switch-input-mode)
@@ -83,7 +82,7 @@
   (defvar outline-minor-mode-prefix (kbd "C-c o")))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     :keymaps 'outline-minor-mode-map
     "o" '(:ignore t :which-key "outline")
     "os"    #'outline-show-entry

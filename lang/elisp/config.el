@@ -5,7 +5,7 @@
 
 
 (post-config| general
-  (default-cc-leader
+  (moon-cc-leader
    :keymaps 'emacs-lisp-mode-map
    ;; eval
    "e" '(:ignore t :which-key "eval")

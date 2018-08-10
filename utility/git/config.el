@@ -5,7 +5,7 @@
   :config (define-key magit-mode-map (kbd "<tab>") 'magit-section-toggle))
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "gs" #'magit-status
     "gf" '(:ignore t :which-key "file")
     "gfc" #'magit-file-checkout

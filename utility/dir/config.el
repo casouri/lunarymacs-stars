@@ -17,7 +17,7 @@
   )
 
 (post-config| general
-  (default-leader
+  (moon-default-leader
     "tn" #'neotree-toggle
     "tr" #'ranger
     "th" #'moon/toggle-hidden-file)

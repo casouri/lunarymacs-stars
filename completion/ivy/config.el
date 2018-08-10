@@ -19,7 +19,7 @@
        (general-define-key
         :keymaps 'override
         "<C-return>" #'ivy-switch-buffer))
-  (default-leader
+  (moon-default-leader
     ;; other
     "SPC" #'counsel-M-x
     ;; files
