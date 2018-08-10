@@ -13,8 +13,7 @@
   (setq projectile-switch-project-action 'neotree-projectile-action)
   (setq neo-show-hidden-files t)
   :config
-  (require 'all-the-icons)
-  )
+  (require 'all-the-icons))
 
 (post-config| general
   (moon-default-leader
@@ -27,14 +26,16 @@
    "TAB" #'neotree-enter
    "SPC" #'neotree-quick-look
    "q" #'neotree-hide
-   "RET" #'neotree-enter
-   ))
+   "RET" #'neotree-enter))
 
 (use-package| ranger
   :init (setq ranger-show-hidden t)
-  :commands ranger
-  )
+  :commands ranger)
 
 (use-package| dired-narrow
-  :commands dired-narrow
-  :config (define-key dired-mode-map "F" #'dired-narrow))
+  :commands dired-narrow)
+
+(post-config| general
+  (general-define-key
+   :keymaps 'override
+   "F" #'dired-narrow-fuzzy))
