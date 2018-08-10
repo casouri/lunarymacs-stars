@@ -10,12 +10,20 @@
     lisp-interaction-mode-hook)
   "Hooks of modes in where you want evil enable.")
 
+(defvar moon-evil-mode-list
+  '(lisp-interaction-mode
+    text-mode
+    help-mode
+    fundamental-mode)
+  "Modes in where you want evil enables.")
+
 (use-package| evil
   :config
   (evil-local-mode)
   ;; enabled evil when editing text
-  (dolist (hook moon-evil-hook-list)
-    (add-hook hook #'evil-local-mode))
+  ;; (dolist (hook moon-evil-hook-list)
+  ;;   (add-hook hook #'evil-local-mode))
+  (add-hook 'after-change-major-mode-hook #'moon-smart-evil)
 
   ;; fix paste issue in evil visual mode
   ;; http://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
@@ -25,6 +33,12 @@
   ;; you have to set it through customize
   ;; (customize-set-variable evil-search-module 'evil-search)
   (setq evil-ex-substitute-global t))
+
+(defun moon-smart-evil ()
+  "Enable evil when major mode complies."
+  (when (or (derived-mode-p 'prog-mode)
+            (member major-mode moon-evil-mode-list))
+    (evil-local-mode)))
 
 ;;;; smart selection for evil search motions
 
