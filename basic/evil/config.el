@@ -17,6 +17,8 @@
   ;; (customize-set-variable evil-search-module 'evil-search)
   (setq evil-ex-substitute-global t))
 
+;;;; smart selection for evil search motions
+
 ;; + in visual mode
 ;; binded below by general.el
 (defun moon/make-region-search-history ()
@@ -112,9 +114,9 @@
   :init (setq vimish-fold-dir (concat moon-local-dir "vimish-fold")))
 
 
-;;;
+;;
 ;;; Config
-;;;
+;;
 
 ;;
 ;; Replace some keys
