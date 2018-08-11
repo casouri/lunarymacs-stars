@@ -6,6 +6,7 @@
   '(lisp-interaction-mode
     text-mode
     help-mode
+    messages-buffer-mode
     fundamental-mode)
   "Modes in where you want evil enables.")
 
