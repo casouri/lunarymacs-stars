@@ -17,6 +17,9 @@
              (ring-elements eshell-history-ring))
             :action #'ivy-completion-in-region-action))
 
+(use-package| esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode))
+
 ;;; Config
 
 (setq eshell-directory-name (concat moon-star-dir "utility/eshell/"))
