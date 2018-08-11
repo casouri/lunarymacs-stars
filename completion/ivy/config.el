@@ -13,9 +13,13 @@
   )
 
 (post-config| general
-  (mve (general-define-key
-        :states '(normal visual)
-        "RET" #'ivy-switch-buffer)
+  (mve (progn
+         (general-define-key
+          :states '(normal visual)
+          "RET" #'ivy-switch-buffer)
+         (general-define-key
+          :keymaps 'override
+          "<S-return>" #'ivy-switch-buffer))
        (general-define-key
         :keymaps 'override
         "<C-return>" #'ivy-switch-buffer))
