@@ -347,7 +347,6 @@ and saveing desktop."
   :defer 2
   :config
   (setq nerdtab-window-position 'top)
-  (set-face-attribute 'nerdtab-tab-face nil :inherit 'hl-line)
   (dolist (index (number-sequence 0 9))
     (global-set-key (kbd (format "s-%d" index)) (intern (format "nerdtab-jump-%d" index))))
   (dolist (index (number-sequence 0 9))
