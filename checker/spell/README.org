@@ -15,13 +15,16 @@ https://joelkuiper.eu/spellcheck_emacs
 brew install hunspell
 #+END_SRC
 
-2. Download dictionary from https://extensions.openoffice.org
+*You can use the files under this dir or download from website.*
+
+2. Download dictionary from https://extensions.openoffice.org. 
 
 3. unarchive the downloaded file and find *.aff and *.dic files
 
 4. Copy them to ~/Library/Spelling.
    
 5. Soft link default.* to *.aff and *.dic files.
+   
    
 * Commands
 
