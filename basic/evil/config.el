@@ -111,7 +111,8 @@
   (general-define-key
    :keymaps 'visual
    :prefix "g"
-   "c" #'evilnc-comment-operator))
+   "c" #'evilnc-comment-operator
+   "C-c" #'evilnc-comment-and-kill-ring-save))
 
 ;; (use-package| evil-escape
 ;;   :config (evil-escape-mode 1)
