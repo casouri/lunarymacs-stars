@@ -115,8 +115,6 @@
 (post-config| general
   (general-define-key
    :states '(normal insert)
-   "<C-return>" #'moon/jump-newline-below
-   "<C-S-return>" #'moon/jump-newline-above
    "C-;" #'moon/insert-semi-at-eol
    )
   (general-define-key
