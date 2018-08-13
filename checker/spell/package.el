@@ -1,4 +1,4 @@
 ;; -*- lexical-binding: t -*-
 
-(moon| :basic key)
+(moon| :basic key ivy)
 
