@@ -215,26 +215,27 @@ else just return the form's return."
   "Setup mode-line using moody."
   (interactive)
   (let ((my-mode-line-format '(" "
-                           (:eval (if winum-mode (winum-get-number-string) ""))
-                           " "
-                           (:eval (if eyebrowse-mode (eyebrowse-mode-line-indicator) ""))
-                           " %I "
-                           (:eval (moon-edit-lighter))
-                           (:eval (moon-root-lighter))
-                           ;; moody-mode-line-buffer-identification
-                           (:eval (moody-tab "%b"))
-                           " "
-                           mode-line-modes
-                           (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
-                                                                    (flycheck-lighter 'warning "⚠%s")
-                                                                    (flycheck-lighter 'info "𝌆%s")) "" "OK") nil 'up))
-                           " "
-                           (:eval (if nyan-mode (nyan-create) "%p"))
-                           " "
-                           ;; moody-vc-mode
-                           (:eval (moody-tab (if vc-mode (substring-no-properties vc-mode 1) "NO VC")))
-                           mode-line-misc-info
-                           mode-line-end-spaces)))
+                               (:eval (if (bound-and-true-p winum-mode) (winum-get-number-string) ""))
+                               " "
+                               (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
+                               " %I "
+                               (:eval (moon-edit-lighter))
+                               (:eval (moon-root-lighter))
+                               ;; moody-mode-line-buffer-identification
+                               (:eval (moody-tab "%b"))
+                               " "
+                               mode-line-modes
+                               (when (bound-and-true-p flycheck-mode)
+                                 (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
+                                                                          (flycheck-lighter 'warning "⚠%s")
+                                                                          (flycheck-lighter 'info "𝌆%s")) "" "OK") nil 'up)))
+                               " "
+                               (:eval (if (bound-and-true-p nyan-mode) (nyan-create) "%p"))
+                               " "
+                               ;; moody-vc-mode
+                               (:eval (moody-tab (if vc-mode (substring-no-properties vc-mode 1) "NO VC")))
+                               mode-line-misc-info
+                               mode-line-end-spaces)))
     ;; change all current buffer's mode-line-format
     (save-excursion
       (mapc (lambda (buffer)
