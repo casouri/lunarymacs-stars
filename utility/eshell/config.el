@@ -23,3 +23,18 @@
 ;;; Config
 
 (setq eshell-directory-name (concat moon-star-dir "utility/eshell/"))
+
+(defun eshell-sync-dir-buffer-name ()
+  "Change eshell buffer name by directory change."
+  (when (equal major-mode 'eshell-mode)
+    (rename-buffer (format "Esh: %s"
+                           (let ((dir (abbreviate-file-name default-directory)))
+                             (put-text-property 0 (length dir) 'face `(:foreground ,lunary-pink) dir)
+                             dir))
+                   t)))
+
+(add-hook 'eshell-directory-change-hook #'eshell-sync-dir-buffer-name)
+
+(post-config| general
+  (moon-default-leader
+   "us" #'eshell))
