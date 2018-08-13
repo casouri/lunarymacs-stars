@@ -20,7 +20,7 @@
   :defer t
   :config
   ;; (set-face-attribute 'company-tooltip-common nil :foreground "#C678DD")
-  (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD")
+  (after-load| company (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD"))
   ;; (set-face-attribute 'company-preview-common nil :foreground "#C678DD")
   )
 
@@ -36,7 +36,7 @@
   :defer t
   :config
   (add-to-list 'custom-theme-load-path (car (directory-files moon-package-dir "spacemacs-theme.+")) t)
-  (custom-set-variables '(spacemacs-theme-custom-colors ;                              GUI       TER                           GUI       TER
+  (custom-set-variables '(spacemacs-theme-custom-colors ;                          ~~GUI~~   ~~TER~~                       ~~GUI~~   ~~TER~~
                         '((bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
                           (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
                           (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
@@ -73,6 +73,7 @@
     :config
     ;; patch minions-mode
     ;; so it applyies change to opended buffers too
+
     (define-minor-mode minions-mode
       "Display a minor-mode menu in the mode line.
 
