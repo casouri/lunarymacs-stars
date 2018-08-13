@@ -142,7 +142,7 @@
   (company-abort)
   (newline nil t))
 
-(global-set-key (kbd "S-<return>") #'moon/return-cancel-completion)
+(global-set-key (kbd "<C-return>") #'moon/return-cancel-completion)
 
 ;; never tested
 ;; http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
