@@ -3,6 +3,7 @@
 (load (concat (expand-file-name user-emacs-directory) "core/core"))
 
 (moon| :basic
+       ;; non-evil
        homepage
        key
        evil
@@ -10,6 +11,7 @@
        other
        edit
        project
+       addon
        :completion
        ivy
        company
@@ -17,6 +19,7 @@
        :os
        mac
        :utility
+       eshell
        tex
        dir
        git
@@ -33,7 +36,7 @@
        ;; rust
        javascript
        web
-       lua
+       ;; lua
        )
 
 
@@ -67,13 +70,32 @@
 ;;;; relative line number
 ;; (setq moon-enable-nlinum-relative t)
 
+;;;; absolute line number
+;; (global-display-line-numbers-mode)
+
 ;;;; company-yasnippet
 (setq moon-enable-company-yas t)
 
 ;;;; cursor
+
+(defun moon-ensure-cursor-color ()
+  "Sometimes cursor color \"run around\". This function fix it."
+  (set-cursor-color
+   (if (or (bound-and-true-p evil-local-mode)
+           (bound-and-true-p evil-mode))
+       (if (equal evil-state 'insert)
+           lunary-white
+         lunary-yellow)
+     doom-blue)))
+
 (when window-system
-  (setq evil-insert-state-cursor `(box ,lunary-white)))
-(setq evil-normal-state-cursor lunary-yellow)
+  (setq evil-insert-state-cursor 'box))
+
+(add-hook 'post-command-hook #'moon-ensure-cursor-color)
+
+;; (when window-system
+;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
+;; (setq evil-normal-state-cursor lunary-yellow)
 
 ;;;; modifier key mapping
 ;; (setq mac-command-modifier 'control)
