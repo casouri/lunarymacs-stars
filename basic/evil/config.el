@@ -5,10 +5,15 @@
 (defvar moon-evil-mode-list
   '(lisp-interaction-mode
     text-mode
-    help-mode
-    messages-buffer-mode
     fundamental-mode)
   "Modes in where you want evil enables.")
+
+(add-hook 'moon-post-init-hook (lambda () "Evilfy Messages and Scratch buffer."
+                                 (save-excursion
+                                   (switch-to-buffer "*Messages*")
+                                   (evil-local-mode)
+                                   (switch-to-buffer "*scratch*")
+                                   (evil-local-mode))))
 
 (use-package| evil
   :config
@@ -27,7 +32,7 @@
 
 (defun moon-smart-evil ()
   "Enable evil when major mode complies."
-  (when (or (derived-mode-p 'prog-mode)
+  (when (or (derived-mode-p 'prog-mode 'special-mode)
             (member major-mode moon-evil-mode-list))
     (evil-local-mode)))
 
