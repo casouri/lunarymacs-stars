@@ -4,8 +4,8 @@
     "us" #'counsel-switch-to-eshell-buffer)
   (general-define-key
    :prefix "C-c"
-   :keymap 'eshell-mode-map
-   "C-h" #'counsel-eshell))
+   :keymaps 'eshell-mode-map
+   "C-h" #'moon/esh-history))
 
 ;; https://github.com/manuel-uberti/.emacs.d/commit/d44051ef417aee2086ba05e5a514e0ce6c401ca7
 (defun counsel-eshell ()
@@ -21,6 +21,17 @@
 (use-package| esh-autosuggest
   :hook (eshell-mode . esh-autosuggest-mode))
 
+(use-package| eshell-prompt-extras
+  :defer t
+  :init
+  (with-eval-after-load "esh-opt"
+    (require 'virtualenvwrapper)
+    (venv-initialize-eshell)
+    (setq epe-path-style 'full)
+    (autoload 'epe-theme-lambda "eshell-prompt-extras")
+    (setq eshell-highlight-prompt nil
+          eshell-prompt-function 'epe-theme-lambda)))
+
 ;;; Config
 
 (setq eshell-directory-name (concat moon-star-dir "utility/eshell/"))
@@ -34,17 +45,37 @@
 (defvar default-system-name (system-name)
   "The system name of this computer.")
 
-(setq eshell-prompt-regexp "^[^!λ\n]*[!λ] "
-      eshell-prompt-function
-      (lambda ()
-        (concat
-	 (unless (string= (system-name) default-system-name)
-           (concat (user-login-name) "@ " (system-name)))
-	 (propertize (abbreviate-file-name (eshell/pwd)) 'face '(:foreground "#98C379"))
-	 (if (= (user-uid) 0)
-             (propertize " ! " 'face '(:forground "#FA5754"))
-           (propertize " λ " 'face '(:foreground "#51afef"))))))
+;; (setq eshell-prompt-regexp "^[^!λ\n]*[!λ] "
+;;       eshell-prompt-function
+;;       (lambda ()
+;;         (concat
+;; 	 (unless (string= (system-name) default-system-name)
+;;            (concat (user-login-name) "@ " (system-name)))
+;; 	 (propertize (abbreviate-file-name (eshell/pwd)) 'face '(:foreground "#98C379"))
+;; 	 (if (= (user-uid) 0)
+;;              (propertize " ! " 'face '(:forground "#FA5754"))
+;;            (propertize " λ " 'face '(:foreground "#51afef"))))))
 
+;;;; History
+
+;; https://emacs-china.org/t/topic/4579?u=samray
+(defun moon/esh-history ()
+  "Interactive search eshell history."
+  (interactive)
+  (require 'em-hist)
+  (save-excursion
+    (let* ((start-pos (eshell-bol))
+	   (end-pos (point-at-eol))
+	   (input (buffer-substring-no-properties start-pos end-pos)))
+      (let* ((command (ivy-read "Command: "
+				(delete-dups
+				 (when (> (ring-size eshell-history-ring) 0)
+				   (ring-elements eshell-history-ring)))
+				:preselect input
+				:action #'ivy-completion-in-region-action))
+	     (cursor-move (length command)))
+	(kill-region (+ start-pos cursor-move) (+ end-pos cursor-move)))))
+  (end-of-line))
 
 ;;;; Sync buffer name and pwd
 
@@ -52,9 +83,9 @@
   "Change eshell buffer name by directory change."
   (when (equal major-mode 'eshell-mode)
     (rename-buffer (format "Esh: %s"
-                           (let ((dir (abbreviate-file-name default-directory)))
-                             (put-text-property 0 (length dir) 'face `(:foreground ,lunary-pink) dir)
-                             dir))
+                           (propertize
+                            (abbreviate-file-name default-directory)
+                            'face `(:foreground ,lunary-pink)))
                    t)))
 
 (add-hook 'eshell-directory-change-hook #'eshell-sync-dir-buffer-name)
@@ -88,7 +119,7 @@
   (defun counsel-switch-to-eshell-buffer ()
     "Switch to a shell buffer, or create one."
     (interactive)
-    (ivy-read "Shell buffer: " (counsel--buffers-with-mode #'eshell-mode)
+    (ivy-read "Eshell buffer: " (counsel--buffers-with-mode #'eshell-mode)
               :action #'counsel--switch-to-shell
               :caller 'counsel-switch-to-shell-buffer)))
 
