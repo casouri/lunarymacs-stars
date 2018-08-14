@@ -4,3 +4,6 @@ alias d dired $1
 alias ac aria2c
 alias la ls -al
 alias ll ls -l
+alias dow dired-other-window  $1
+alias fow find-file-other-window $1
+alias cdh cd =
