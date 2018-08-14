@@ -60,3 +60,9 @@
 
 (blink-cursor-mode                   -1)
 
+;;;; natural title bar
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+
+;;;; don't open new frame
+(setq ns-pop-up-frames nil)

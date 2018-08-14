@@ -51,11 +51,6 @@
 ;;;; max
 (toggle-frame-maximized)
 
-
-;;;; natural title bar
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
-
 ;;;; Python interpreter
 (setq python-shell-interpreter "/usr/local/bin/python3")
 
@@ -63,9 +58,6 @@
 (setq explicit-shell-file-name "/bin/zsh")
 (setq explicit-zsh-args '("--login"))
 (setenv "SHELL" "zsh")
-
-;;;; split screen vertically in ediff
-(setq ediff-split-window-function #'split-window-horizontally)
 
 ;;;; relative line number
 ;; (setq moon-enable-nlinum-relative t)
@@ -103,9 +95,6 @@
 ;; (setq mac-control-modifier 'super)
 ;; (global-set-key (kbd "s-v") #'yank)
 ;; (global-set-key (kbd "s-c") #'kill-ring-save)
-
-;;;; don't open new frame
-(setq ns-pop-up-frames nil)
 
 ;;;; server
 (run-with-idle-timer 2 nil #'server-start)

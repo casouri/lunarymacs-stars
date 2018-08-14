@@ -132,6 +132,10 @@
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 
 
+;;;; split screen vertically in ediff
+(setq ediff-split-window-function #'split-window-horizontally)
+
+
 
 ;;;;
 ;;;; Fix
