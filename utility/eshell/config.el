@@ -25,8 +25,6 @@
   :defer t
   :init
   (with-eval-after-load "esh-opt"
-    (require 'virtualenvwrapper)
-    (venv-initialize-eshell)
     (setq epe-path-style 'full)
     (autoload 'epe-theme-lambda "eshell-prompt-extras")
     (setq eshell-highlight-prompt nil
