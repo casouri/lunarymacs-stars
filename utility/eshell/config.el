@@ -11,7 +11,7 @@
 (defun moon/toggle-eshell ()
   "Toggle eshell"
   (interactive)
-  (if (equal 'major-mode 'eshell-mode)
+  (if (equal major-mode 'eshell-mode)
       (switch-to-prev-buffer)
     (eshell)))
 
@@ -27,7 +27,17 @@
             :action #'ivy-completion-in-region-action))
 
 
-(use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell"))
+(use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell")
+  :after eshell
+  :config
+  (custom-set-faces
+   '(epe-dir-face ((t (:foreground "#51afef"))))
+   '(epe-git-face ((t (:foreground "#bbc2cf"))))
+   '(epe-pipeline-delimiter-face ((t (:foreground "#98be65"))))
+   '(epe-pipeline-host-face ((t (:foreground "#bbc2cf"))))
+   '(epe-pipeline-time-face ((t (:foreground "#bbc2cf"))))
+   '(epe-pipeline-user-face ((t (:foreground "#bbc2cf"))))
+   ))
 
 
 
@@ -66,11 +76,10 @@
 
 ;;;; Swtich eshell
 
-(after-load| counsel
-  (defun counsel-switch-to-eshell-buffer ()
+(defun counsel-switch-to-eshell-buffer ()
     "Switch to a shell buffer, or create one."
     (interactive)
     (ivy-read "Eshell buffer: " (counsel--buffers-with-mode #'eshell-mode)
               :action #'counsel--switch-to-shell
-              :caller 'counsel-switch-to-shell-buffer)))
+              :caller 'counsel-switch-to-shell-buffer))
 
