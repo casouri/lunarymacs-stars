@@ -65,9 +65,6 @@
 ;;;; absolute line number
 ;; (global-display-line-numbers-mode)
 
-;;;; company-yasnippet
-(setq moon-enable-company-yas t)
-
 ;;;; cursor
 
 (defun moon-ensure-cursor-color ()

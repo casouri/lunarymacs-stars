@@ -8,13 +8,9 @@
   (yas-global-mode 1)
   (yas-reload-all))
 
-(defvar moon-enable-company-yas nil
-  "Whether to enable yasnippet completion in company.")
-
 (defun company-mode-backend-with-yas (backend)
-  (if (or (not moon-enable-company-yas)
-          (and (listp backend)
-               (member 'company-yasnippet backend)))
+  (if (and (listp backend)
+           (member 'company-yasnippet backend))
       backend
     (append (if (consp backend) backend (list backend))
             '(:with company-yasnippet))))
