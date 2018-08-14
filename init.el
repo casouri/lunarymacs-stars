@@ -147,7 +147,8 @@
 
  ;;;; nyan
  (nyan-mode)
- (nyan-start-animation)
+ ;; enabling this makes highlight on buttons blink
+ ;; (nyan-start-animation)
 
  ;; it slows down starup, disable for now
  ;;;; company-childframe
