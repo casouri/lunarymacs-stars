@@ -245,6 +245,3 @@ else just return the form's return."
     ;; change default value of mode-line-format
     (setq-default mode-line-format my-mode-line-format)
     ))
-
-
-
