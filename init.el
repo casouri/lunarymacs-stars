@@ -92,6 +92,7 @@
   (setq evil-insert-state-cursor 'box))
 
 (add-hook 'post-command-hook #'moon-ensure-cursor-color)
+(add-hook 'window-configuration-change-hook (lambda () (run-at-time 0.1 nil #'moon-ensure-cursor-color)))
 
 ;; (when window-system
 ;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
