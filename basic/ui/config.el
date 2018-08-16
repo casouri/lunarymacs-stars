@@ -418,7 +418,10 @@ and saveing desktop."
 (use-package| diff-hl
   :config
   (setq diff-hl-draw-borders nil)
-  (if window-system
-      (diff-hl-mode)
-    (diff-hl-margin-mode))
+  (add-hook 'after-change-major-mode-hook
+            (lambda ()
+              "Enable `diff-hl-mode' or `diff-hl-margin-mode'."
+              (if window-system
+                  (diff-hl-mode)
+                (diff-hl-margin-mode))))
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
