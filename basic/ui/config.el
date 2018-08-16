@@ -410,3 +410,15 @@ and saveing desktop."
   (if moon-auto-highlight-mode
       (setq moon-auto-highlight-timer (run-with-idle-timer 1 t #'moon-auto-highlight))
     (cancel-timer moon-auto-highlight-timer)))
+
+;;
+;;;; VC
+
+;; not autoloaded
+(use-package| diff-hl
+  :config
+  (setq diff-hl-draw-borders nil)
+  (if window-system
+      (diff-hl-mode)
+    (diff-hl-margin-mode))
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
