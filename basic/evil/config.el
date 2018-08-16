@@ -13,7 +13,7 @@
                                  (evil-local-mode)
                                  (switch-to-buffer "*scratch*")
                                  (evil-local-mode)
-                                 (switch-to-buffer moon-homepage-buffer)))
+                                 (switch-to-buffer (or moon-homepage-buffer "*scratch*"))))
 
 (use-package| evil
   :config
