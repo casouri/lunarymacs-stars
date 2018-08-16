@@ -150,8 +150,6 @@
   (after-load| evil
     (general-define-key
      :states 'normal
-     "Q" #'evil-record-macro
-     "q" #'evil-backward-word-end
      "c" (general-key-dispatch 'evil-change
            "s" #'isolate-quick-change
            "S" #'isolate-long-change)
