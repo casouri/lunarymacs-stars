@@ -1,19 +1,24 @@
 (post-config| general
   (moon-default-leader
     "C-o s" (lambda () "Open in eshell." (interactive) (eshell default-directory))
-    "us" #'counsel-switch-to-eshell-buffer
-    "ue" #'moon/toggle-eshell)
+    "y" '(:ignore t :which-key "Eshell")
+    "ys" #'counsel-switch-to-eshell-buffer
+    "yn" #'aweshell-next
+    "yp" #'aweshell-prev
+    "yN" #'aweshell-new)
   (general-define-key
    :prefix "C-c"
    :keymaps 'eshell-mode-map
-   "C-h" #'moon/esh-history))
+   "C-h" #'moon/esh-history)
+  (moon-cc-leader
+    "y" #'moon/toggle-eshell))
 
 (defun moon/toggle-eshell ()
   "Toggle eshell"
   (interactive)
   (if (equal major-mode 'eshell-mode)
       (switch-to-prev-buffer)
-    (eshell)))
+    (aweshell-next)))
 
 ;; https://github.com/manuel-uberti/.emacs.d/commit/d44051ef417aee2086ba05e5a514e0ce6c401ca7
 (defun counsel-eshell ()
