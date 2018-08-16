@@ -9,11 +9,11 @@
   "Modes in where you want evil enables.")
 
 (add-hook 'moon-post-init-hook (lambda () "Evilfy Messages and Scratch buffer."
-                                 (save-excursion
-                                   (switch-to-buffer "*Messages*")
-                                   (evil-local-mode)
-                                   (switch-to-buffer "*scratch*")
-                                   (evil-local-mode))))
+                                 (switch-to-buffer "*Messages*")
+                                 (evil-local-mode)
+                                 (switch-to-buffer "*scratch*")
+                                 (evil-local-mode)
+                                 (switch-to-buffer moon-homepage-buffer)))
 
 (use-package| evil
   :config
