@@ -8,6 +8,10 @@
     fundamental-mode)
   "Modes in where you want evil enables.")
 
+(defvar moon-non-evil-mode-list
+  '()
+  "Modes in where you don't want evil enables.")
+
 (add-hook 'moon-post-init-hook (lambda () "Evilfy Messages and Scratch buffer."
                                  (switch-to-buffer "*Messages*")
                                  (evil-local-mode)
@@ -32,8 +36,9 @@
 
 (defun moon-smart-evil ()
   "Enable evil when major mode complies."
-  (when (or (derived-mode-p 'prog-mode 'special-mode)
-            (member major-mode moon-evil-mode-list))
+  (when (and (or (derived-mode-p 'prog-mode 'special-mode)
+                 (member major-mode moon-evil-mode-list))
+             (not (member major-mode moon-non-evil-mode-list)))
     (evil-local-mode)))
 
 ;;;; smart selection for evil search motions
