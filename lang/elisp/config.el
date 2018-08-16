@@ -7,7 +7,6 @@
    '(operators
      prettify
      text-objects
-     atom-motions
      additional-motions
      slurp/barf-cp)))
 
