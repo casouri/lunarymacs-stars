@@ -9,7 +9,7 @@
   "Modes in where you want evil enables.")
 
 (defvar moon-non-evil-mode-list
-  '()
+  '(magit-mode)
   "Modes in where you don't want evil enables.")
 
 (add-hook 'moon-post-init-hook (lambda () "Evilfy Messages and Scratch buffer."
