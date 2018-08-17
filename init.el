@@ -11,7 +11,6 @@
        other
        edit
        project
-       addon
        :completion
        ivy
        company
