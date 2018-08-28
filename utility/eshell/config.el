@@ -85,6 +85,7 @@
 (defun counsel-switch-to-eshell-buffer ()
     "Switch to a shell buffer, or create one."
     (interactive)
+    (require 'counsel)
     (ivy-read "Eshell buffer: " (counsel--buffers-with-mode #'eshell-mode)
               :action #'counsel--switch-to-shell
               :caller 'counsel-switch-to-shell-buffer))
