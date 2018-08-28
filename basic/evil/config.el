@@ -3,9 +3,9 @@
 (setq moon-evil t)
 
 (defvar moon-evil-mode-list
-  '(lisp-interaction-mode
-    text-mode
-    fundamental-mode)
+  '(emacs-lisp-mode python-mode javascript-mode c-mode c++-mode
+                    text-mode fundamental-mode common-lisp-mode
+                    lua-mode help-mode)
   "Modes in where you want evil enables.")
 
 (defvar moon-non-evil-mode-list
@@ -36,8 +36,7 @@
 
 (defun moon-smart-evil ()
   "Enable evil when major mode complies."
-  (when (and (or (derived-mode-p 'prog-mode 'special-mode)
-                 (member major-mode moon-evil-mode-list))
+  (when (and (member major-mode moon-evil-mode-list)
              (not (member major-mode moon-non-evil-mode-list)))
     (evil-local-mode)))
 
@@ -176,6 +175,11 @@
      "M-p" #'previous-line
      "C-a" #'beginning-of-line
      "C-e" #'end-of-line)
+
+    (general-define-key
+     :states 'normal
+     :keymaps 'special-mode
+     "q" #'quit-window)
 
     (general-define-key
      :states '(normal visual)
