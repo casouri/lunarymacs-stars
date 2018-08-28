@@ -17,3 +17,10 @@
 |-----+---------|
 |     |         |" (file-name-nondirectory
                       (directory-file-name dir))))))
+
+
+;;;###autoload
+(defun moon/org-insert-title ()
+  "Insert filename as title attribute."
+  (interactive)
+  (insert (format "#+TITLE: %s" (buffer-file-name))))
