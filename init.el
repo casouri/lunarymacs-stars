@@ -1,6 +1,7 @@
 ;;(package-initialize t)
 
-(load (concat (expand-file-name user-emacs-directory) "core/core"))
+(eval-when-compile
+  (load (concat (expand-file-name user-emacs-directory) "core/core")))
 
 (moon| :basic
        ;; non-evil
@@ -67,7 +68,7 @@
 ;;;; cursor
 
 (defun moon-ensure-cursor-color ()
-  "Sometimes cursor color \"run around\". This function fix it."
+  "Sometimes cursor color \"run around\". This function fixes it."
   (set-cursor-color
    (if (or (bound-and-true-p evil-local-mode)
            (bound-and-true-p evil-mode))
@@ -76,10 +77,10 @@
          lunary-yellow)
      doom-blue)))
 
-(when window-system
-  (setq evil-insert-state-cursor 'box))
+(setq evil-insert-state-cursor (list (if window-system 'box 'bar) lunary-white)
+      evil-normal-state-cursor lunary-yellow)
 
-(add-hook 'post-command-hook #'moon-ensure-cursor-color)
+;; (add-hook 'post-command-hook #'moon-ensure-cursor-color)
 (add-hook 'window-configuration-change-hook (lambda () (run-at-time 0.1 nil #'moon-ensure-cursor-color)))
 
 ;; (when window-system
