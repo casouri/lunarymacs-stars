@@ -6,10 +6,6 @@
     "yn" #'aweshell-next
     "yp" #'aweshell-prev
     "yN" #'aweshell-new)
-  (general-define-key
-   :prefix "C-c"
-   :keymaps 'eshell-mode-map
-   "C-h" #'moon/esh-history)
   (moon-cc-leader
     "y" #'moon/toggle-eshell))
 
@@ -33,7 +29,7 @@
 
 
 (use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell")
-  :after eshell
+  :commands (aweshell-new aweshell-next aweshell-prev)
   :config
   (custom-set-faces
    '(epe-dir-face ((t (:foreground "#51afef"))))
@@ -42,7 +38,12 @@
    '(epe-pipeline-host-face ((t (:foreground "#bbc2cf"))))
    '(epe-pipeline-time-face ((t (:foreground "#bbc2cf"))))
    '(epe-pipeline-user-face ((t (:foreground "#bbc2cf"))))
-   ))
+   )
+  (eval-after-load general
+    (general-define-key
+     :prefix "C-c"
+     :keymaps 'eshell-mode-map
+     "C-h" #'moon/esh-history)))
 
 
 
