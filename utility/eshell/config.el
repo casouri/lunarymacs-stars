@@ -39,7 +39,7 @@
    '(epe-pipeline-time-face ((t (:foreground "#bbc2cf"))))
    '(epe-pipeline-user-face ((t (:foreground "#bbc2cf"))))
    )
-  (eval-after-load general
+  (with-eval-after-load 'general
     (general-define-key
      :prefix "C-c"
      :keymaps 'eshell-mode-map
