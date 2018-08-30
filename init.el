@@ -82,6 +82,7 @@
 
 ;; (add-hook 'post-command-hook #'moon-ensure-cursor-color)
 (add-hook 'window-configuration-change-hook (lambda () (run-at-time 0.1 nil #'moon-ensure-cursor-color)))
+(advice-add 'evil-local-mode :after (lambda (&rest _) "Ensure cursor color is correct." (moon-ensure-cursor-color)))
 
 ;; (when window-system
 ;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
