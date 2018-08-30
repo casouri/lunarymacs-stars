@@ -5,7 +5,7 @@
 (defvar moon-evil-mode-list
   '(emacs-lisp-mode python-mode javascript-mode c-mode c++-mode
                     text-mode fundamental-mode common-lisp-mode
-                    lua-mode help-mode)
+                    lua-mode help-mode debugger-mode)
   "Modes in where you want evil enables.")
 
 (defvar moon-non-evil-mode-list
@@ -178,7 +178,7 @@
 
     (general-define-key
      :states 'normal
-     :keymaps 'special-mode
+     :keymaps '(special-mode debugger-mode)
      "q" #'quit-window)
 
     (general-define-key
