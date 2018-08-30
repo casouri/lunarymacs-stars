@@ -1,4 +1,4 @@
-(post-config| general
+ (post-config| general
   (moon-default-leader
     "C-o s" (lambda () "Open in eshell." (interactive) (eshell default-directory))
     "y" '(:ignore t :which-key "Eshell")
@@ -39,13 +39,16 @@
    '(epe-pipeline-time-face ((t (:foreground "#bbc2cf"))))
    '(epe-pipeline-user-face ((t (:foreground "#bbc2cf"))))
    )
-  (with-eval-after-load 'general
-    (general-define-key
-     :prefix "C-c"
-     :keymaps 'eshell-mode-map
-     "C-h" #'moon/esh-history)))
-
-
+  (require 'em-hist)
+  (add-hook
+   'eshell-mode-hook
+   (lambda ()
+     (general-define-key
+      :states 'insert
+      :keymaps 'eshell-mode-map
+      "C-p" #'eshell-previous-matching-input-from-input
+      "C-n" #'eshell-next-matching-input-from-input)
+     )))
 
 ;;; Config
 
