@@ -42,13 +42,15 @@
   (require 'em-hist)
   (add-hook
    'eshell-mode-hook
-   (lambda ()
-     (general-define-key
-      :states 'insert
-      :keymaps 'eshell-mode-map
-      "C-p" #'eshell-previous-matching-input-from-input
-      "C-n" #'eshell-next-matching-input-from-input)
-     )))
+   (with-eval-after-load 'general
+     (with-eval-after-load 'evil
+       (lambda ()
+         (general-define-key
+          :states 'insert
+          :keymaps 'eshell-mode-map
+          "C-p" #'eshell-previous-matching-input-from-input
+          "C-n" #'eshell-next-matching-input-from-input)
+         )))))
 
 ;;; Config
 
