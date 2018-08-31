@@ -3,10 +3,13 @@ alias clear aweshell-clear-buffer
 alias d dired $1
 alias fo find-file-other-window $1
 alias f find-file $1
-alias gs magit-status
-alias ff find-file $1
-alias ac aria2c
-alias la ls -al
-alias dow dired-other-window  $1
-alias fow find-file-other-window $1
-alias cdh cd =
+alias la 'ls -al'
+alias ac 'aria2c'
+alias th # show/hide dotted files in finder
+alias showall="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
+alias hidesome="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
+alias disable-ds-store="defaults write com.apple.desktopservices DSDontWriteNetworkStores true"
+alias enable-ds-store="defaults write com.apple.desktopservices DSDontWriteNetworkStores false"
+alias remove-ds-store="find . -name '.DS_Store' -type f -delete"
+alias ff 'find-file $1'
+alias gs 'magit-status'

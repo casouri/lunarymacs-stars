@@ -1,61 +1,38 @@
 ### ENV
 
-setenv PATH "/usr/local/lib/python3.6:/usr/local/lib/python3.6/site-packages:/System/Library/Frameworks/Python.framework/Versions/2.7:$PATH:/Users/yuan/bin"
+export PATH "/usr/local/lib/python3.6:/usr/local/lib/python3.6/site-packages:/System/Library/Frameworks/Python.framework/Versions/2.7:$PATH:/Users/yuan/bin"
 
 
 # syntax highlighting for cheat
-setenv CHEATCOLORS true
+export CHEATCOLORS true
 
 # If you need to use these commands with their normal names, you
 # can add a "gnubin" directory to your PATH from your bashrc like:
-setenv PATH "/usr/local/opt/make/libexec/gnubin:$PATH"
+export PATH "/usr/local/opt/make/libexec/gnubin:$PATH"
 
 # Additionally, you can access their man pages with normal names if you add
 # the "gnuman" directory to your MANPATH from your bashrc as well:
-setenv MANPATH "/usr/local/opt/make/libexec/gnuman:$MANPATH"
+export MANPATH "/usr/local/opt/make/libexec/gnuman:$MANPATH"
 
 # rust
-setenv PATH "$HOME/.cargo/bin:$PATH"
+export PATH "$HOME/.cargo/bin:$PATH"
 
 # pipenv shell now create .venv under project dir
-setenv PIPENV_VENV_IN_PROJECT true
+export PIPENV_VENV_IN_PROJECT true
 
 # tex support
-setenv PATH "/Library/TeX/texbin/:$PATH"
+export PATH "/Library/TeX/texbin/:$PATH"
 
 # just print everthing and use Emacs as pager
-setenv PAGER cat
-
-# /ssh:/10.52.224.67:blah
-# to: /10.52.224.67:blah
-setq tramp-default-method "ssh"
+export PAGER cat
 
 ### RC
 
 # default editor
-setenv VISUAL emacsclient
-setenv EDITOR $VISUAL
+export VISUAL emacsclient
+export EDITOR $VISUAL
 
 
 # fix python error about locale
-setenv LC_ALL en_US.UTF-8
-setenv LANG en_US.UTF-8
-
-# Alias
-alias ll 'ls -l'
-alias la 'ls -al'
-alias ac 'aria2c'
-alias th 
-
-# show/hide dotted files in finder
-# command+shift+. in Finder do the same
-alias showall="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
-alias hidesome="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
-
-alias disable-ds-store="defaults write com.apple.desktopservices DSDontWriteNetworkStores true"
-alias enable-ds-store="defaults write com.apple.desktopservices DSDontWriteNetworkStores false"
-alias remove-ds-store="find . -name '.DS_Store' -type f -delete"
-
-alias d 'dired $1'
-alias ff 'find-file $1'
-alias gs 'magit-status'
+export LC_ALL en_US.UTF-8
+export LANG en_US.UTF-8

@@ -1,11 +1,16 @@
  (post-config| general
   (moon-default-leader
-    "C-o s" (lambda () "Open in eshell." (interactive) (eshell default-directory))
+    "C-o e" '((lambda ()
+                "Open in eshell."
+                (interactive)
+                (eshell default-directory))
+              :which-key "open-in-eshell")
     "y" '(:ignore t :which-key "Eshell")
     "ys" #'counsel-switch-to-eshell-buffer
     "yn" #'aweshell-next
     "yp" #'aweshell-prev
-    "yN" #'aweshell-new)
+    "yN" #'aweshell-new
+    "Y" #'moon/toggle-eshell)
   (moon-cc-leader
     "y" #'moon/toggle-eshell))
 
@@ -61,6 +66,12 @@
        eshell-mv-interactive-query t
        eshell-rm-interactive-query t
        eshell-mv-overwrite-files nil)
+
+;; /ssh:/10.52.224.67:blah
+;; to: /10.52.224.67:blah
+(setq tramp-default-method "ssh")
+
+
 
 
 ;;;; History
