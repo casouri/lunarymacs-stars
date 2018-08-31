@@ -72,8 +72,6 @@
 (setq tramp-default-method "ssh")
 
 
-
-
 ;;;; History
 
 ;; https://emacs-china.org/t/topic/4579?u=samray
