@@ -7,9 +7,6 @@
     
 ;;;; Edit
 
-(use-package| (evil-moccur :fetcher github :repo "casouri/evil-moccur")
-  :defer 2)
-
 (use-package| expand-region
   :commands er/expand-region)
 
@@ -34,7 +31,7 @@
         undo-tree-visualizer-diff t))
 
 (use-package| hungry-delete
-  :defer 2
+  :commands hungry-delete-backward
   :config
   (global-set-key (kbd "<S-backspace>") #'hungry-delete-backward))
 
@@ -45,7 +42,9 @@
   :commands (recentf counsel-recentf))
 
 (use-package| avy
-  :defer 2
+  :commands (avy-goto-char
+             avy-goto-char-2
+             avy-goto-char-timer)
   :config
   (setq avy-background t)
   (setq avy-all-windows nil))
@@ -70,12 +69,14 @@
   (moon-default-leader "tm" #'minimap-mode))
 
 ;; used for chinese editiing on macOS
-(load| switch-input-mode)
+;; TODO autoload this
+;; (load| switch-input-mode)
 
 
 ;;;; code structure
 
 (use-package| outshine
+  :defer t
   :init
   (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
   (add-hook 'prog-mode-hook 'outline-minor-mode)
@@ -93,7 +94,7 @@
     "o C-o" #'outline-hide-body))
 
 (use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
-  :defer 3)
+  :commands moccur)
 (use-package| (moccur-edit :fetcher url :url "https://www.emacswiki.org/emacs/download/moccur-edit.el")
   :after color-moccur)
 

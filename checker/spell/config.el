@@ -1,7 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package| flyspell
-  :commands moon/toggle-spell-check
   :hook ((fundamenta-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :config
@@ -19,7 +18,7 @@
 
 
 (use-package| flyspell-correct-ivy
-  :after flyspell ivy
+  :after (flyspell ivy)
   :config
   ;; https://www.emacswiki.org/emacs/FlySpell
   (setq flyspell-issue-message-flag nil))

@@ -102,41 +102,13 @@ minor-modes that is usually displayed directly in the mode line."
 
    (minions-mode 1)))
 
+(package| minions)
+
 (use-package| moody
   :config
   (setq moody-slant-function #'moody-slant-apple-rgb)
   (setq x-underline-at-descent-line t)
   (moon/setup-moody))
-
-;;;;
-;;;; Line number
-
-(defvar moon-enable-nlinum-relative nil
-  "Whether to enable relative line number.")
-
-(use-package| nlinum
-  :init 
-  (add-hook 'moon-load-theme-hook #'moon/sync-nlinum-face)
-  (add-hook 'moon-load-theme-hook #'moon/sync-nlinum-highlight-face)
-  (setq nlinum-highlight-current-line t)
-  :config
-  (when moon-enable-nlinum-relative
-    (global-nlinum-mode)
-    (moon/sync-nlinum-face)
-    (moon/sync-nlinum-highlight-face))
-  )
-
-(use-package| nlinum-relative
-  :config
-  (add-hook 'moon-load-theme-hook #'moon/sync-nlinum-relative-current-line-face)
-  (add-hook 'nlinum-relative-mode-hook #'moon/sync-nlinum-relative-current-line-face)
-  (when moon-enable-nlinum-relative
-    (nlinum-relative-setup-evil)
-    (global-nlinum-relative-mode 1)
-    (moon/sync-nlinum-relative-current-line-face)
-    ;; minimun delay makes sure
-    ;; line number doesn't update when scrolling
-    (setq nlinum-relative-redisplay-delay 0.1)))
 
 ;;;;
 ;;;; Misc
@@ -159,7 +131,7 @@ minor-modes that is usually displayed directly in the mode line."
 
 ;; form feed
 (use-package| form-feed
-  :defer 3
+  :commands form-feed-mode
   :config
   (defface form-feed-line
     `((((type graphic)
@@ -169,31 +141,6 @@ minor-modes that is usually displayed directly in the mode line."
       (((type tty)) :inherit font-lock-comment-face :underline t))
     "Face for form-feed-mode lines."
     :group 'form-feed))
-
-
-;; I don't show minor mode
-;; in modeline anymore
-
-;; (use-package| dim
-;;   :after powerline
-;;   :config
-;;   (dim-minor-names
-;;    '((eldoc-mode "" eldoc)
-;;      (auto-revert-mode "" autorevert)
-;;      (visual-line-mode "" simple)
-;;      (evil-escape-mode "" evil-escape)
-;;      (undo-tree-mode "" undo-tree)
-;;      (which-key-mode "" which-key)
-;;      (company-mode " Ⓒ" company)
-;;      (flycheck-mode " ⓕ" flycheck)
-;;      (ivy-mode " ⓘ" ivy)
-;;      (lsp-mode " Ⓛ" lsp)
-;;      (lispyville-mode " ⓟ" lispyville)
-;;      (highlight-parentheses-mode "")
-;;      (counsel-mode "" counsel)
-;;      (flyspell-mode " Ⓢ" flyspell)
-;;      ))
-;;   )
 
 
 ;;;;
@@ -213,22 +160,20 @@ minor-modes that is usually displayed directly in the mode line."
 
 (use-package| eyebrowse
   :commands
-  (
-   eyebrowse-switch-to-window-config-1
+  (eyebrowse-switch-to-window-config-1
    eyebrowse-switch-to-window-config-2
    eyebrowse-switch-to-window-config-3
    eyebrowse-switch-to-window-config-4
    eyebrowse-switch-to-window-config-5
-   eyebrowse-switch-to-window-config-6
-   )
+   eyebrowse-switch-to-window-config-6)
   :config
   (eyebrowse-mode 1)
   ;; default was ", "
-  (setq eyebrowse-mode-line-separator " ")
-  )
+  (setq eyebrowse-mode-line-separator " "))
 
 
 (use-package| winum
+  ;; :defer 2
   :init (setq winum-auto-setup-mode-line nil)
   :config (winum-mode 1))
 
@@ -302,7 +247,7 @@ minor-modes that is usually displayed directly in the mode line."
   (moon-default-leader
     "wr" #'moon/desktop-read))
 
-(add-hook 'moon-post-init-hook #'moon-setup-save-session)
+(add-hook 'moon-startup-hook-2 #'moon-setup-save-session t)
 
 ;; copied from
 ;; https://gist.github.com/syl20bnr/4425094
@@ -345,7 +290,7 @@ and saveing desktop."
 ;;;; Tab
 
 (use-package| nerdtab
-  :defer 2
+  :commands nerdtab-mode
   :config
   (setq nerdtab-window-position 'top)
   (dolist (index (number-sequence 0 9))
@@ -416,12 +361,15 @@ and saveing desktop."
 
 ;; not autoloaded
 (use-package| diff-hl
-  :config
-  (setq diff-hl-draw-borders nil)
+  :defer t
+  :init
   (add-hook 'after-change-major-mode-hook
             (lambda ()
               "Enable `diff-hl-mode' or `diff-hl-margin-mode'."
+              (require 'diff-hl)
               (if window-system
                   (diff-hl-mode)
                 (diff-hl-margin-mode))))
+  :config
+  (setq diff-hl-draw-borders nil)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))

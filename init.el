@@ -1,7 +1,10 @@
 ;;(package-initialize t)
 
-(eval-when-compile
-  (load (concat (expand-file-name user-emacs-directory) "core/core")))
+(defvar moon-setup nil)
+
+(if moon-setup
+    (load (concat (expand-file-name user-emacs-directory) "core/core-setup.el"))
+  (load (concat (expand-file-name user-emacs-directory) "core/core-startup.el")))
 
 (moon| :basic
        ;; non-evil
@@ -47,61 +50,65 @@
 ;; here are all the settings that I might change depends on mood.
 ;; I put them here so I can change them easily
 
-
+(unless moon-setup
 ;;;; max
-(toggle-frame-maximized)
+ (toggle-frame-maximized)
 
 ;;;; Python interpreter
-(setq python-shell-interpreter "/usr/local/bin/python3")
+ (setq python-shell-interpreter "/usr/local/bin/python3")
 
 ;;;; shell
-(setq explicit-shell-file-name "/bin/zsh")
-(setq explicit-zsh-args '("--login"))
-(setenv "SHELL" "zsh")
+ (setq explicit-shell-file-name "/bin/zsh")
+ (setq explicit-zsh-args '("--login"))
+ (setenv "SHELL" "zsh")
 
 ;;;; relative line number
-;; (setq moon-enable-nlinum-relative t)
+ ;; (setq moon-enable-nlinum-relative t)
 
 ;;;; absolute line number
-;; (global-display-line-numbers-mode)
+ ;; (global-display-line-numbers-mode)
 
 ;;;; cursor
 
-(defun moon-ensure-cursor-color ()
-  "Sometimes cursor color \"run around\". This function fixes it."
-  (set-cursor-color
-   (if (or (bound-and-true-p evil-local-mode)
-           (bound-and-true-p evil-mode))
-       (if (equal evil-state 'insert)
-           lunary-white
-         lunary-yellow)
-     doom-blue)))
+ (defun moon-ensure-cursor-color ()
+   "Sometimes cursor color \"run around\". This function fixes it."
+   (set-cursor-color
+    (if (or (bound-and-true-p evil-local-mode)
+            (bound-and-true-p evil-mode))
+        (if (equal evil-state 'insert)
+            lunary-white
+          lunary-yellow)
+      doom-blue)))
 
-(setq evil-insert-state-cursor (list (if window-system 'box 'bar) lunary-white)
-      evil-normal-state-cursor lunary-yellow)
+ (setq evil-insert-state-cursor (list (if window-system 'box 'bar) lunary-white)
+       evil-normal-state-cursor lunary-yellow)
 
-;; (add-hook 'post-command-hook #'moon-ensure-cursor-color)
-(add-hook 'window-configuration-change-hook (lambda () (run-at-time 0.1 nil #'moon-ensure-cursor-color)))
-(advice-add 'evil-local-mode :after (lambda (&rest _) "Ensure cursor color is correct." (moon-ensure-cursor-color)))
+ ;; (add-hook 'post-command-hook #'moon-ensure-cursor-color)
+ (add-hook 'window-configuration-change-hook (lambda () (run-at-time 0.1 nil #'moon-ensure-cursor-color)))
+ (advice-add 'evil-local-mode :after (lambda (&rest _) "Ensure cursor color is correct." (moon-ensure-cursor-color)))
 
-;; (when window-system
-;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
-;; (setq evil-normal-state-cursor lunary-yellow)
+ ;; (when window-system
+ ;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
+ ;; (setq evil-normal-state-cursor lunary-yellow)
 
 ;;;; modifier key mapping
-;; (setq mac-command-modifier 'control)
-;; (setq mac-control-modifier 'super)
-;; (global-set-key (kbd "s-v") #'yank)
-;; (global-set-key (kbd "s-c") #'kill-ring-save)
+ ;; (setq mac-command-modifier 'control)
+ ;; (setq mac-control-modifier 'super)
+ ;; (global-set-key (kbd "s-v") #'yank)
+ ;; (global-set-key (kbd "s-c") #'kill-ring-save)
 
 ;;;; server
-(run-with-idle-timer 2 nil #'server-start)
+ (run-with-idle-timer 2 nil #'server-start)
 
 ;;;; Homepage
-(setq moon-image-moon "moon-200.xpm")
-;; (setq moon-log-news t)
-;; (setq moon-do-draw-footer t)
-;; (setq moon-do-draw-image-moon t)
+ (setq moon-image-moon "moon-200.xpm")
+ ;; (setq moon-log-news t)
+ ;; (setq moon-do-draw-footer t)
+ ;; (setq moon-do-draw-image-moon t)
+
+ (setq use-package-verbose t)
+)
+
 
 ;;
 ;;; Settings to overwrite configs in stars i.e. user-config

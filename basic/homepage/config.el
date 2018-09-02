@@ -205,7 +205,7 @@ MOON is used when buffer's width is less than 86."
 
 
 ;; Homepage
-(add-hook 'moon-init-hook #'moon/draw-homepage t)
-(add-hook 'moon-post-init-hook #'moon-display-benchmark t)
+(add-hook 'moon-startup-hook-1 #'moon/draw-homepage t)
+(add-hook 'moon-startup-hook-2 #'moon-display-benchmark t)
 
 ;; splash screen

@@ -12,7 +12,7 @@
   '(magit-mode)
   "Modes in where you don't want evil enables.")
 
-(add-hook 'moon-post-init-hook (lambda () "Evilfy Messages and Scratch buffer."
+(add-hook 'moon-startup-hook-1 (lambda () "Evilfy Messages and Scratch buffer."
                                  (switch-to-buffer "*Messages*")
                                  (evil-local-mode)
                                  (switch-to-buffer "*scratch*")
@@ -20,11 +20,11 @@
                                  (switch-to-buffer (or moon-homepage-buffer "*scratch*"))))
 
 (use-package| evil
-  :config
-  (evil-local-mode)
+  :commands (evil-mode evil-local-mode)
+  :init
   ;; enabled evil when editing text
   (add-hook 'after-change-major-mode-hook #'moon-smart-evil)
-
+  :config
   ;; fix paste issue in evil visual mode
   ;; http://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
   (fset 'evil-visual-update-x-selection 'ignore)
@@ -105,7 +105,6 @@
 
 (use-package| evil-matchit
   :after evil
-  :defer 2
   :config (evil-matchit-mode))
 
 ;; (use-package| evil-surround
@@ -128,13 +127,12 @@
 ;;   (setq-default evil-escape-key-sequence "<escape>"))
 
 (use-package| evil-ediff
-  :after evil
-  :defer 2
+  :after (ediff-mode (:any evil-local-mode evil-mode))
   :hook (ediff-mode . (lambda () (require 'evil-ediff))))
 
 (use-package| evil-vimish-fold
+  :commands evil-vimish-fold/create
   :after evil
-  :defer 2
   :init (setq vimish-fold-dir (concat moon-local-dir "vimish-fold")))
 
 

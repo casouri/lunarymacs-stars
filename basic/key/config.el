@@ -110,6 +110,8 @@
    "jma" #'moon/jump-to-autoload
    "jmd" #'moon/jump-to-autoload-dir
    "jmr" #'moon/jump-to-readme
+   ;; utility
+   "ud" #'dired
   )
 
   (general-define-key :states '(normal visual)
@@ -141,7 +143,11 @@
   :config (which-key-mode 1))
 
 (use-package| hydra
-  :after general
+  :commands (hydra-error/first-error
+             hydra-error/next-error
+             hydra-error/previous-error
+             hydra-error/previous-error
+             hydra-error/recenter-top-bottom)
   :config
   (defhydra hydra-error ()
     "goto-error"
