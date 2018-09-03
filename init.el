@@ -62,11 +62,6 @@
  (setq explicit-zsh-args '("--login"))
  (setenv "SHELL" "zsh")
 
-;;;; relative line number
- ;; (setq moon-enable-nlinum-relative t)
-
-;;;; absolute line number
- ;; (global-display-line-numbers-mode)
 
 ;;;; cursor
 
@@ -91,12 +86,6 @@
  ;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
  ;; (setq evil-normal-state-cursor lunary-yellow)
 
-;;;; modifier key mapping
- ;; (setq mac-command-modifier 'control)
- ;; (setq mac-control-modifier 'super)
- ;; (global-set-key (kbd "s-v") #'yank)
- ;; (global-set-key (kbd "s-c") #'kill-ring-save)
-
 ;;;; server
  (run-with-idle-timer 2 nil #'server-start)
 
@@ -106,7 +95,7 @@
  ;; (setq moon-do-draw-footer t)
  ;; (setq moon-do-draw-image-moon t)
 
- (setq use-package-verbose t)
+ ;; (setq use-package-verbose t)
 )
 
 
@@ -131,10 +120,6 @@
  ;;;; scroll margin
  (setq scroll-margin 8)
 
- ;;;; hide bad title when using natural title bar in Emacs 26
- ;; (setq  frame-title-format '(" "))
-
-
  ;;;; Font
  ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
  (moon-set-font| :family "SF Mono" :weight 'light :size 13)
@@ -144,17 +129,6 @@
  ;; enabling this makes highlight on buttons blink
  ;; (nyan-start-animation)
 
- ;; it slows down starup, disable for now
- ;;;; company-childframe
- ;; (load (concat moon-emacs-d-dir "star/completion/company/posframe/posframe"))
- ;; (load (concat moon-emacs-d-dir "star/completion/company/company-childframe/company-childframe"))
- ;; (company-childframe-mode 1)
-
- ;; (org-mode)
-
  ;;
  ;;; customize ends here
  )
-
-;;; esup
-;; (moon-finalize)
