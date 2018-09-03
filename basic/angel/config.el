@@ -93,7 +93,9 @@
    
    "C-M-v" #'er/expand-region
    "C-M-p" #'backward-up-list
-   "C-M-n" #'down-list)
+   "C-M-n" #'down-list
+
+   "C-v" #'set-mark-command)
   
   (moon-cx-leader
     "," #'beginning-of-buffer ; as of <
@@ -104,6 +106,17 @@
     "C-c" #'evilnc-comment-and-kill-ring-save))
 
 (use-package| evil-nerd-commeter)
+
+
+;; https://stackoverflow.com/questions/202803/searching-for-marked-selected-text-in-emacs
+(defun moon-isearch-with-region ()
+  "Use region as the isearch text."
+  (when mark-active
+    (let ((region (funcall region-extract-function nil)))
+      (deactivate-mark)
+      (isearch-push-state)
+      (isearch-yank-string region))))
+(add-hook 'isearch-mode-hook #'moon-isearch-with-region)
 
 
 ;;; config.el ends here

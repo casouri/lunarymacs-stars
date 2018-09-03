@@ -12,7 +12,7 @@
     "yN" #'aweshell-new
     "Y" #'moon/toggle-eshell)
   (moon-cx-leader
-    "y" #'moon/toggle-eshell))
+    "C-y" #'moon/toggle-eshell))
 
 (defun moon/toggle-eshell ()
   "Toggle eshell"
