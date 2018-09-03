@@ -57,9 +57,9 @@
     )
   (general-define-key
    :keymaps 'override
-   "C-c C-p" #'counsel-yank-pop
-   "C-c C-m" #'counsel-mark-ring
-   "C-c C-r" #'ivy-resume)
+   "C-x C-p" #'counsel-yank-pop
+   "C-x C-m" #'counsel-mark-ring
+   "C-x C-r" #'ivy-resume)
   )
 
 (use-package| swiper :commands (swiper swiper-all))

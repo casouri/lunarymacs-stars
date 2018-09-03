@@ -76,3 +76,7 @@ This is default to =t=.
 (setq moon-line-number t)
 #+END_SRC
 
+
+* Tips
+
+- =C-c @ C-c= :: toggle hide show block

@@ -11,7 +11,7 @@
     "yp" #'aweshell-prev
     "yN" #'aweshell-new
     "Y" #'moon/toggle-eshell)
-  (moon-cc-leader
+  (moon-cx-leader
     "y" #'moon/toggle-eshell))
 
 (defun moon/toggle-eshell ()

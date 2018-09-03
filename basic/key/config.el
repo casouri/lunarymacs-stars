@@ -22,7 +22,7 @@
     :prefix "C-SPC"))
 
   (general-create-definer moon-global-leader
-    :prefix "S-SPC"
+    :prefix "C-x"
     :keymaps 'override)
 
   (general-create-definer moon-g-leader
@@ -34,6 +34,12 @@
     :state '(normal visual insert emacs jpnb)
     :keymaps 'override
     :prefix "C-c")
+
+    (general-create-definer moon-cx-leader
+    :state '(normal visual insert emacs jpnb)
+    :keymaps 'override
+    :prefix "C-x")
+
 
   (defmacro moon-default-leader (&rest args)
     "Define for both default leader and global leader."
@@ -84,6 +90,7 @@
    ;; quit
    "qq"  #'save-buffers-kill-emacs
    ;; buffer
+   "C-b" #'switch-to-buffer
    "bm"  '((lambda () (interactive) (switch-to-buffer "*Messages*"))
            :which-key "goto message buffer")
    "bd"  #'kill-buffer-and-window

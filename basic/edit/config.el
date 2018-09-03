@@ -32,7 +32,7 @@
 
 (use-package| hungry-delete
   :commands hungry-delete-backward
-  :config
+  :init
   (global-set-key (kbd "<S-backspace>") #'hungry-delete-backward))
 
 ;;;; Navigation
