@@ -225,7 +225,7 @@ else just return the form's return."
                                (:eval (moody-tab "%b"))
                                " "
                                mode-line-modes
-                               (when (bound-and-true-p flycheck-mode)
+                               (when (bound-and-true-p 'flycheck-mode)
                                  (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
                                                                           (flycheck-lighter 'warning "⚠%s")
                                                                           (flycheck-lighter 'info "𝌆%s")) "" "OK") nil 'up)))

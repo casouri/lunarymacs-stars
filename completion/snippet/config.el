@@ -8,7 +8,7 @@
   :config
   (yas-reload-all))
 
-(post-config| company
+(with-eval-after-load 'company
   (setq company-backends
         (mapcar #'company-mode-backend-with-yas company-backends)))
 

@@ -62,7 +62,13 @@
 ;;;;
 ;;;; Mode-line
 
-(post-config| moody
+(package| minions)
+
+(use-package| moody
+  :config
+  (setq moody-slant-function #'moody-slant-apple-rgb)
+  (setq x-underline-at-descent-line t)
+  (moon/setup-moody)
   (use-package minions
     ;; minions need to override mode-line-format
     ;; setted by moon/setup-moody
@@ -97,14 +103,6 @@ minor-modes that is usually displayed directly in the mode line."
                    mode-line-format)))
 
    (minions-mode 1)))
-
-(package| minions)
-
-(use-package| moody
-  :config
-  (setq moody-slant-function #'moody-slant-apple-rgb)
-  (setq x-underline-at-descent-line t)
-  (moon/setup-moody))
 
 ;;;;
 ;;;; Misc
