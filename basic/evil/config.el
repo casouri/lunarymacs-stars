@@ -147,6 +147,8 @@
   (after-load| evil
     (general-define-key
      :states 'normal
+     ;; trying something new here
+     "i" (lambda () (interactive) (evil-local-mode -1))
      "c" (general-key-dispatch 'evil-change
            "s" #'isolate-quick-change
            "S" #'isolate-long-change)

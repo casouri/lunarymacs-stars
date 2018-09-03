@@ -141,9 +141,13 @@
   "Perform `keyboard-escape-quit', if in evil-mode, enter normal state."
   (interactive)
   (keyboard-escape-quit)
-  (when (or (bound-and-true-p evil-mode)
-            (bound-and-true-p evil-local-mode))
-      (evil-force-normal-state)))
+  ;; trying something different
+  ;; (when (or (bound-and-true-p evil-mode)
+  ;;           (bound-and-true-p evil-local-mode))
+  ;;   (evil-force-normal-state))
+  (unless evil-local-mode
+    (evil-local-mode))
+  (evil-force-normal-state))
 
 
 (use-package| which-key
