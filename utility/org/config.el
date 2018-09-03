@@ -36,7 +36,7 @@
 
 
 
-(after-load| org-capture
+(with-eval-after-load 'org-capture
   (setq org-default-notes-file "~/note/index.org")
   (setq org-capture-templates
         (append org-capture-templates

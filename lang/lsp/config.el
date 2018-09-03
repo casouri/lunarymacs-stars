@@ -16,7 +16,7 @@ if under, turn them off.")
     (add-hook 'lsp-after-open-hook #'lsp-enable-imenu)
     (setq lsp-enable-eldoc nil)))
 
-(after-load| lsp-ui-mode
+(with-eval-after-load 'lsp-ui-mode
   (require 'lsp-flycheck))
 
 (use-package| lsp-ui
@@ -53,8 +53,8 @@ if under, turn them off.")
 
 
 (post-config| general
-  (after-load| lsp-mode
-    (after-load| lsp-ui
+  (with-eval-after-load 'lsp-mode
+    (with-eval-after-load 'lsp-ui
       (moon-default-leader
         "lr" #'lsp-ui-peek-find-references
         "ld" #'lsp-ui-peek-find-definitions

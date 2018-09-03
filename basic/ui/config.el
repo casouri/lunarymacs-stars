@@ -16,7 +16,7 @@
   :defer t
   :config
   ;; (set-face-attribute 'company-tooltip-common nil :foreground "#C678DD")
-  (after-load| company (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD"))
+  (with-eval-after-load 'company (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD"))
   ;; (set-face-attribute 'company-preview-common nil :foreground "#C678DD")
   )
 

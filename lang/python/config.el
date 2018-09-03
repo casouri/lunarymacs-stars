@@ -45,7 +45,7 @@
 ;;          "star/lang/python/jpnb-state/jpnb-state.el"))
 
 (post-config| general
-  (after-load| ein
+  (with-eval-after-load 'ein
     (moon-default-leader
       :keymaps '(ein:notebook-mode-map
                  ein:notebook-multilang-mode-map

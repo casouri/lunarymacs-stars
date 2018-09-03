@@ -144,7 +144,7 @@
 ;; Replace some keys
 
 (post-config| general
-  (after-load| evil
+  (with-eval-after-load 'evil
     (general-define-key
      :states 'normal
      ;; ;; trying something new here
