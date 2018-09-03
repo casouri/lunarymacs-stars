@@ -70,13 +70,7 @@
  ;; (setq evil-normal-state-cursor lunary-yellow)
 
 ;;;; server
- (run-with-idle-timer 2 nil #'server-start)
-
-;;;; Homepage
- (setq moon-image-moon "moon-200.xpm")
- ;; (setq moon-log-news t)
- ;; (setq moon-do-draw-footer t)
- ;; (setq moon-do-draw-image-moon t)
+ (run-with-idle-timer 3 nil #'server-start)
 
  ;; (setq use-package-verbose t)
 )
