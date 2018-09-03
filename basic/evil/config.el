@@ -23,7 +23,7 @@
   :commands (evil-mode evil-local-mode)
   :init
   ;; enabled evil when editing text
-  (add-hook 'after-change-major-mode-hook #'moon-smart-evil)
+  ;; (add-hook 'after-change-major-mode-hook #'moon-smart-evil)
   :config
   ;; fix paste issue in evil visual mode
   ;; http://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
@@ -147,8 +147,8 @@
   (after-load| evil
     (general-define-key
      :states 'normal
-     ;; trying something new here
-     "i" (lambda () (interactive) (evil-local-mode -1))
+     ;; ;; trying something new here
+     ;; "i" (lambda () (interactive) (evil-local-mode -1))
      "c" (general-key-dispatch 'evil-change
            "s" #'isolate-quick-change
            "S" #'isolate-long-change)
@@ -214,4 +214,23 @@
       (isearch-push-state)
       (isearch-yank-string region))))
 (add-hook 'isearch-mode-hook #'moon-isearch-with-region)
+
+;;; cursor
+
+(defun moon-ensure-cursor-color ()
+  "Sometimes cursor color \"run around\". This function fixes it."
+  (set-cursor-color
+   (if (or (bound-and-true-p evil-local-mode)
+           (bound-and-true-p evil-mode))
+       (if (equal evil-state 'insert)
+           lunary-white
+         lunary-yellow)
+     doom-blue)))
+
+(setq evil-insert-state-cursor (list (if window-system 'box 'bar) doom-blue)
+      evil-normal-state-cursor lunary-yellow)
+
+;; (add-hook 'post-command-hook #'moon-ensure-cursor-color)
+(add-hook 'window-configuration-change-hook (lambda () (run-at-time 0.1 nil #'moon-ensure-cursor-color)))
+(add-hook 'evil-local-mode-hook #'moon-ensure-cursor-color)
 

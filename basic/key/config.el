@@ -10,19 +10,14 @@
   :config
   (general-override-mode)
 
-  (mve
-   (general-create-definer moon--default-leader
+  (general-create-definer moon--default-leader
     :states '(normal visual insert emacs jpnb)
     :keymaps 'override
     :prefix "SPC"
-    :non-normal-prefix "S-SPC")
-   
-  (general-create-definer moon--default-leader
-    :keymaps 'override
-    :prefix "C-SPC"))
+    :non-normal-prefix "C-SPC")
 
   (general-create-definer moon-global-leader
-    :prefix "C-x"
+    :prefix "C-SPC"
     :keymaps 'override)
 
   (general-create-definer moon-g-leader
@@ -90,7 +85,6 @@
    ;; quit
    "qq"  #'save-buffers-kill-emacs
    ;; buffer
-   "C-b" #'switch-to-buffer
    "bm"  '((lambda () (interactive) (switch-to-buffer "*Messages*"))
            :which-key "goto message buffer")
    "bd"  #'kill-buffer-and-window
@@ -145,8 +139,8 @@
   ;; (when (or (bound-and-true-p evil-mode)
   ;;           (bound-and-true-p evil-local-mode))
   ;;   (evil-force-normal-state))
-  (unless evil-local-mode
-    (evil-local-mode))
+  ;; (unless evil-local-mode
+  ;;   (evil-local-mode))
   (evil-force-normal-state))
 
 

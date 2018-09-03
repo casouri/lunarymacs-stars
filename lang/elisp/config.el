@@ -15,8 +15,8 @@
   (moon-cx-leader
    :keymaps 'emacs-lisp-mode-map
    ;; eval
-   "C-e" '(:ignore t :which-key "eval")
-   "C-e e" #'eval-last-sexp
-   "C-e r" #'eval-region
-   "C-e f" #'eval-defun
-   "C-e b" #'eval-buffer))
+   "e" '(:ignore t :which-key "eval")
+   "ee" #'eval-last-sexp
+   "er" #'eval-region
+   "ef" #'eval-defun
+   "eb" #'eval-buffer))

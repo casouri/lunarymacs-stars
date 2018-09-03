@@ -1,4 +1,4 @@
-;;; con-- Emacs navigation      -*- lexical-binding: t; -*-
+;;; config.el-- Emacs navigation      -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2018  Yuan Fu
 
@@ -52,8 +52,21 @@
   (interactive)
   (last-of '(?\s ?\n ?\t)))
 
+(defun next-space-char ()
+  "Go to next space."
+  (interactive)
+  (next-of '(?\s ?\n ?\t))
+  (forward-char))
+
+(defun last-space-char ()
+  "Go to last space."
+  (interactive)
+  (last-of '(?\s ?\n ?\t))
+  (backward-char))
+
+
 (defvar punc-list '(?` ?` ?! ?@ ?# ?$ ?% ?^ ?& ?* ?\( ?\)
-                       ?- ?_ ?= ?+ ?[ ?] ?{ ?} ?\\ ?| ?\;
+                       ?- ?_ ?= ?+ ?\[ ?\] ?{ ?} ?\\ ?| ?\;
                        ?: ?' ?\" ?, ?< ?. ?> ?/ ??))
 
 (defun next-punc ()
@@ -84,29 +97,75 @@
 
 (post-config| general
   (general-define-key
+   :keymaps 'override
    "C-M-f" #'next-space
-   "M-f" #'next-punc
+   "M-f" #'next-char
    "C-M-b" #'last-space
-   "M-b" #'last-punc
+   "M-b" #'last-char
+
+   "M-y" #'ikill-ring-save
 
    "C-." #'undo-tree-redo
    
    "C-M-v" #'er/expand-region
+   "C-=" #'er/expand-region
    "C-M-p" #'backward-up-list
    "C-M-n" #'down-list
+   "C-M-0" #'forward-sexp ; \)
+   "C-M-9" #'backward-sexp ; ;\(
 
-   "C-v" #'set-mark-command)
+   "C-v" #'set-mark-command
+
+   "M-n" #'moon/scroll-down-reserve-point
+   "M-p" #'moon/scroll-up-reserve-point)
   
   (moon-cx-leader
-    "," #'beginning-of-buffer ; as of <
-    "." #'end-of-buffer ; as of >
-    )
+    "C-," #'beginning-of-buffer ; as of <
+    "C-." #'end-of-buffer ; as of >
+    "M-h" #'mark-whole-buffer
+    "C-q" #'smart-query-edit-mode
+    "C-b" #'switch-to-buffer)
   (moon-default-leader
     "c" #'evilnc-comment-operator
-    "C-c" #'evilnc-comment-and-kill-ring-save))
+    "M-c" #'evilnc-comment-and-kill-ring-save))
 
-(use-package| evil-nerd-commeter)
+(use-package| evil-nerd-commenter
+  :commands (evilnc-comment-and-key-ring-save
+             evilnc-comment-operator))
 
+(defvar smart-query-edit-mode-overlay nil
+  "Overlay of region to be replaced.")
+
+(define-minor-mode smart-query-edit-mode
+  "Edit region and query replace."
+  :lighter "QUERY"
+  (if smart-query-edit-mode
+      (if (not mark-active)
+          (setq smart-query-edit-mode nil)
+        (overlay-put
+         (setq smart-query-edit-mode-from-string
+               (buffer-substring
+                (region-beginning)
+                (region-end))
+               smart-query-edit-mode-overlay
+               (make-overlay (region-beginning)
+                             (region-end)
+                             nil
+                             nil
+                             t))
+         'face '(:inherit highlight)))
+    (overlay-put smart-query-edit-mode-overlay
+                 'face '(:inherit default))
+    (goto-char (overlay-end
+                smart-query-edit-mode-overlay))
+    (query-replace smart-query-edit-mode-from-string
+                   (buffer-substring-no-properties
+                    (overlay-start
+                     smart-query-edit-mode-overlay)
+                    (overlay-end
+                     smart-query-edit-mode-overlay)))
+    (delete-overlay
+     smart-query-edit-mode-overlay)))
 
 ;; https://stackoverflow.com/questions/202803/searching-for-marked-selected-text-in-emacs
 (defun moon-isearch-with-region ()
@@ -116,6 +175,7 @@
       (deactivate-mark)
       (isearch-push-state)
       (isearch-yank-string region))))
+
 (add-hook 'isearch-mode-hook #'moon-isearch-with-region)
 
 
