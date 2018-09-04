@@ -110,6 +110,7 @@
  ;; enabling this makes highlight on buttons blink
  ;; (nyan-start-animation)
 
+ (winner-mode)
  ;;
  ;;; customize ends here
  )
