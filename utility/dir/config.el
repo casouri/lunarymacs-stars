@@ -38,4 +38,5 @@
 (post-config| general
   (general-define-key
    :keymaps 'dired-mode-map
-   "F" #'dired-narrow-fuzzy))
+   "F" #'dired-narrow-fuzzy
+   "b" #'dired-up-directory))
