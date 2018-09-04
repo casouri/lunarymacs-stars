@@ -10,14 +10,13 @@
 - recentf-ext
 - avy
 - minimap
-- bicycle
-- history
 - outshine
 - color-moccur
 - moccur-edit
 
 
 * Commands
+
 
 Normal state:
 
