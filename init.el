@@ -52,28 +52,31 @@
 ;; I put them here so I can change them easily
 
 (unless moon-setup
-;;;; max
- (toggle-frame-maximized)
+  ;;;; max
+  (toggle-frame-maximized)
 
-;;;; Python interpreter
- (setq python-shell-interpreter "/usr/local/bin/python3")
+  ;;;; Python interpreter
+  (setq python-shell-interpreter "/usr/local/bin/python3")
 
-;;;; shell
- (setq explicit-shell-file-name "/bin/zsh")
- (setq explicit-zsh-args '("--login"))
- (setenv "SHELL" "zsh")
+  ;;;; shell
+  (setq explicit-shell-file-name "/bin/zsh")
+  (setq explicit-zsh-args '("--login"))
+  (setenv "SHELL" "zsh")
 
 
 
- ;; (when window-system
- ;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
- ;; (setq evil-normal-state-cursor lunary-yellow)
+  ;; (when window-system
+  ;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
+  ;; (setq evil-normal-state-cursor lunary-yellow)
 
-;;;; server
- (run-with-idle-timer 3 nil #'server-start)
+  ;;;; server
+  (run-with-idle-timer 3 nil #'server-start)
 
- ;; (setq use-package-verbose t)
-)
+  ;;;; Cursor shape
+  ;; (setq-default cursor-type 'bar)
+
+  ;; (setq use-package-verbose t)
+  )
 
 
 ;;
@@ -100,6 +103,7 @@
  ;;;; Font
  ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
  (moon-set-font| :family "SF Mono" :weight 'light :size 13)
+ ;; (moon-set-font| :family "Roboto Mono" :weight 'light :size 13)
 
  ;;;; nyan
  (nyan-mode)
