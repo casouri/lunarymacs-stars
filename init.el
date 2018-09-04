@@ -10,7 +10,7 @@
        ;; non-evil
        homepage
        key
-       evil
+       ;; evil
        angel
        ui
        other
