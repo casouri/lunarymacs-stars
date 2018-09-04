@@ -141,7 +141,8 @@
   ;;   (evil-force-normal-state))
   ;; (unless evil-local-mode
   ;;   (evil-local-mode))
-  (evil-force-normal-state))
+  ;; (evil-force-normal-state)
+  )
 
 
 (use-package| which-key
