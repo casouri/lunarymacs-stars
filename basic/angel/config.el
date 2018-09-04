@@ -29,37 +29,46 @@
 ;;; Code:
 ;;
 
-(defsubst next-of (charset)
-  "Forward until hit char from CHRSET."
+(defsubst next-of (charset &optional stop-charset)
+  "Forward until hit char from CHARSET. Or before a char from STOP-CHARSET."
+  (when stop-charset
+    (while (member (char-after) stop-charset)
+      (forward-char)))
   (while (member (char-after) charset)
     (forward-char))
-  (while (not (member (char-after) charset))
-    (forward-char)))
+  (unless (member (char-after) stop-charset)
+    (while (not (member (char-after) charset))
+      (forward-char))))
 
-(defsubst last-of (charset)
+(defsubst last-of (charset &optional stop-charset)
+  "Backward until hit char from CHARSET. Or before a char from STOP-CHARSET."
+  (when stop-charset
+    (while (member (char-after) stop-charset)
+      (forward-char)))
   (while (member (char-after) charset)
     (backward-char))
-  (while (not (member (char-after) charset))
-    (backward-char)))
+  (unless (member (char-before) stop-charset)
+    (while (not (member (char-before) charset))
+      (backward-char))))
 
 (defun next-space ()
   "Go to next space."
   (interactive)
-  (next-of '(?\s ?\n ?\t)))
+  (next-of '(?\s ?\n ?\t) '(?\( ?\))))
 
 (defun last-space ()
   "Go to last space."
   (interactive)
-  (last-of '(?\s ?\n ?\t)))
+  (last-of '(?\s ?\n ?\t) '(?\( ?\))))
 
 (defun next-space-char ()
-  "Go to next space."
+  "Go to next char after space."
   (interactive)
   (next-of '(?\s ?\n ?\t))
   (forward-char))
 
 (defun last-space-char ()
-  "Go to last space."
+  "Go to last char before space."
   (interactive)
   (last-of '(?\s ?\n ?\t))
   (backward-char))
@@ -88,12 +97,12 @@
 (defun next-char (&optional arg)
   "Go to next character. Do ARG times."
   (interactive "p")
-  (next-of char-list))
+  (next-of char-list '(?\( ?\))))
 
 (defun last-char (&optional arg)
   "Go to next character. Do ARG times."
   (interactive "p")
-  (last-of char-list))
+  (last-of char-list '(?\( ?\))))
 
 (post-config| general
   (general-define-key
@@ -122,11 +131,13 @@
    "M-p" #'moon/scroll-up-reserve-point)
   
   (moon-cx-leader
+    "0"   #'quit-window
     "C-," #'beginning-of-buffer ; as of <
     "C-." #'end-of-buffer ; as of >
     "M-h" #'mark-whole-buffer
     "C-q" #'smart-query-edit-mode
-    "C-b" #'switch-to-buffer)
+    "C-b" #'switch-to-buffer
+    "M-b" #'kill-buffer)
   (moon-default-leader
     "C-c" #'evilnc-comment-operator
     "M-c" #'evilnc-comment-and-kill-ring-save))
