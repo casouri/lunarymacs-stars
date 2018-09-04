@@ -20,3 +20,9 @@
    "er" #'eval-region
    "ef" #'eval-defun
    "eb" #'eval-buffer))
+
+(use-package| aggressive-indent
+  :defer t
+  :init
+  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+  (add-hook 'css-mode-hook #'aggressive-indent-mode))
