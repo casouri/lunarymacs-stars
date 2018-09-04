@@ -23,7 +23,15 @@
              isolate-long-add
              isolate-long-change
              isolate-long-delete))
-
+(post-config| general
+  (moon-default-leader
+    "C-s"     '(:ignore t :which-key "surround")
+    "C-s C-s" #'isolate-quick-add
+    "C-s M-s" #'isolate-quick-add
+    "C-s C-d" #'isolate-quick-delete
+    "C-s M-d" #'isolate-long-delete
+    "C-s C-c" #'isolate-quick-change
+    "C-s M-c" #'isolate-long-change))
 
 (use-package| undo-tree
   :config (global-undo-tree-mode)
@@ -95,7 +103,7 @@
 ;; (use-package| (moccur-edit :fetcher url :url "https://www.emacswiki.org/emacs/download/moccur-edit.el")
 ;;   :after color-moccur)
 
-(use-package| color-rg
+(use-package| (color-rg :fetcher github :repo "manateelazycat/color-rg")
   :init
   (define-key isearch-mode-map (kbd "M-s M-s") 'isearch-toggle-color-rg)
   :commands (isearch-toggle-color-rg
