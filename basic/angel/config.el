@@ -128,7 +128,7 @@
     "C-q" #'smart-query-edit-mode
     "C-b" #'switch-to-buffer)
   (moon-default-leader
-    "c" #'evilnc-comment-operator
+    "C-c" #'evilnc-comment-operator
     "M-c" #'evilnc-comment-and-kill-ring-save))
 
 (use-package| evil-nerd-commenter
