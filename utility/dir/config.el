@@ -38,5 +38,6 @@
 (post-config| general
   (general-define-key
    :keymaps 'dired-mode-map
-   "F" #'dired-narrow-fuzzy
-   "b" #'dired-up-directory))
+   "C-c C-f" #'dired-narrow-fuzzy
+   "b" #'dired-up-directory
+   "q" #'quit-window))
