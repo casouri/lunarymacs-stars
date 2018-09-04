@@ -47,8 +47,6 @@ else just return the form's return."
   "Setup mode-line using moody."
   (interactive)
   (let ((my-mode-line-format '(" "
-                               (:eval (if (bound-and-true-p winum-mode) (winum-get-number-string) ""))
-                               " "
                                (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
                                " %I "
                                (:eval (moon-edit-lighter))
