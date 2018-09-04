@@ -125,23 +125,6 @@
    "s-j" #'windmove-down
    "s-k" #'windmove-up
    "s-l" #'windmove-right)
-
-  (general-define-key
-   :keymaps 'override
-   "<escape>" #'moon/quit-maybe-normal)
-  )
-
-(defun moon/quit-maybe-normal ()
-  "Perform `keyboard-escape-quit', if in evil-mode, enter normal state."
-  (interactive)
-  (keyboard-escape-quit)
-  ;; trying something different
-  ;; (when (or (bound-and-true-p evil-mode)
-  ;;           (bound-and-true-p evil-local-mode))
-  ;;   (evil-force-normal-state))
-  ;; (unless evil-local-mode
-  ;;   (evil-local-mode))
-  ;; (evil-force-normal-state)
   )
 
 

@@ -2,6 +2,14 @@
 
 (setq moon-evil t)
 
+(defun moon/quit-maybe-normal ()
+  "Perform `keyboard-escape-quit', if in evil-mode, enter normal state."
+  (interactive)
+  (keyboard-escape-quit)
+  (unless evil-local-mode
+    (evil-local-mode))
+  (evil-force-normal-state))
+
 (defvar moon-evil-mode-list
   '(emacs-lisp-mode python-mode javascript-mode c-mode c++-mode
                     text-mode fundamental-mode common-lisp-mode
@@ -145,6 +153,10 @@
 
 (post-config| general
   (with-eval-after-load 'evil
+    (general-define-key
+     :keymaps 'override
+     "<escape>" #'moon/quit-maybe-normal)
+    
     (general-define-key
      :states 'normal
      ;; ;; trying something new here
