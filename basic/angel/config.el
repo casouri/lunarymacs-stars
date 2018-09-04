@@ -184,7 +184,7 @@
                              t))
          'face '(:inherit highlight)))
     (overlay-put smart-query-edit-mode-overlay
-                 'face '(:inherit default))
+                 'face '(:inherit region))
     (goto-char (overlay-end
                 smart-query-edit-mode-overlay))
     (query-replace smart-query-edit-mode-from-string
