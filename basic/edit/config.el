@@ -90,10 +90,19 @@
     "o s" #'outline-show-all
     "o h" #'outline-hide-body))
 
-(use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
-  :commands moccur)
-(use-package| (moccur-edit :fetcher url :url "https://www.emacswiki.org/emacs/download/moccur-edit.el")
-  :after color-moccur)
+;; (use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
+;;   :commands moccur)
+;; (use-package| (moccur-edit :fetcher url :url "https://www.emacswiki.org/emacs/download/moccur-edit.el")
+;;   :after color-moccur)
+
+(use-package| color-rg
+  :init
+  (define-key isearch-mode-map (kbd "M-s M-s") 'isearch-toggle-color-rg)
+  :commands (isearch-toggle-color-rg
+             color-rg-search-input
+             color-rg-search-symbol
+             color-rg-search-project
+             color-rg-search-project-rails))
 
 
 ;;;
