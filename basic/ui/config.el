@@ -147,10 +147,10 @@ minor-modes that is usually displayed directly in the mode line."
    buf-move-left
    buf-move-right))
 
-(global-set-key (kbd "C-x C-h") #'buf-move-left)
-(global-set-key (kbd "C-x C-l") #'buf-move-right)
-(global-set-key (kbd "C-x C-j") #'buf-move-down)
-(global-set-key (kbd "C-x C-k") #'buf-move-up)
+(global-set-key (kbd "C-x M-h") #'buf-move-left)
+(global-set-key (kbd "C-x M-l") #'buf-move-right)
+(global-set-key (kbd "C-x M-j") #'buf-move-down)
+(global-set-key (kbd "C-x M-k") #'buf-move-up)
 
 (use-package| eyebrowse
   :commands
