@@ -103,7 +103,9 @@
    "C-M-b" #'last-space
    "M-b" #'last-char
 
-   "M-y" #'ikill-ring-save
+   "C-y" #'kill-region
+   "M-y" #'kill-ring-save
+   "s-y" #'yank
 
    "C-." #'undo-tree-redo
    
