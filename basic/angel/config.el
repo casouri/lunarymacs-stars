@@ -92,7 +92,8 @@
                        ?U ?u ?I ?i ?O ?o ?P ?p ?A ?a ?S
                        ?s ?D ?d ?F ?f ?G ?g ?H ?h ?J ?j
                        ?K ?k ?L ?l ?Z ?z ?X ?x ?C ?c ?V
-                       ?v ?B ?b ?N ?n ?M ?m))
+                       ?v ?B ?b ?N ?n ?M ?m ?1 ?2 ?3 ?4
+                       ?5 ?6 ?7 ?8 ?9 ?0))
 
 (defun next-char (&optional arg)
   "Go to next character. Do ARG times."
@@ -103,6 +104,13 @@
   "Go to next character. Do ARG times."
   (interactive "p")
   (last-of char-list '(?\( ?\))))
+
+(defun select-line ()
+  "Select whole line."
+  (interactive)
+  (beginning-of-line)
+  (set-mark-command nil)
+  (end-of-line))
 
 (post-config| general
   (general-define-key
@@ -118,7 +126,7 @@
 
    "C-." #'undo-tree-redo
    
-   "C-M-v" #'er/expand-region
+   "M-v" #'select-line
    "C-=" #'er/expand-region
    "C-M-p" #'backward-up-list
    "C-M-n" #'down-list
