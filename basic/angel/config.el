@@ -43,9 +43,9 @@
 (defsubst last-of (charset &optional stop-charset)
   "Backward until hit char from CHARSET. Or before a char from STOP-CHARSET."
   (when stop-charset
-    (while (member (char-after) stop-charset)
-      (forward-char)))
-  (while (member (char-after) charset)
+    (while (member (char-before) stop-charset)
+      (backward-char)))
+  (while (member (char-before) charset)
     (backward-char))
   (unless (member (char-before) stop-charset)
     (while (not (member (char-before) charset))
@@ -114,7 +114,7 @@
 
 (post-config| general
   (general-define-key
-   :keymaps 'override
+   "C-;" #'execute-extended-command
    "C-M-f" #'next-space
    "M-f" #'next-char
    "C-M-b" #'last-space
@@ -145,7 +145,12 @@
     "M-h" #'mark-whole-buffer
     "C-q" #'smart-query-edit-mode
     "C-b" #'switch-to-buffer
-    "M-b" #'kill-buffer)
+    "M-b" (lambda (arg)
+            (interactive "p")
+            (if (>= arg 0)
+                (kill-buffer (current-buffer))
+              (kill-buffer-and-window (current-buffer)))))
+  
   (moon-default-leader
     "C-c" #'evilnc-comment-operator
     "M-c" #'evilnc-comment-and-kill-ring-save))
@@ -153,6 +158,9 @@
 (use-package| evil-nerd-commenter
   :commands (evilnc-comment-and-key-ring-save
              evilnc-comment-operator))
+
+(defvar query-replace+-buffer nil
+  "The buffer you want to replace in.")
 
 (defvar smart-query-edit-mode-overlay nil
   "Overlay of region to be replaced.")
