@@ -86,12 +86,9 @@
   (moon-default-leader
     :keymaps 'outline-minor-mode-map
     "o" '(:ignore t :which-key "outline")
-    "os"    #'outline-show-entry
-    "oh"    #'outline-hide-entry
-    "o M-b" #'outline-show-entry
-    "o C-b" #'outline-hide-entry
-    "o M-o" #'outline-show-all
-    "o C-o" #'outline-hide-body))
+    "o<tab>" #'outline-toggle-children
+    "o s" #'outline-show-all
+    "o h" #'outline-hide-body))
 
 (use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
   :commands moccur)
