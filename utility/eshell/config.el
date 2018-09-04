@@ -50,12 +50,16 @@
    (with-eval-after-load 'general
      (with-eval-after-load 'evil
        (lambda ()
-         (general-define-key
-          :states 'insert
-          :keymaps 'eshell-mode-map
-          "C-p" #'eshell-previous-matching-input-from-input
-          "C-n" #'eshell-next-matching-input-from-input)
-         )))))
+         (mve
+          (general-define-key
+           :states 'insert
+           :keymaps 'eshell-mode-map
+           "C-p" #'eshell-previous-matching-input-from-input
+           "C-n" #'eshell-next-matching-input-from-input)
+          (general-define-key
+           :keymaps 'eshell-mode-map
+           "M-p" #'eshell-previous-matching-input-from-input
+           "M-n" #'eshell-next-matching-input-from-input)))))))
 
 ;;; Config
 
