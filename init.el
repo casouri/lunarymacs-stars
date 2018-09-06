@@ -23,6 +23,7 @@
        :os
        mac
        :utility
+       other
        eshell
        tex
        dir
@@ -33,6 +34,7 @@
        syntax
        spell
        :lang
+       common-lisp
        cc
        lsp
        python
