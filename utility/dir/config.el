@@ -40,4 +40,8 @@
    :keymaps 'dired-mode-map
    "C-c C-f" #'dired-narrow-fuzzy
    "b" #'dired-up-directory
-   "q" #'quit-window))
+   "q" #'quit-window
+   "j" #'next-line
+   "k" #'previous-line
+   "h" #'dired-up-directory
+   "l" #'dired-find-file))
