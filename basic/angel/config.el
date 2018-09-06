@@ -114,29 +114,43 @@
 
 (post-config| general
   (general-define-key
-   "C-;" #'execute-extended-command
+   :keymaps 'override
+   "C-,"   #'switch-to-buffer
+   "C-'"   #'execute-extended-command
    "C-M-f" #'next-space
-   "M-f" #'next-char
+   "M-f"   #'next-char
    "C-M-b" #'last-space
-   "M-b" #'last-char
+   "M-b"   #'last-char
+   "C-M-g" #'end-of-buffer
+   "s-g"   #'beginning-of-buffer
 
-   "C-y" #'kill-region
-   "M-y" #'kill-ring-save
-   "s-y" #'yank
+   "C-y"   #'kill-region
+   "M-y"   #'kill-ring-save
+   "s-y"   #'yank
 
-   "C-." #'undo-tree-redo
+   "C-."   #'undo-tree-redo
    
-   "M-v" #'select-line
-   "C-=" #'er/expand-region
+   "M-v"   #'select-line
+   "C-="   #'er/expand-region
    "C-M-p" #'backward-up-list
    "C-M-n" #'down-list
    "C-M-0" #'forward-sexp ; \)
    "C-M-9" #'backward-sexp ; ;\(
 
-   "C-v" #'set-mark-command
+   "C-v"   #'set-mark-command
 
-   "M-n" #'moon/scroll-down-reserve-point
-   "M-p" #'moon/scroll-up-reserve-point)
+   "M-n"   #'moon/scroll-down-reserve-point
+   "M-p"   #'moon/scroll-up-reserve-point
+
+   ;; "C-h" (general-simulate-key "C-b")
+   ;; "C-l" (general-simulate-key "C-f")
+   ;; "C-j" (general-simulate-key "C-n")
+   ;; "C-k" (general-simulate-key "C-p")
+   ;; "M-h" (general-simulate-key "M-b")
+   ;; "M-l" (general-simulate-key "M-f")
+   ;; "M-j" (general-simulate-key "M-n")
+   ;; "M-k" (general-simulate-key "M-p")
+   )
   
   (moon-cx-leader
     "0"   #'quit-window
