@@ -13,3 +13,5 @@ alias showall="defaults write com.apple.finder AppleShowAllFiles YES; killall Fi
 alias th # show/hide dotted files in finder
 alias ac 'aria2c'
 alias la 'ls -al'
+alias up eshell-up $1
+alias pk eshell-up-peek $1
