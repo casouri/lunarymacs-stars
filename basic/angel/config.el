@@ -121,8 +121,8 @@
    "M-f"   #'next-char
    "C-M-b" #'last-space
    "M-b"   #'last-char
-   "C-M-g" #'end-of-buffer
-   "s-g"   #'beginning-of-buffer
+   "s-g"   #'end-of-buffer
+   "C-M-g" #'beginning-of-buffer
 
    "C-y"   #'kill-region
    "M-y"   #'kill-ring-save
