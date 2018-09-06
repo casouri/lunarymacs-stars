@@ -47,20 +47,23 @@
   (require 'em-hist)
   (add-hook
    'eshell-mode-hook
-   (with-eval-after-load 'general
-     (with-eval-after-load 'evil
-       (lambda ()
-         (mve
-          (general-define-key
-           :states 'insert
-           :keymaps 'eshell-mode-map
-           "C-p" #'eshell-previous-matching-input-from-input
-           "C-n" #'eshell-next-matching-input-from-input)
-          (general-define-key
-           :keymaps 'eshell-mode-map
-           "M-p" #'eshell-previous-matching-input-from-input
-           "M-n" #'eshell-next-matching-input-from-input)))))))
+   (lambda ()
+     (with-eval-after-load 'general
+       (with-eval-after-load 'evil
+         (lambda ()
+           (mve
+            (general-define-key
+             :states 'insert
+             :keymaps 'eshell-mode-map
+             "C-p" #'eshell-previous-matching-input-from-input
+             "C-n" #'eshell-next-matching-input-from-input)
+            (general-define-key
+             :keymaps 'eshell-mode-map
+             "M-p" #'eshell-previous-matching-input-from-input
+             "M-n" #'eshell-next-matching-input-from-input))))))))
 
+(use-package| eshell-up
+  :after aweshell)
 ;;; Config
 
 (setq eshell-directory-name (concat moon-star-dir "utility/eshell/"))
