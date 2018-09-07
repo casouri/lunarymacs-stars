@@ -69,7 +69,7 @@
   (with-eval-after-load 'evil
     (defun moon-override-yank-pop (&optional arg)
       "Delete the region before inserting poped string."
-      (when (and (or evil-mode evil-local-mode) (eq 'visual evil-state))
+      (when (region-active-p)
         (kill-region (region-beginning) (region-end))))
     (advice-add 'counsel-yank-pop :before #'moon-override-yank-pop))
   :commands (counsel-ag counsel-rg counsel-pt

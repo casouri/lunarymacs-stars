@@ -114,6 +114,14 @@
 
 (post-config| general
   (general-define-key
+   "M-n"   #'moon/scroll-down-reserve-point
+   "M-p"   #'moon/scroll-up-reserve-point)
+
+  (general-define-key
+   :keymas minibuffer-local-map
+   "C-<return>" #'newline)
+  
+  (general-define-key
    :keymaps 'override
    "C-,"   #'switch-to-buffer
    "C-'"   #'execute-extended-command
@@ -136,11 +144,8 @@
    "C-M-n" #'down-list
    "C-M-0" #'forward-sexp ; \)
    "C-M-9" #'backward-sexp ; ;\(
-
+   
    "C-v"   #'set-mark-command
-
-   "M-n"   #'moon/scroll-down-reserve-point
-   "M-p"   #'moon/scroll-up-reserve-point
 
    ;; "C-h" (general-simulate-key "C-b")
    ;; "C-l" (general-simulate-key "C-f")
@@ -153,6 +158,7 @@
    )
   
   (moon-cx-leader
+    "C-v" #'cua-rectangle-mark-mode
     "0"   #'quit-window
     "C-," #'beginning-of-buffer ; as of <
     "C-." #'end-of-buffer ; as of >
@@ -168,6 +174,7 @@
   (moon-default-leader
     "C-c" #'evilnc-comment-operator
     "M-c" #'evilnc-comment-and-kill-ring-save))
+
 
 (use-package| evil-nerd-commenter
   :commands (evilnc-comment-and-key-ring-save
@@ -221,5 +228,29 @@
 
 (add-hook 'isearch-mode-hook #'moon-isearch-with-region)
 
+;;;; transient map in region
+(defun activate-mark-hook@set-transient-map ()
+  (set-transient-map
+   (let ((map (make-sparse-keymap)))
+     (define-key map "p" #'(lambda (b e) (delete-region b e) (yank)))
+     (define-key map "C-p" #'counsel-yank-pop)
+     (define-key map "q" #'keyboard-quit)
+     (define-key map ";" #'evilnc-comment-operator)
+     (define-key map "M-;" #'evilnc-comment-and-kill-ring-save)
+     (define-key map "y" #'kill-ring-save)
+     (define-key map "s" #'isolate-quick-add)
+     (define-key map "S" #'isolate-long-add)
+     (define-key map "d" #'isolate-quick-delete)
+     (define-key map "D" #'isolate-long-delete)
+     (define-key map "c" #'isolate-quick-change)
+     (define-key map "C" #'isolate-long-change)
+     (define-key map "Y" (lambda (b e)
+                           (interactive "r")
+                           (kill-new (buffer-substring b e))
+                           (message "Region saved")))
+     map)
+   #'region-active-p))
+
+(add-hook 'activate-mark-hook #'activate-mark-hook@set-transient-map)
 
 ;;; config.el ends here
