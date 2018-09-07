@@ -180,8 +180,6 @@
   :commands (evilnc-comment-and-key-ring-save
              evilnc-comment-operator))
 
-(defvar query-replace+-buffer nil
-  "The buffer you want to replace in.")
 
 (defvar smart-query-edit-mode-overlay nil
   "Overlay of region to be replaced.")
