@@ -64,8 +64,10 @@
   (setq explicit-shell-file-name "/bin/zsh")
   (setq explicit-zsh-args '("--login"))
   (setenv "SHELL" "zsh")
-
-
+  
+  ;; (setq mac-command-modifier 'control
+  ;; mac-function-modifier 'meta
+  ;; mac-control-modifier 'super)
 
   ;; (when window-system
   ;;   (setq evil-insert-state-cursor `(box ,lunary-white)))
@@ -106,6 +108,17 @@
  ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
  (moon-set-font| :family "SF Mono" :weight 'light :size 13)
  ;; (moon-set-font| :family "Roboto Mono" :weight 'light :size 13)
+ (dolist (charset '(kana han symbol cjk-misc bopomofo))
+   (set-fontset-font (frame-parameter nil 'font)
+                     charset (font-spec :family "FZQingKeBenYueSongS-R-GB"
+                                        :size 16)))
+ ;; WenYue GuDianMingChaoTi
+ ;; WenYue XHGuYaSong (Non-Commercial Use)
+ ;; WenyueType GutiFangsong (Non-Commercial Use)
+ ;; SiaoyiWangMingBold
+ ;; FZQingKeBenYueSongS-R-GB
+ ;; FZSongKeBenXiuKaiS-R-GB
+ ;; 中文中文
 
  ;;;; nyan
  (nyan-mode)
