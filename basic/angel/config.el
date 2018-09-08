@@ -230,7 +230,7 @@
 (defun activate-mark-hook@set-transient-map ()
   (set-transient-map
    (let ((map (make-sparse-keymap)))
-     (define-key map "p" #'(lambda (b e) (delete-region b e) (yank)))
+     (define-key map "p" (lambda (b e) (interactive "r") (delete-region b e) (yank)))
      (define-key map "C-p" #'counsel-yank-pop)
      (define-key map "q" #'keyboard-quit)
      (define-key map ";" #'evilnc-comment-operator)
