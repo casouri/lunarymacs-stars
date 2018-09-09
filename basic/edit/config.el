@@ -4,8 +4,11 @@
 ;;; Package
 ;;
 
-    
+
 ;;;; Edit
+
+(use-package| (camelsnake-mode :fetcher github :repo "casouri/camelsnake-mode")
+  :commands camelsnake-mode)
 
 (use-package| expand-region
   :commands er/expand-region)
@@ -92,11 +95,10 @@
 
 (post-config| general
   (moon-default-leader
-    :keymaps 'outline-minor-mode-map
     "o" '(:ignore t :which-key "outline")
-    "o<tab>" #'outline-toggle-children
-    "o s" #'outline-show-all
-    "o h" #'outline-hide-body))
+    "o <tab>" #'outline-toggle-children
+    "os" #'outline-show-all
+    "oh" #'outline-hide-body))
 
 ;; (use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
 ;;   :commands moccur)
