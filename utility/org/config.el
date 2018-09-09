@@ -17,6 +17,11 @@
     '((shell . t)))
    ))
 
+;; (add-hook 'org-mode-hook
+;;           (lambda ()
+;;             (setq buffer-face-mode-face '(:family "Courier New" :height 150))
+;;             (buffer-face-mode)))
+
 (use-package| toc-org
   :commands (toc-org-enable
              toc-org-insert-toc))
