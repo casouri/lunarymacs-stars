@@ -124,7 +124,7 @@
   (general-define-key
    :keymaps 'override
    "C-,"   #'switch-to-buffer
-   "C-'"   #'execute-extended-command
+   "C-'"   #'avy-goto-char
    "C-M-f" #'next-space
    "M-f"   #'next-char
    "C-M-b" #'last-space
