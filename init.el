@@ -96,7 +96,7 @@
  ;; (setq moon-toggle-theme-list '(spacemacs-dark spacemacs-light))
 
  ;;;; theme
- (require 'atom-one-dark-theme)
+ ;; (require 'atom-one-dark-theme)
  (require 'doom-themes)
  (load-theme 'doom-one t)
 
