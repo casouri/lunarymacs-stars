@@ -16,6 +16,7 @@
     'org-babel-load-languages
     '((shell . t)))
    ))
+(add-hook 'org-mode-hook #'flyspell-mode)
 
 ;; (add-hook 'org-mode-hook
 ;;           (lambda ()
@@ -26,6 +27,8 @@
   :commands (toc-org-enable
              toc-org-insert-toc))
 
+(use-package| htmlize
+  :after org-mode)
 ;;
 ;; Config
 ;;
