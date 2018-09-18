@@ -54,6 +54,9 @@
 ;; I put them here so I can change them easily
 
 (unless moon-setup
+
+  ;;;; email
+  (setq user-mail-address "casouri@gmail.com")
   ;;;; max
   (toggle-frame-maximized)
 
