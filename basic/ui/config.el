@@ -44,6 +44,9 @@
 (use-package| rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package| poet-theme
+  :defer t)
+
 (use-package| rainbow-mode
   :commands rainbow-mode)
 
