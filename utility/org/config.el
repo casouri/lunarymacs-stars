@@ -28,7 +28,9 @@
              toc-org-insert-toc))
 
 (use-package| htmlize
-  :after org-mode)
+  :commands
+  org-html-export-to-html
+  org-html-export-as-html)
 ;;
 ;; Config
 ;;
