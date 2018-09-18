@@ -29,6 +29,8 @@
 ;;; Code:
 ;;
 
+;;; Navigation
+
 (defsubst next-of (charset &optional stop-charset)
   "Forward until hit char from CHARSET. Or before a char from STOP-CHARSET."
   (when stop-charset
@@ -112,6 +114,8 @@
   (set-mark-command nil)
   (end-of-line))
 
+;;; Keys
+
 (post-config| general
   (general-define-key
    "M-n"   #'moon/scroll-down-reserve-point
@@ -124,16 +128,15 @@
   (general-define-key
    :keymaps 'override
    "C-,"   #'switch-to-buffer
-   "C-'"   #'avy-goto-char
+   "C-'"   #'jump-char-forward
+   "M-'"   #'avy-goto-char
    "C-M-f" #'next-space
    "M-f"   #'next-char
    "C-M-b" #'last-space
    "M-b"   #'last-char
-   "s-g"   #'end-of-buffer
-   "C-M-g" #'beginning-of-buffer
 
-   "C-y"   #'kill-region
-   "M-y"   #'kill-ring-save
+   "M-y"   #'kill-region
+   "C-y"   #'kill-ring-save
    "s-y"   #'yank
 
    "C-."   #'undo-tree-redo
@@ -162,24 +165,25 @@
     "0"   #'quit-window
     "C-," #'beginning-of-buffer ; as of <
     "C-." #'end-of-buffer ; as of >
-    "M-h" #'mark-whole-buffer
     "C-q" #'smart-query-edit-mode
     "C-b" #'switch-to-buffer
     "M-b" (lambda (arg)
             (interactive "p")
             (if (>= arg 0)
                 (kill-buffer (current-buffer))
-              (kill-buffer-and-window (current-buffer)))))
-  
-  (moon-default-leader
-    "C-c" #'evilnc-comment-operator
-    "M-c" #'evilnc-comment-and-kill-ring-save))
+              (kill-buffer-and-window (current-buffer))))
+    "C-;" #'goto-last-change
+    "M-;" #'goto-last-change-reverse))
 
 
 (use-package| evil-nerd-commenter
   :commands (evilnc-comment-and-key-ring-save
              evilnc-comment-operator))
 
+
+;;; Improvement
+
+;;;; Smart query replace
 
 (defvar smart-query-edit-mode-overlay nil
   "Overlay of region to be replaced.")
@@ -215,6 +219,8 @@
     (delete-overlay
      smart-query-edit-mode-overlay)))
 
+;;;; Better isearch
+
 ;; https://stackoverflow.com/questions/202803/searching-for-marked-selected-text-in-emacs
 (defun moon-isearch-with-region ()
   "Use region as the isearch text."
@@ -227,28 +233,57 @@
 (add-hook 'isearch-mode-hook #'moon-isearch-with-region)
 
 ;;;; transient map in region
+
 (defun activate-mark-hook@set-transient-map ()
   (set-transient-map
-   (let ((map (make-sparse-keymap)))
+   (let ((map (make-sparse-keymap))
+         (inner-map (make-sparse-keymap))
+         (outer-map (make-sparse-keymap)))
+     ;; operations
      (define-key map "p" (lambda (b e) (interactive "r") (delete-region b e) (yank)))
-     (define-key map "C-p" #'counsel-yank-pop)
+     (define-key map (kbd "C-p") #'counsel-yank-pop)
      (define-key map "q" #'keyboard-quit)
+     (define-key map "x" #'exchange-point-and-mark)
      (define-key map ";" #'evilnc-comment-operator)
-     (define-key map "M-;" #'evilnc-comment-and-kill-ring-save)
+     (define-key map (kbd "M-;") #'evilnc-comment-and-kill-ring-save)
      (define-key map "y" #'kill-ring-save)
+     (define-key map (kbd "C-y") #'kill-ring-save)
+     (define-key map "Y" (lambda (b e)
+                           (interactive "r")
+                           (kill-new (buffer-substring b e))
+                           (message "Region saved")))
+
+     ;; isolate
      (define-key map "s" #'isolate-quick-add)
      (define-key map "S" #'isolate-long-add)
      (define-key map "d" #'isolate-quick-delete)
      (define-key map "D" #'isolate-long-delete)
      (define-key map "c" #'isolate-quick-change)
      (define-key map "C" #'isolate-long-change)
-     (define-key map "Y" (lambda (b e)
-                           (interactive "r")
-                           (kill-new (buffer-substring b e))
-                           (message "Region saved")))
+     ;; mark things
+     (define-key map "f" #'er/mark-defun)
+     (define-key map "w" #'er/mark-word)
+     (define-key map "W" #'er/mark-symbol)
+     (define-key map "P" #'mark-paragraph)
+     ;; inner & outer
+     (define-key map "i" inner-map)
+     (define-key map "a" outer-map)
+     (define-key inner-map "q" #'er/mark-inside-quotes)
+     (define-key outer-map "q" #'er/mark-outside-quotes)
+     (define-key inner-map "b" #'er/mark-inside-pairs)
+     (define-key outer-map "b" #'er/mark-outside-pairs)
+     ;; expand-region
+     (define-key map (kbd "C--") #'er/contract-region)
+     (define-key map (kbd "C-=") #'er/expand-region)
      map)
    #'region-active-p))
 
 (add-hook 'activate-mark-hook #'activate-mark-hook@set-transient-map)
+
+;;;; jump char
+
+(use-package| (jump-char :fetcher github :repo lewang/jump-char)
+  :commands jump-char-forward)
+
 
 ;;; config.el ends here
