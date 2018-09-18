@@ -252,7 +252,6 @@
                            (interactive "r")
                            (kill-new (buffer-substring b e))
                            (message "Region saved")))
-
      ;; isolate
      (define-key map "s" #'isolate-quick-add)
      (define-key map "S" #'isolate-long-add)
@@ -275,8 +274,7 @@
      ;; expand-region
      (define-key map (kbd "C--") #'er/contract-region)
      (define-key map (kbd "C-=") #'er/expand-region)
-     map)
-   #'region-active-p))
+     map)))
 
 (add-hook 'activate-mark-hook #'activate-mark-hook@set-transient-map)
 
