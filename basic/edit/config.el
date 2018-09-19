@@ -1,8 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
-;;
 ;;; Package
-;;
 
 
 ;;;; Edit
@@ -115,11 +113,8 @@
              color-rg-search-project-rails))
 
 
-;;;
 ;;; Config
-;;;
 
-;;;;
 ;;;; Default
 
 (electric-pair-mode 1)
@@ -154,7 +149,7 @@
 
 
 
-;;;;
+
 ;;;; Fix
 
 (defun moon/return-cancel-completion ()
