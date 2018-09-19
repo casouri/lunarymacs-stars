@@ -33,7 +33,7 @@
             :action #'ivy-completion-in-region-action))
 
 
-(use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell")
+(use-package| (aweshell :fetcher github :repo "casouri/aweshell")
   :commands (aweshell-new aweshell-next aweshell-prev)
   :config
   (custom-set-faces
