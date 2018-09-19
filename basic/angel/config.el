@@ -96,8 +96,8 @@
 
 (post-config| general
   (general-define-key
-   "M-n"   #'moon/scroll-down-reserve-point
-   "M-p"   #'moon/scroll-up-reserve-point)
+   "s-n"   #'moon/scroll-down-reserve-point
+   "s-p"   #'moon/scroll-up-reserve-point)
 
   (general-define-key
    :keymas minibuffer-local-map
@@ -152,12 +152,6 @@
               (kill-buffer-and-window (current-buffer))))
     "C-;" #'goto-last-change
     "M-;" #'goto-last-change-reverse))
-
-
-(use-package| evil-nerd-commenter
-  :commands (evilnc-comment-and-key-ring-save
-             evilnc-comment-operator))
-
 
 ;;; Improvement
 
@@ -220,6 +214,7 @@
 
 (defmacro transient-eval-and-exit (arg &rest body)
   "Return a function that takes ARG and eval BODY and call `transient-map-exit-func'."
+  (declare (indent defun))
   `(lambda ,arg ,@body (funcall transient-map-exit-func)))
 
 (defun activate-mark-hook@set-transient-map ()
@@ -229,18 +224,24 @@
                (inner-map (make-sparse-keymap))
                (outer-map (make-sparse-keymap)))
            ;; operations
-           (define-key map "p" (transient-eval-and-exit (b e) (interactive "r") (delete-region b e) (yank)))
-           (define-key map (kbd "M-p") (transient-eval-and-exit (interactive) (counsel-yank-pop)))
+           (define-key map "p" (transient-eval-and-exit (b e)
+                                 (interactive "r") (delete-region b e) (yank)))
+           (define-key map (kbd "M-p") (transient-eval-and-exit
+                                         (interactive) (counsel-yank-pop)))
            (define-key map "x" #'exchange-point-and-mark)
-           (define-key map ";" (transient-eval-and-exit () (interactive) (evilnc-comment-operator)))
-           (define-key map (kbd "M-;") #'evilnc-comment-and-kill-ring-save)
-           (define-key map "y" (transient-eval-and-exit (beg end) (interactive "r") (kill-ring-save beg end)))
-           (define-key map (kbd "C-y") (transient-eval-and-exit kill-ring-save))
+           (define-key map ";" (transient-eval-and-exit (arg)
+                                 (interactive "*P") (comment-dwim arg)))
+           (define-key map "y" (transient-eval-and-exit (beg end)
+                                 (interactive "r") (kill-ring-save beg end)))
+           (define-key map (kbd "C-y") (transient-eval-and-exit (beg end &optional region)
+                                         (interactive (list (mark) (point)
+	                                                    (prefix-numeric-value current-prefix-arg)))
+                                         (kill-ring-save beg end region)))
            (define-key map "Y" (transient-eval-and-exit
-                                (b e)
-                                (interactive "r")
-                                (kill-new (buffer-substring b e))
-                                (message "Region saved")))
+                                 (b e)
+                                 (interactive "r")
+                                 (kill-new (buffer-substring b e))
+                                 (message "Region saved")))
            ;; isolate
            (define-key map "s" #'isolate-quick-add)
            (define-key map "S" #'isolate-long-add)
