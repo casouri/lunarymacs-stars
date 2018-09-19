@@ -126,11 +126,6 @@ minor-modes that is usually displayed directly in the mode line."
                '("TOTEST" . "#d0bf8f"))
   (global-hl-todo-mode))
 
-(post-config| general
-  (moon-default-leader
-    "tl" #'nlinum-mode ; toggle relative linum
-    "tL" #'global-display-line-numbers-mode))
-
 ;; form feed
 (use-package| form-feed
   :commands form-feed-mode
@@ -187,65 +182,57 @@ Don't bother me with annoying prompts when reading
 and saveing desktop."
   ;; (when (not (eq (emacs-pid) (desktop-owner))) ; Check that emacs did not load a desktop yet
 
-    (desktop-save-mode 1) ; activate desktop mode
-    (setq desktop-save t) ; always save
-    ;; The default desktop is loaded anyway if it is locked
-    (setq desktop-load-locked-desktop t)
-    ;; Set the location to save/load default desktop
-    (setq desktop-dirname moon-local-dir)
+  (desktop-save-mode 1) ; activate desktop mode
+  (setq desktop-save t) ; always save
+  ;; The default desktop is loaded anyway if it is locked
+  (setq desktop-load-locked-desktop t)
+  ;; Set the location to save/load default desktop
+  (setq desktop-dirname moon-local-dir)
 
-    ;; Make sure that even if emacs or OS crashed, emacs
-    ;; still have last opened files.
-    (add-hook 'find-file-hook
-     (lambda ()
-       (run-with-timer 5 nil
-          (lambda ()
-            ;; Reset desktop modification time so the user is not bothered
-            (setq desktop-file-modtime (nth 5 (file-attributes (desktop-full-file-name))))
-            (desktop-save moon-local-dir)))))
+  ;; Make sure that even if emacs or OS crashed, emacs
+  ;; still have last opened files.
+  (add-hook 'find-file-hook
+            (lambda ()
+              (run-with-timer 5 nil
+                              (lambda ()
+                                ;; Reset desktop modification time so the user is not bothered
+                                (setq desktop-file-modtime (nth 5 (file-attributes (desktop-full-file-name))))
+                                (desktop-save moon-local-dir)))))
 
-    ;; Add a hook when emacs is closed to we reset the desktop
-    ;; modification time (in this way the user does not get a warning
-    ;; message about desktop modifications)
-    (add-hook 'kill-emacs-hook
-              (lambda ()
-                ;; Reset desktop modification time so the user is not bothered
-                (setq desktop-file-modtime (nth 5 (file-attributes (desktop-full-file-name))))))
-    ;; )
-)
+  ;; Add a hook when emacs is closed to we reset the desktop
+  ;; modification time (in this way the user does not get a warning
+  ;; message about desktop modifications)
+  (add-hook 'kill-emacs-hook
+            (lambda ()
+              ;; Reset desktop modification time so the user is not bothered
+              (setq desktop-file-modtime (nth 5 (file-attributes (desktop-full-file-name))))))
+  ;; )
+  )
 
 
-;;;;
+
 ;;;; Tab
+;;
 
-(use-package| nerdtab
-  :commands nerdtab-mode
+(use-package| (awesome-tab :fetcher github :repo "manateelazycat/awesome-tab")
+  :defer t
   :config
-  (setq nerdtab-window-position 'top)
-  (dolist (index (number-sequence 0 9))
-    (global-set-key (kbd (format "s-%d" index)) (intern (format "nerdtab-jump-%d" index))))
-  (dolist (index (number-sequence 0 9))
-    (global-set-key (kbd (format "C-s-%d" index)) (intern (format "nerdtab-kill-%d" index)))))
+  (setq tabbar-active-color "#c678dd")
+  (setq tabbar-inactive-color "gray")
+  (set-face-attribute 'tabbar-default nil :inheirt 'default))
 
-(post-config| general
-  (moon-default-leader
-    "tb" #'nerdtab-mode
-    "bj" #'nerdtab-jump
-    "bM" '(:ignore t :which-key "move tab to ")
-    "bM0" #'nerdtab-move-to-0
-    "bM1" #'nerdtab-move-to-1
-    "bM2" #'nerdtab-move-to-2
-    "bM3" #'nerdtab-move-to-3
-    "bM4" #'nerdtab-move-to-4
-    "bM5" #'nerdtab-move-to-5
-    "bM6" #'nerdtab-move-to-6
-    "bM7" #'nerdtab-move-to-7
-    "bM8" #'nerdtab-move-to-8
-    "bM9" #'nerdtab-move-to-9))
+(define-minor-mode awesome-tab-mode
+  "Inproved tabbar mode"
+  :lighter "AWT"
+  (if awesome-tab-mode
+      (progn
+        (require 'awesome-tab)
+        (tabbar-mode))
+    (tabbar-mode -1)))
 
 
-;;;;
 ;;;; Syntax
+;;
 
 (defun moon-highlight-symbol ()
   "Hightlight symbol at point."
