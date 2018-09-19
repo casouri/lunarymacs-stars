@@ -7,17 +7,15 @@
 
 * External dependency
 
-#+BEGIN_SRC shell
-npm install -g typescript
-npm install jquery --save
-#+END_SRC
-
 https://emacs-china.org/t/tide-javascript/7068
 
-#+BEGIN_QUOTE
-typescript 这个包会安装 tsserver
-jquery --save 这个包安装以后, tsserver 就不会抱怨找不到 JQuery 的 $ 符号了 :wink:
-#+END_QUOTE
+#+BEGIN_SRC shell
+npm install -g typescript
+npm install -g typescript-language-server
+
+# Fix error "[tsserver] /bin/sh: /usr/local/Cellar/node/10.5.0_1/bin/npm: No such file or directory":
+sudo ln -s /usr/local/bin/npm /usr/local/Cellar/node/10.5.0_1/bin/npm
+#+END_SRC
 
 * Commands
 
