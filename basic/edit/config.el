@@ -1,5 +1,23 @@
 ;; -*- lexical-binding: t -*-
 
+;;; Key
+
+(post-config| general
+  (moon-default-leader
+    "o" '(:ignore t :which-key "outline")
+    "o <tab>" #'outline-toggle-children
+    "os" #'outline-show-all
+    "oh" #'outline-hide-body))
+
+(global-set-key (kbd (mve "<C-return>" "<S-return>")) #'moon/return-cancel-completion)
+
+(post-config| general
+  (moon-g-leader
+    "v" #'er/expand-region)
+  (moon-default-leader
+    "v" #'er/expand-region))
+
+
 ;;; Package
 
 
@@ -19,12 +37,6 @@
   er/mark-inside-pairs
   er/mark-outside-pairs
   er/contract-region)
-
-(post-config| general
-  (moon-g-leader
-    "v" #'er/expand-region)
-  (moon-default-leader
-    "v" #'er/expand-region))
 
 (use-package| (isolate :fetcher github :repo "casouri/isolate")
   :commands (isolate-quick-add
@@ -91,13 +103,6 @@
   (add-hook 'prog-mode-hook 'outline-minor-mode)
   (defvar outline-minor-mode-prefix (kbd "C-c o")))
 
-(post-config| general
-  (moon-default-leader
-    "o" '(:ignore t :which-key "outline")
-    "o <tab>" #'outline-toggle-children
-    "os" #'outline-show-all
-    "oh" #'outline-hide-body))
-
 ;; (use-package| (color-moccur :fetcher url :url "http://www.emacswiki.org/emacs/download/color-moccur.el")
 ;;   :commands moccur)
 ;; (use-package| (moccur-edit :fetcher url :url "https://www.emacswiki.org/emacs/download/moccur-edit.el")
@@ -148,8 +153,6 @@
 (setq ediff-split-window-function #'split-window-horizontally)
 
 
-
-
 ;;;; Fix
 
 (defun moon/return-cancel-completion ()
@@ -157,8 +160,6 @@
   (interactive)
   (company-abort)
   (newline nil t))
-
-(global-set-key (kbd (mve "<C-return>" "<S-return>")) #'moon/return-cancel-completion)
 
 ;; never tested
 ;; http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
