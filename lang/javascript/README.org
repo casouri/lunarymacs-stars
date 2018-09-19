@@ -15,6 +15,7 @@ npm install -g typescript-language-server
 
 # Fix error "[tsserver] /bin/sh: /usr/local/Cellar/node/10.5.0_1/bin/npm: No such file or directory":
 sudo ln -s /usr/local/bin/npm /usr/local/Cellar/node/10.5.0_1/bin/npm
+# it is /usr/local/Cellar/node/10.10.0/bin/npm for me
 #+END_SRC
 
 * Commands
