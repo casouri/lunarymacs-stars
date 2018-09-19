@@ -138,6 +138,7 @@
    )
   
   (moon-cx-leader
+    "C-u" #'undo-tree-visualize
     "C-v" #'cua-rectangle-mark-mode
     "0"   #'quit-window
     "C-," #'beginning-of-buffer ; as of <
