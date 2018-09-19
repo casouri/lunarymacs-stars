@@ -1,13 +1,5 @@
 ;; -*- lexical-binding: t -*-
 
-;;;
-;;; Config
-;;;
-
-(global-hl-line-mode 1)
-
-(add-hook 'prog-mode-hook #'hs-minor-mode)
-
 ;;; Key
 
 (post-config| general
@@ -20,9 +12,22 @@
   (moon-default-leader
     "tb" #'awesome-tab-mode))
 
-;;;
+(post-config| general
+  (moon-default-leader
+    "wr" #'moon/desktop-read))
+
+(post-config| general
+  (moon-default-leader
+    "ah" #'moon-highlight-symbol))
+
+;;; Config
+
+(global-hl-line-mode 1)
+
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+
+
 ;;; Package
-;;;
 
 (use-package| atom-one-dark-theme
   :defer t
@@ -176,12 +181,8 @@ minor-modes that is usually displayed directly in the mode line."
   (setq eyebrowse-mode-line-separator " "))
 
 
-;;;;
-;;;; Desktop resume
 
-(post-config| general
-  (moon-default-leader
-    "wr" #'moon/desktop-read))
+;;;; Desktop resume
 
 (add-hook 'moon-startup-hook-2 #'moon-setup-save-session t)
 
@@ -254,13 +255,7 @@ and saveing desktop."
   (interactive)
   (evil-ex-search-activate-highlight `(,(thing-at-point 'symbol) t t)))
 
-(post-config| general
-  (moon-default-leader
-    "ah" #'moon-highlight-symbol))
-
-;;
-;; auto highlight
-;;
+;;; auto highlight
 
 (defvar moon-auto-highlight nil
   "Wehther to highlight symbol at point after a delay.")
