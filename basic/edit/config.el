@@ -168,3 +168,35 @@
                (file-writable-p buffer-file-name))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+;;;; switch input
+
+
+;; (defun switch-input-minibuffer-hook ()
+;;   "Switch to EN_US when minibuffer setup."
+
+;;   (add-hook 'minibuffer-exit-hook #'switch-input-switch-back t t))
+
+;; (defun switch-input-switch-back ()
+;;   "Switch to ZH_CN when minibuffer exits."
+;;   (remove-hook 'minibuffer-exit-hook #'switch-input-switch-back t)
+;;   )
+
+;; (define-minor-mode switch-input-mode
+;;   "Switch input by prefix key and in minibuffer."
+;;   :lighter "SIM"
+;;   :global t
+;;   (if switch-input-mode
+;;       (add-hook 'minibuffer-setup-hook #'switch-input-minibuffer-hook)
+;;     (remove-hook 'minibuffer-setup-hook #'switch-input-minibuffer-hook)))
+
+;; (defvar switch-input-switch-script "tell application \"Hammerspoon\"
+;; execute lua code \"switchInputMethod()\"
+;; end tell"
+;;   "The applescript to switch input method.")
+
+;; (defvar switch-input-switch-back-script "tell application \"Hammerspoon\"
+;; execute lua code \"switchInputMethodBack()\"
+;; end tell"
+;;   "The applescript to switch input method back.")
+
+;;; config.el ends here
