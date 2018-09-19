@@ -215,48 +215,56 @@
 
 ;;;; transient map in region
 
+(defvar transient-map-exit-func nil
+  "Function used to exit transient map.")
+
+(defmacro transient-eval-and-exit (arg &rest body)
+  "Return a function that takes ARG and eval BODY and call `transient-map-exit-func'."
+  `(lambda ,arg ,@body (funcall transient-map-exit-func)))
+
 (defun activate-mark-hook@set-transient-map ()
-  (set-transient-map
-   (let ((map (make-sparse-keymap))
-         (inner-map (make-sparse-keymap))
-         (outer-map (make-sparse-keymap)))
-     ;; operations
-     (define-key map "p" (lambda (b e) (interactive "r") (delete-region b e) (yank)))
-     (define-key map (kbd "M-p") #'counsel-yank-pop)
-     (define-key map "q" #'keyboard-quit)
-     (define-key map "x" #'exchange-point-and-mark)
-     (define-key map ";" #'evilnc-comment-operator)
-     (define-key map (kbd "M-;") #'evilnc-comment-and-kill-ring-save)
-     (define-key map "y" (lambda (beg end) (interactive "r") (kill-ring-save beg end) (deactivate-mark t)))
-     (define-key map (kbd "C-y") #'kill-ring-save)
-     (define-key map "Y" (lambda (b e)
-                           (interactive "r")
-                           (kill-new (buffer-substring b e))
-                           (message "Region saved")))
-     ;; isolate
-     (define-key map "s" #'isolate-quick-add)
-     (define-key map "S" #'isolate-long-add)
-     (define-key map "d" #'isolate-quick-delete)
-     (define-key map "D" #'isolate-long-delete)
-     (define-key map "c" #'isolate-quick-change)
-     (define-key map "C" #'isolate-long-change)
-     ;; mark things
-     (define-key map "f" #'er/mark-defun)
-     (define-key map "w" #'er/mark-word)
-     (define-key map "W" #'er/mark-symbol)
-     (define-key map "P" #'mark-paragraph)
-     ;; inner & outer
-     (define-key map "i" inner-map)
-     (define-key map "a" outer-map)
-     (define-key inner-map "q" #'er/mark-inside-quotes)
-     (define-key outer-map "q" #'er/mark-outside-quotes)
-     (define-key inner-map "b" #'er/mark-inside-pairs)
-     (define-key outer-map "b" #'er/mark-outside-pairs)
-     ;; expand-region
-     (define-key map (kbd "C--") #'er/contract-region)
-     (define-key map (kbd "C-=") #'er/expand-region)
-     map)
-   #'region-active-p))
+  (setq transient-map-exit-func
+        (set-transient-map
+         (let ((map (make-sparse-keymap))
+               (inner-map (make-sparse-keymap))
+               (outer-map (make-sparse-keymap)))
+           ;; operations
+           (define-key map "p" (transient-eval-and-exit (b e) (interactive "r") (delete-region b e) (yank)))
+           (define-key map (kbd "M-p") (transient-eval-and-exit (interactive) (counsel-yank-pop)))
+           (define-key map "x" #'exchange-point-and-mark)
+           (define-key map ";" (transient-eval-and-exit () (interactive) (evilnc-comment-operator)))
+           (define-key map (kbd "M-;") #'evilnc-comment-and-kill-ring-save)
+           (define-key map "y" (transient-eval-and-exit (beg end) (interactive "r") (kill-ring-save beg end)))
+           (define-key map (kbd "C-y") (transient-eval-and-exit kill-ring-save))
+           (define-key map "Y" (transient-eval-and-exit
+                                (b e)
+                                (interactive "r")
+                                (kill-new (buffer-substring b e))
+                                (message "Region saved")))
+           ;; isolate
+           (define-key map "s" #'isolate-quick-add)
+           (define-key map "S" #'isolate-long-add)
+           (define-key map "d" #'isolate-quick-delete)
+           (define-key map "D" #'isolate-long-delete)
+           (define-key map "c" #'isolate-quick-change)
+           (define-key map "C" #'isolate-long-change)
+           ;; mark things
+           (define-key map "f" #'er/mark-defun)
+           (define-key map "w" #'er/mark-word)
+           (define-key map "W" #'er/mark-symbol)
+           (define-key map "P" #'mark-paragraph)
+           ;; inner & outer
+           (define-key map "i" inner-map)
+           (define-key map "a" outer-map)
+           (define-key inner-map "q" #'er/mark-inside-quotes)
+           (define-key outer-map "q" #'er/mark-outside-quotes)
+           (define-key inner-map "b" #'er/mark-inside-pairs)
+           (define-key outer-map "b" #'er/mark-outside-pairs)
+           ;; expand-region
+           (define-key map (kbd "C--") #'er/contract-region)
+           (define-key map (kbd "C-=") #'er/expand-region)
+           map)
+         #'region-active-p)))
 
 (add-hook 'activate-mark-hook #'activate-mark-hook@set-transient-map)
 
