@@ -8,6 +8,15 @@
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
+;;; Key
+
+(post-config| general
+  (general-define-key
+   "s-b" #'tabbar-backward
+   "s-f" #'tabbar-forward)
+  (moon-default-leader
+    "tb" #'awesome-tab-mode))
+
 ;;;
 ;;; Package
 ;;;
@@ -216,10 +225,13 @@ and saveing desktop."
 
 (use-package| (awesome-tab :fetcher github :repo "manateelazycat/awesome-tab")
   :defer t
-  :config
+  :init
   (setq tabbar-active-color "#c678dd")
   (setq tabbar-inactive-color "gray")
-  (set-face-attribute 'tabbar-default nil :inheirt 'default))
+  :config
+  (set-face-attribute 'tabbar-default nil
+                      :inherit 'default
+                      :height 1.2))
 
 (define-minor-mode awesome-tab-mode
   "Inproved tabbar mode"
