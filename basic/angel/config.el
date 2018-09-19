@@ -127,7 +127,6 @@
   
   (general-define-key
    :keymaps 'override
-   "C-,"   #'switch-to-buffer
    "C-'"   #'jump-char-forward
    "M-'"   #'avy-goto-char
    "C-M-f" #'next-space
@@ -241,12 +240,12 @@
          (outer-map (make-sparse-keymap)))
      ;; operations
      (define-key map "p" (lambda (b e) (interactive "r") (delete-region b e) (yank)))
-     (define-key map (kbd "C-p") #'counsel-yank-pop)
+     (define-key map (kbd "M-p") #'counsel-yank-pop)
      (define-key map "q" #'keyboard-quit)
      (define-key map "x" #'exchange-point-and-mark)
      (define-key map ";" #'evilnc-comment-operator)
      (define-key map (kbd "M-;") #'evilnc-comment-and-kill-ring-save)
-     (define-key map "y" #'kill-ring-save)
+     (define-key map "y" (lambda (beg end) (interactive "r") (kill-ring-save beg end) (deactivate-mark t)))
      (define-key map (kbd "C-y") #'kill-ring-save)
      (define-key map "Y" (lambda (b e)
                            (interactive "r")
@@ -274,7 +273,8 @@
      ;; expand-region
      (define-key map (kbd "C--") #'er/contract-region)
      (define-key map (kbd "C-=") #'er/expand-region)
-     map)))
+     map)
+   #'region-active-p))
 
 (add-hook 'activate-mark-hook #'activate-mark-hook@set-transient-map)
 
