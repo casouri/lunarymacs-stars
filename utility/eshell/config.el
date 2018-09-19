@@ -33,8 +33,9 @@
             :action #'ivy-completion-in-region-action))
 
 
-(use-package| (aweshell :fetcher github :repo "casouri/aweshell")
+(use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell")
   :commands (aweshell-new aweshell-next aweshell-prev)
+  :init (setq aweshell-use-exec-path-from-shell nil)
   :config
   (custom-set-faces
    '(epe-dir-face ((t (:foreground "#51afef"))))
