@@ -64,9 +64,9 @@
   (setq python-shell-interpreter "/usr/local/bin/python3")
 
   ;;;; shell
-  (setq explicit-shell-file-name "/bin/zsh")
-  (setq explicit-zsh-args '("--login"))
-  (setenv "SHELL" "zsh")
+  ;; (setq explicit-shell-file-name "/bin/zsh")
+  ;; (setq explicit-zsh-args '("--login"))
+  ;; (setenv "SHELL" "zsh")
   
   ;; (setq mac-command-modifier 'control
   ;; mac-function-modifier 'meta
@@ -127,6 +127,8 @@
  (nyan-mode)
  ;; enabling this makes highlight on buttons blink
  ;; (nyan-start-animation)
+
+ (awesome-tab-mode)
 
  (winner-mode)
  ;;
