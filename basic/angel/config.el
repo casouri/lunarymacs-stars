@@ -187,6 +187,9 @@
 (defvar smart-query-edit-mode-overlay nil
   "Overlay of region to be replaced.")
 
+(defvar smart-query-edit-mode-from-string nil
+  "The from-string for `query-replace'.")
+
 (define-minor-mode smart-query-edit-mode
   "Edit region and query replace."
   :lighter "QUERY"
