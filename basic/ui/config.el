@@ -14,8 +14,9 @@
   (general-define-key
    "s-b" #'tabbar-backward
    "s-f" #'tabbar-forward
-   "s-n" #'tabbar-forward-group
-   "s-p" #'tabbar-backward-group)
+   ;; "s-n" #'tabbar-forward-group
+   ;; "s-p" #'tabbar-backward-group
+   )
   (moon-default-leader
     "tb" #'awesome-tab-mode))
 
