@@ -42,7 +42,7 @@
        ;; rust
        javascript
        web
-       ;; lua
+       lua
        )
 
 
