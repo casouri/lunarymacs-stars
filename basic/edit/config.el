@@ -11,7 +11,16 @@
   :commands camelsnake-mode)
 
 (use-package| expand-region
-  :commands er/expand-region)
+  :commands
+  er/expand-region
+  er/mark-defun
+  er/mark-word
+  er/mark-symbol
+  er/mark-inside-quotes
+  er/mark-outside-quotes
+  er/mark-inside-pairs
+  er/mark-outside-pairs
+  er/contract-region)
 
 (post-config| general
   (moon-g-leader
@@ -26,15 +35,6 @@
              isolate-long-add
              isolate-long-change
              isolate-long-delete))
-(post-config| general
-  (moon-default-leader
-    "C-s"     '(:ignore t :which-key "surround")
-    "C-s C-s" #'isolate-quick-add
-    "C-s M-s" #'isolate-quick-add
-    "C-s C-d" #'isolate-quick-delete
-    "C-s M-d" #'isolate-long-delete
-    "C-s C-c" #'isolate-quick-change
-    "C-s M-c" #'isolate-long-change))
 
 (use-package| undo-tree
   :config (global-undo-tree-mode)
