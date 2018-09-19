@@ -2,10 +2,72 @@
 
 
 ;;; Commentary:
-;; 
+;;
 
 ;;; Code:
 ;;
+
+
+;;; Keys
+
+(post-config| general
+  (general-define-key
+   "s-n"   #'moon/scroll-down-reserve-point
+   "s-p"   #'moon/scroll-up-reserve-point)
+
+  (general-define-key
+   :keymas minibuffer-local-map
+   "C-<return>" #'newline)
+
+  (general-define-key
+   :keymaps 'override
+   "C-'"   #'jump-char-forward
+   "M-'"   #'avy-goto-char
+   "C-M-f" #'next-space
+   "M-f"   #'next-char
+   "C-M-b" #'last-space
+   "M-b"   #'last-char
+
+   "M-y"   #'kill-region
+   "C-y"   #'kill-ring-save
+   "s-y"   #'yank
+
+   "C-."   #'undo-tree-redo
+
+   "M-v"   #'select-line
+   "C-="   #'er/expand-region
+   "C-M-p" #'backward-up-list
+   "C-M-n" #'down-list
+   "C-M-0" #'forward-sexp ; \)
+   "C-M-9" #'backward-sexp ; ;\(
+
+   "C-v"   #'set-mark-command
+
+   ;; "C-h" (general-simulate-key "C-b")
+   ;; "C-l" (general-simulate-key "C-f")
+   ;; "C-j" (general-simulate-key "C-n")
+   ;; "C-k" (general-simulate-key "C-p")
+   ;; "M-h" (general-simulate-key "M-b")
+   ;; "M-l" (general-simulate-key "M-f")
+   ;; "M-j" (general-simulate-key "M-n")
+   ;; "M-k" (general-simulate-key "M-p")
+   )
+
+  (moon-cx-leader
+    "C-u" #'undo-tree-visualize
+    "C-v" #'cua-rectangle-mark-mode
+    "0"   #'quit-window
+    "C-," #'beginning-of-buffer ; as of <
+    "C-." #'end-of-buffer ; as of >
+    "C-q" #'smart-query-edit-mode
+    "C-b" #'switch-to-buffer
+    "M-b" (lambda (arg)
+            (interactive "p")
+            (if (>= arg 0)
+                (kill-buffer (current-buffer))
+              (kill-buffer-and-window (current-buffer))))
+    "C-;" #'goto-last-change
+    "M-;" #'goto-last-change-reverse))
 
 ;;; Navigation
 
@@ -92,67 +154,6 @@
   (set-mark-command nil)
   (end-of-line))
 
-;;; Keys
-
-(post-config| general
-  (general-define-key
-   "s-n"   #'moon/scroll-down-reserve-point
-   "s-p"   #'moon/scroll-up-reserve-point)
-
-  (general-define-key
-   :keymas minibuffer-local-map
-   "C-<return>" #'newline)
-  
-  (general-define-key
-   :keymaps 'override
-   "C-'"   #'jump-char-forward
-   "M-'"   #'avy-goto-char
-   "C-M-f" #'next-space
-   "M-f"   #'next-char
-   "C-M-b" #'last-space
-   "M-b"   #'last-char
-
-   "M-y"   #'kill-region
-   "C-y"   #'kill-ring-save
-   "s-y"   #'yank
-
-   "C-."   #'undo-tree-redo
-   
-   "M-v"   #'select-line
-   "C-="   #'er/expand-region
-   "C-M-p" #'backward-up-list
-   "C-M-n" #'down-list
-   "C-M-0" #'forward-sexp ; \)
-   "C-M-9" #'backward-sexp ; ;\(
-   
-   "C-v"   #'set-mark-command
-
-   ;; "C-h" (general-simulate-key "C-b")
-   ;; "C-l" (general-simulate-key "C-f")
-   ;; "C-j" (general-simulate-key "C-n")
-   ;; "C-k" (general-simulate-key "C-p")
-   ;; "M-h" (general-simulate-key "M-b")
-   ;; "M-l" (general-simulate-key "M-f")
-   ;; "M-j" (general-simulate-key "M-n")
-   ;; "M-k" (general-simulate-key "M-p")
-   )
-  
-  (moon-cx-leader
-    "C-u" #'undo-tree-visualize
-    "C-v" #'cua-rectangle-mark-mode
-    "0"   #'quit-window
-    "C-," #'beginning-of-buffer ; as of <
-    "C-." #'end-of-buffer ; as of >
-    "C-q" #'smart-query-edit-mode
-    "C-b" #'switch-to-buffer
-    "M-b" (lambda (arg)
-            (interactive "p")
-            (if (>= arg 0)
-                (kill-buffer (current-buffer))
-              (kill-buffer-and-window (current-buffer))))
-    "C-;" #'goto-last-change
-    "M-;" #'goto-last-change-reverse))
-
 ;;; Improvement
 
 ;;;; Smart query replace
@@ -235,7 +236,7 @@
                                  (interactive "r") (kill-ring-save beg end)))
            (define-key map (kbd "C-y") (transient-eval-and-exit (beg end &optional region)
                                          (interactive (list (mark) (point)
-	                                                    (prefix-numeric-value current-prefix-arg)))
+                                                            (prefix-numeric-value current-prefix-arg)))
                                          (kill-ring-save beg end region)))
            (define-key map "Y" (transient-eval-and-exit
                                  (b e)
