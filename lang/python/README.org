@@ -5,8 +5,6 @@
 
 - lsp-python
 - pyvenv
-- ein
-- quickrun
 
 * Commands
 
