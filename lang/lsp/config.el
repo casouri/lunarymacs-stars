@@ -14,7 +14,9 @@ if under, turn them off.")
   (defun setup-lsp ()
     (require 'lsp-imenu)
     (add-hook 'lsp-after-open-hook #'lsp-enable-imenu)
-    (setq lsp-enable-eldoc nil)))
+    (setq lsp-enable-eldoc nil)
+    (setq lsp-message-project-root-warning t)
+    (setq create-lockfiles nil)))
 
 (with-eval-after-load 'lsp-ui-mode
   (require 'lsp-flycheck))
@@ -48,8 +50,7 @@ if under, turn them off.")
   :after (company lsp-mode)
   :init  
   (setq company-lsp-async t)
-  (add-to-list 'company-backends 'company-lsp)
-  )
+  (add-to-list 'company-backends 'company-lsp))
 
 
 (post-config| general
