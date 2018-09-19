@@ -9,32 +9,25 @@
 ;;; Typescripte
 
 (use-package| lsp-typescript
-  :config
-  (dolist (hook (list
-                 'js2-mode-hook
-                 'rjsx-mode-hook
-                 'typescript-mode-hook
-                 ))
-    (add-hook hook (lambda ()
-                     ;; setup tide
-                     (tide-setup)
-                     ;; automatically restart
-                     (unless (tide-current-server)
-                       (tide-restart-server))
-                     ))))
+  :defer t)
 
-(add-hook 'js-mode-hook #'lsp-typescript-enable)
-(add-hook 'typescript-mode-hook #'lsp-typescript-enable) ;; for typescript support
-(add-hook 'js3-mode-hook #'lsp-typescript-enable) ;; for js3-mode support
-(add-hook 'rjsx-mode #'lsp-typescript-enable) ;; for rjsx-mode support
+(add-hook 'js-mode-hook #'lsp-javascript-setup)
+(add-hook 'typescript-mode-hook #'lsp-javascript-setup) ;; for typescript support
 
 (defun lsp-company-transformer (candidates)
   (let ((completion-ignore-case t))
     (all-completions (company-grab-symbol) candidates)))
 
 (defun lsp-js-hook ()
+  "Add company support."
   (make-local-variable 'company-transformers)
   (push 'lsp-company-transformer company-transformers))
+
+(defun lsp-javascript-setup ()
+  "Setup lsp for javascript."
+  (require 'lsp-mode)
+  (require 'lsp-typescript)
+  (lsp-typescript-enable))
 
 (add-hook 'js-mode-hook 'lsp-js-hook)
 
