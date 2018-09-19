@@ -1,35 +1,46 @@
-(use-package| js2-mode
-  :init (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  :defer t
-  :config
-  ;; don't lint
-  (setq js2-mode-show-parse-errors nil)
-  (setq js2-mode-show-strict-warnings nil))
+;;; config.el --- Javascript support      -*- lexical-binding: t; -*-
 
-(use-package| xref-js2
-  :after js2-mode
-  :config
-  (define-key js-mode-map (kbd "M-.") nil)
-  (add-hook 'js2-mode-hook (lambda ()
-                             (add-hook
-                              'xref-backend-functions
-                              #'xref-js2-xref-backend nil t))))
+;;; Commentary:
+;; 
 
-;; eslint
-;; (setq flycheck-eslint-rules-directories
-;;      `(,(concat
-;;          (file-name-directory (buffer-file-name))
-;;          "eslint")))
-
+;;; Code:
 ;;
-;; format
 
+;;; Typescripte
 
-(use-package| js-format
-  :after js2-mode
+(use-package| lsp-typescript
   :config
-  (js-format-setup "standard")
-  (add-to-list 'moon-smart-format-alist '(js2-mode . js-format-buffer)))
+  (dolist (hook (list
+                 'js2-mode-hook
+                 'rjsx-mode-hook
+                 'typescript-mode-hook
+                 ))
+    (add-hook hook (lambda ()
+                     ;; setup tide
+                     (tide-setup)
+                     ;; automatically restart
+                     (unless (tide-current-server)
+                       (tide-restart-server))
+                     ))))
 
-;; indent
+(add-hook 'js-mode-hook #'lsp-typescript-enable)
+(add-hook 'typescript-mode-hook #'lsp-typescript-enable) ;; for typescript support
+(add-hook 'js3-mode-hook #'lsp-typescript-enable) ;; for js3-mode support
+(add-hook 'rjsx-mode #'lsp-typescript-enable) ;; for rjsx-mode support
+
+(defun lsp-company-transformer (candidates)
+  (let ((completion-ignore-case t))
+    (all-completions (company-grab-symbol) candidates)))
+
+(defun lsp-js-hook ()
+  (make-local-variable 'company-transformers)
+  (push 'lsp-company-transformer company-transformers))
+
+(add-hook 'js-mode-hook 'lsp-js-hook)
+
+;;; indent
+
 (setq js-indent-level 2)
+
+
+;;; config.el ends here
