@@ -45,8 +45,9 @@
             (lambda ()
               (when (equal moon-current-theme
                            "doom-one")
-                (set-face-attribute 'mode-line nil :background "#603D8E")
-                (set-face-attribute 'lazy-highlight nil :inherit 'default :background nil :foreground "#CFD7E5" :distant-foreground nil)))
+                (set-face-attribute 'mode-line nil :background "#6F349C")
+                (set-face-attribute 'lazy-highlight nil :inherit 'default :background nil :foreground "#CFD7E5" :distant-foreground nil)
+                ))
             ;; (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD")
             ))
 
@@ -137,7 +138,7 @@ minor-modes that is usually displayed directly in the mode line."
               nyan-bar-length 12))
 
 (use-package| hl-todo
-  :defer 3
+  :defer 5
   :config
   (add-to-list 'hl-todo-keyword-faces
                '("TOTEST" . "#d0bf8f"))
