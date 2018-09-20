@@ -128,7 +128,7 @@
  ;; enabling this makes highlight on buttons blink
  ;; (nyan-start-animation)
 
- (awesome-tab-mode)
+ ;; (awesome-tab-mode)
 
  (winner-mode)
  ;;
