@@ -273,7 +273,9 @@
 ;;;; jump char
 
 (use-package| (jump-char :fetcher github :repo lewang/jump-char)
-  :commands jump-char-forward)
+  :commands jump-char-forward
+  :init (setq jump-char-forward-key "'"
+              jump-char-backward-key ";"))
 
 
 ;;; config.el ends here
