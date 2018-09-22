@@ -15,6 +15,10 @@
 
 (use-package| lsp-mode
   :defer t)
+(use-package| lsp-ui
+  :defer t)
+(use-package| company-lsp
+  :defer t)
 
 (with-eval-after-load 'lsp-mode
   (require 'lsp-imenu)
@@ -59,8 +63,7 @@
   (with-eval-after-load 'company
     (require 'company-lsp)
     (setq company-lsp-async t)
-    (add-to-list 'company-backends 'company-lsp))
-  )
+    (add-to-list 'company-backends 'company-lsp)))
 
 ;; (use-package| lsp-ui
 ;;   :after lsp-mode
