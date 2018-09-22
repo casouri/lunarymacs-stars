@@ -58,8 +58,7 @@
 
 ;;;; Navigation
 
-
-(use-package| recentf-ext
+(use-package| (recentf-ext :system t)
   :commands (recentf counsel-recentf))
 
 (use-package| avy

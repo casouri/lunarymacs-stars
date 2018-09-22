@@ -70,7 +70,7 @@
 (use-package| poet-theme
   :defer t)
 
-(use-package| rainbow-mode
+(use-package| (rainbow-mode :system t)
   :commands rainbow-mode)
 
 (use-package| highlight-parentheses
@@ -128,7 +128,7 @@ minor-modes that is usually displayed directly in the mode line."
                    'minions-mode-line-modes
                    mode-line-format)))
 
-   (minions-mode 1)))
+    (minions-mode 1)))
 
 ;;;;
 ;;;; Misc
@@ -234,6 +234,7 @@ and saveing desktop."
   (setq tabbar-active-color "#c678dd")
   (setq tabbar-inactive-color "gray")
   :config
+  ;; (add-hook 'magit-popup-mode-hook (lambda () (setq-local header-line-format nil)))
   (set-face-attribute 'tabbar-default nil
                       :inherit 'default
                       :height 1.2))
