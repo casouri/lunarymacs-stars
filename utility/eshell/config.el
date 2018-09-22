@@ -63,8 +63,6 @@
              "M-p" #'eshell-previous-matching-input-from-input
              "M-n" #'eshell-next-matching-input-from-input))))))))
 
-(use-package| eshell-up
-  :after aweshell)
 ;;; Config
 
 (setq eshell-directory-name (concat moon-star-dir "utility/eshell/"))
