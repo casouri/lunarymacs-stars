@@ -1,21 +1,22 @@
-(use-package| ob-ipython
-  :defer t
-  :init
-  (add-hook
-   'org-mode-hook
-   (lambda ()
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((ipython . t)))
-     )))
+;; (use-package| ob-ipython
+;;   :defer t
+;;   :init
+;;   (add-hook
+;;    'org-mode-hook
+;;    (lambda ()
+;;      (org-babel-do-load-languages
+;;       'org-babel-load-languages
+;;       '((ipython . t)))
+;;      )))
 
-(add-hook
- 'org-mode-hook
- (lambda ()
-   (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((shell . t)))
-   ))
+;; (add-hook
+;;  'org-mode-hook
+;;  (lambda ()
+;;    (org-babel-do-load-languages
+;;     'org-babel-load-languages
+;;     '((shell . t)))
+;;    ))
+
 (add-hook 'org-mode-hook #'flyspell-mode)
 
 ;; (add-hook 'org-mode-hook
