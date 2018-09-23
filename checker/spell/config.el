@@ -30,14 +30,14 @@
     "ec" #'langtool-correct-buffer
     "is" #'synonyms))
 
-(use-package| langtool
-  :commands langtool-check
-  :config
-  (setq langtool-language-tool-server-jar "/usr/local/Cellar/languagetool/4.1/libexec/languagetool-server.jar")
-  (setq langtool-java-bin "/usr/bin/java"))
+;; (use-package| langtool
+;;   :commands langtool-check
+;;   :config
+;;   (setq langtool-language-tool-server-jar "/usr/local/Cellar/languagetool/4.1/libexec/languagetool-server.jar")
+;;   (setq langtool-java-bin "/usr/bin/java"))
 
 (use-package| (writegood-mode :fetcher github :repo "bnbeckwith/writegood-mode")
   :hook ((fundamental-mode org-mode) . writegood-mode))
 
-(use-package| (synonyms :fetcher url :url "https://www.emacswiki.org/emacs/download/synonyms.el")
-  :commands synonyms)
+;; (use-package| (synonyms :fetcher url :url "https://www.emacswiki.org/emacs/download/synonyms.el")
+;;   :commands synonyms)

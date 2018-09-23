@@ -51,24 +51,24 @@
             ;; (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD")
             ))
 
-(use-package| spacemacs-theme
-  :defer t
-  :config
-  (add-to-list 'custom-theme-load-path (car (directory-files moon-package-dir "spacemacs-theme.+")) t)
-  (custom-set-variables '(spacemacs-theme-custom-colors ;                          ~~GUI~~   ~~TER~~                       ~~GUI~~   ~~TER~~
-                          '((bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
-                            (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
-                            (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
-                            (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
-                            (act2       . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
-                            (border     . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
-                            ))))
+;; (use-package| spacemacs-theme
+;;   :defer t
+;;   :config
+;;   (add-to-list 'custom-theme-load-path (car (directory-files moon-package-dir "spacemacs-theme.+")) t)
+;;   (custom-set-variables '(spacemacs-theme-custom-colors ;                          ~~GUI~~   ~~TER~~                       ~~GUI~~   ~~TER~~
+;;                           '((bg1        . (if (eq variant 'dark) (if (true-color-p) "#222226" "#262626") (if (true-color-p) "#fbf8ef" "#ffffff")))
+;;                             (bg2        . (if (eq variant 'dark) (if (true-color-p) "#17181B" "#1c1c1c") (if (true-color-p) "#efeae9" "#e4e4e4")))
+;;                             (comment-bg . (if (eq variant 'dark) (if (true-color-p) "#23282A" "#262626") (if (true-color-p) "#ecf3ec" "#ffffff")))
+;;                             (highlight  . (if (eq variant 'dark) (if (true-color-p) "#61526E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+;;                             (act2       . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+;;                             (border     . (if (eq variant 'dark) (if (true-color-p) "#603D8E" "#444444") (if (true-color-p) "#d3d3e7" "#d7d7ff")))
+;;                             ))))
 
 (use-package| rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package| poet-theme
-  :defer t)
+;; (use-package| poet-theme
+;;   :defer t)
 
 (use-package| (rainbow-mode :system t)
   :commands rainbow-mode)
