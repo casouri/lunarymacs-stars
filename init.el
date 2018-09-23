@@ -23,7 +23,7 @@
        :os
        mac
        :utility
-       other
+       markdown
        eshell
        tex
        dir
@@ -32,7 +32,7 @@
        ;; imagemagick
        :checker
        syntax
-       spell
+       ;; spell
        :lang
        common-lisp
        cc
