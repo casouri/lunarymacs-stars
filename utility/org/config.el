@@ -32,12 +32,17 @@
   :commands
   org-html-export-to-html
   org-html-export-as-html)
-;;
-;; Config
-;;
 
-;;
-;; org-capture
+(use-package| olivetti
+  :init
+  (setq olivetti-body-width 110)
+  (add-hook 'org-mode-hook #'olivetti-mode)
+  :commands olivetti-mode)
+
+
+;;; Config
+
+;;;; org-capture
 
 (post-config| general
   (moon-default-leader
