@@ -3,15 +3,15 @@ alias clear aweshell-clear-buffer
 alias d dired $1
 alias fo find-file-other-window $1
 alias f find-file $1
-alias gs 'magit-status'
-alias ff 'find-file $1'
-alias remove-ds-store="find . -name '.DS_Store' -type f -delete"
-alias enable-ds-store="defaults write com.apple.desktopservices DSDontWriteNetworkStores false"
-alias disable-ds-store="defaults write com.apple.desktopservices DSDontWriteNetworkStores true"
-alias hidesome="defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
-alias showall="defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
-alias th # show/hide dotted files in finder
-alias ac 'aria2c'
-alias la 'ls -al'
-alias up eshell-up $1
+alias tsh trash $1
 alias pk eshell-up-peek $1
+alias up eshell-up $1
+alias la "ls -al"
+alias ac aria2c $1
+alias showall "defaults write com.apple.finder AppleShowAllFiles YES; killall Finder"
+alias hidesome "defaults write com.apple.finder AppleShowAllFiles NO; killall Finder"
+alias disable-ds-store "defaults write com.apple.desktopservices DSDontWriteNetworkStores true"
+alias enable-ds-store "defaults write com.apple.desktopservices DSDontWriteNetworkStores false"
+alias remove-ds-store "find . -name ".DS_Store" -type f -delete"
+alias ff "find-file $1"
+alias gs "magit-status"
