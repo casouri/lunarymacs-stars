@@ -68,6 +68,8 @@
     "u" '(:ignore t :which-key "utility")
     "o" '(:ignore t :which-key "outline")
     "C-o" '(:ignore t :which-key "open")
+    ;; Themes
+    "Tc" #'customize-themes
     ;; Frame
     "Fd" #'delete-frame
     ;; align
