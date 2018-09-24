@@ -37,19 +37,20 @@
   ;; (set-face-attribute 'company-preview-common nil :foreground "#C678DD")
   )
 
-(use-package| doom-themes
+(use-package| (doom-themes :repo "casouri/emacs-doom-themes")
   :config
   (add-to-list 'moon-toggle-theme-list 'doom-one)
   (add-to-list 'moon-toggle-theme-list 'doom-one-light t)
-  (add-hook 'moon-load-theme-hook
-            (lambda ()
-              (when (equal moon-current-theme
-                           "doom-one")
-                (set-face-attribute 'mode-line nil :background "#6F349C")
-                (set-face-attribute 'lazy-highlight nil :inherit 'default :background nil :foreground "#CFD7E5" :distant-foreground nil)
-                ))
-            ;; (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD")
-            ))
+  ;; (add-hook 'moon-load-theme-hook
+  ;;           (lambda ()
+  ;;             (when (equal moon-current-theme
+  ;;                          "doom-one")
+  ;;               (set-face-attribute 'mode-line nil :background "#6F349C")
+  ;;               (set-face-attribute 'lazy-highlight nil :inherit 'default :background nil :foreground "#CFD7E5" :distant-foreground nil)
+  ;;               ))
+  ;;           ;; (set-face-attribute 'company-tooltip-common-selection nil :foreground "#C678DD")
+  ;;           )
+  )
 
 ;; (use-package| spacemacs-theme
 ;;   :defer t
@@ -74,15 +75,22 @@
   :commands rainbow-mode)
 
 (use-package| highlight-parentheses
-  :init
+  :defer t
   :config
   (set-face-attribute 'hl-paren-face nil :weight 'bold)
-  (global-highlight-parentheses-mode 1)
+  ;; (global-highlight-parentheses-mode 1)
   ;;highlight only the most inner pair
-  (setq hl-paren-colors '("green"))
+  ;; (setq hl-paren-colors '("green"))
   ;; red in light theme, green in dark
-  (change-by-theme '((spacemacs-dark . (progn (setq hl-paren-colors '("green")) (hl-paren-color-update)))
-                     (spacemacs-light . (progn (setq hl-paren-colors '("red")) (hl-paren-color-update))))))
+  (add-hook 'moon-load-theme-hook
+            (lambda ()
+              (pcase moon-current-theme
+                ("doom-one" (progn (setq hl-paren-colors '("green"))
+                                   (global-highlight-parentheses-mode -1)
+                                   (global-highlight-parentheses-mode)))
+                ("doom-one-light" (progn (setq hl-paren-colors '("red"))
+                                         (global-highlight-parentheses-mode -1)
+                                         (global-highlight-parentheses-mode)))))))
 
 
 ;;;;
