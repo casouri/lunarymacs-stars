@@ -111,6 +111,8 @@
  ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
  (moon-set-font| :family "SF Mono" :weight 'light :size 13)
  ;; (moon-set-font| :family "Roboto Mono" :weight 'light :size 13)
+
+ ;;;;; Chinese
  (dolist (charset '(kana han symbol cjk-misc bopomofo))
    (set-fontset-font (frame-parameter nil 'font)
                      charset (font-spec :family "FZQingKeBenYueSongS-R-GB"
@@ -122,6 +124,10 @@
  ;; FZQingKeBenYueSongS-R-GB
  ;; FZSongKeBenXiuKaiS-R-GB
  ;; 中文中文
+
+ ;;;;; Emoji
+ (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
+                   nil 'prepend)
 
  ;;;; nyan
  (nyan-mode)
