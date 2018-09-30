@@ -47,8 +47,8 @@
   :config
   (set-face-attribute 'hl-paren-face nil :weight 'bold)
   ;; (global-highlight-parentheses-mode 1)
-  ;;highlight only the most inner pair
-  ;; (setq hl-paren-colors '("green"))
+  ;; highlight only the most inner pair
+  (setq hl-paren-colors '("green"))
   ;; red in light theme, green in dark
   (add-hook 'moon-load-theme-hook
             (lambda ()
