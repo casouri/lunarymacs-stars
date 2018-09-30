@@ -23,6 +23,7 @@
        :os
        mac
        :utility
+       email
        markdown
        eshell
        tex
@@ -32,7 +33,7 @@
        ;; imagemagick
        :checker
        syntax
-       ;; spell
+       spell
        :lang
        common-lisp
        cc
@@ -126,8 +127,8 @@
  ;; 中文中文
 
  ;;;;; Emoji
- (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
-                   nil 'prepend)
+ ;; (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
+ ;;                   nil 'prepend)
 
  ;;;; nyan
  (nyan-mode)
