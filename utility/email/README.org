@@ -1,0 +1,17 @@
+#+TITLE: email
+
+
+* Package list
+- wanderlust
+
+
+* Setup
+
+** =mbsync=
+
+#+BEGIN_SRC shell
+stow mbsync
+mkdir ~/Mail
+mkdir ~/Mail/Gmail
+mkdir ~/Mail/PSU
+#+END_SRC

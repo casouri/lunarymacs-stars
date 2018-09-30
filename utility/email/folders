@@ -1,0 +1,14 @@
+# -*- conf-unix -*-
+
+GMAIL {
+   .~/Mail/Gmail/Inbox             "Inbox"
+   .~/Mail/Gmail/[Gmail]/Sent Mail "Sent"
+   .~/Mail/Gmail/[Gmail]/All Mail  "All Mail"
+   .~/Mail/Gmail/[Gmail]/Starred   "Starred"
+
+}
+
+PSU {
+   .~/Mail/PSU/Inbox       "Inbox"
+   .~/Mail/PSU/Sent Items  "Sent"
+}
