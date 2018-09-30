@@ -11,7 +11,8 @@
 (use-package| lsp-typescript
   :defer t)
 
-(use-package| typescript-mode)
+(use-package| typescript-mode
+  :defer t)
 
 (add-hook 'js-mode-hook #'lsp-javascript-setup)
 (add-hook 'typescript-mode-hook #'lsp-javascript-setup) ;; for typescript support
