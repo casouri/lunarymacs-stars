@@ -26,6 +26,10 @@
 (use-package| (camelsnake-mode :fetcher github :repo "casouri/camelsnake-mode")
   :commands camelsnake-mode)
 
+(use-package| ws-butler
+  :defer 3
+  :config (ws-butler-global-mode))
+
 (use-package| expand-region
   :commands
   er/expand-region
