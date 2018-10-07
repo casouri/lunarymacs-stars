@@ -36,12 +36,11 @@
              quickrun-shell
              quickrun-compile-only
              quickrun-replace-region
-             quickrun-autorun-mode
-             )
+             quickrun-autorun-mode)
   ;; from evil-collection
   :config (when (featurep 'evil)
             (evil-define-key 'normal quickrun--mode-map
-              "q" 'quit-window)))
+                             "q" 'quit-window)))
 
 
 ;;; config.el ends here
