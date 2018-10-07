@@ -154,9 +154,7 @@
   (set-mark-command nil)
   (end-of-line))
 
-;;; Improvement
-
-;;;; Smart query replace
+;;; Smart query replace
 
 (defvar smart-query-edit-mode-overlay nil
   "Overlay of region to be replaced.")
@@ -181,7 +179,7 @@
                              nil
                              nil
                              t))
-         'face '(:inherit highlight)))
+         'face '(:inherit region)))
     (overlay-put smart-query-edit-mode-overlay
                  'face '(:inherit region))
     (goto-char (overlay-end
@@ -195,7 +193,7 @@
     (delete-overlay
      smart-query-edit-mode-overlay)))
 
-;;;; Better isearch
+;;; Better isearch
 
 ;; https://stackoverflow.com/questions/202803/searching-for-marked-selected-text-in-emacs
 (defun moon-isearch-with-region ()
@@ -208,17 +206,10 @@
 
 (add-hook 'isearch-mode-hook #'moon-isearch-with-region)
 
-;;;; transient map in region
+;;; Transient map in region
 
 (defvar transient-map-exit-func nil
   "Function used to exit transient map.")
-
-(defmacro transient-eval-and-exit (arg &rest body)
-  "Return a function that takes ARG and eval BODY and call `transient-map-exit-func'."
-  (declare (indent defun))
-  `(lambda ,arg ,@body (funcall transient-map-exit-func)))
-
-
 
 (defun activate-mark-hook@set-transient-map ()
   (setq transient-map-exit-func
@@ -266,15 +257,16 @@
 
 (add-hook 'activate-mark-hook #'activate-mark-hook@set-transient-map)
 (add-hook 'deactivate-mark-hook (lambda ()
-                                  (message "deactivate")
                                   (funcall transient-map-exit-func)))
 
-;;;; jump char
+;;; Jump char
 
 (use-package| (jump-char :fetcher github :repo lewang/jump-char)
   :commands jump-char-forward
   :init (setq jump-char-forward-key "'"
               jump-char-backward-key ";"))
+;; avy-goto-char is bind to M-'
 
+;;; Inline replace
 
 ;;; config.el ends here
