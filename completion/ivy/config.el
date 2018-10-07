@@ -90,7 +90,8 @@
 
 ;; Used by counsel-M-x
 (use-package| smex
-  :defer t)
+  :defer t
+  :config (setq smex-save-file (concat moon-local-dir "smex-items")))
 
 (use-package| (ivy-filthy-rich :repo "casouri/ivy-filthy-rich" :fetcher github)
   :after counsel

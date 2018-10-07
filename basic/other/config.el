@@ -38,6 +38,8 @@
  abbrev-file-name                    (concat moon-local-dir "abbrev.el")
  recentf-save-file                   (concat moon-local-dir "recentf")
  recentf-max-saved-items             300
+ tramp-persistency-file-name         (concat moon-local-dir "tramp")
+ bookmark-default-file               (concat moon-local-dir "bookmarks")
  
  ;; edit
  indent-tabs-mode                    nil
