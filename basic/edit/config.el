@@ -136,7 +136,8 @@
 
 (use-package| multiple-cursors
   :commands (mc/edit-lines
-             mc/add-cursor-on-click))
+             mc/add-cursor-on-click)
+  :condig (setq mc/list-file (concat moon-local-dir "mc-lists.el")))
 
 
 ;;; Config
