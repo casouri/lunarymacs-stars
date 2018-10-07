@@ -12,8 +12,9 @@
    :keymaps 'override
    ;; this is binded by default,
    ;; but flyspell mode shadows it
-   "C-M-i" #'outshine-cycle-buffer))
-
+   "C-M-i" #'outshine-cycle-buffer
+   "C-<mouse-1>" #'mc/add-cursor-on-click))
+(global-unset-key (kbd "C-<down-mouse-1>"))
 (global-set-key (kbd (mve "<C-return>" "<S-return>")) #'moon/return-cancel-completion)
 
 (post-config| general
@@ -127,6 +128,15 @@
              color-rg-search-symbol
              color-rg-search-project
              color-rg-search-project-rails))
+
+(use-package| visual-regexp
+  :commands (vr/replace
+             vr/query-replace
+             vr/mc-mark))
+
+(use-package| multiple-cursors
+  :commands (mc/edit-lines
+             mc/add-cursor-on-click))
 
 
 ;;; Config
