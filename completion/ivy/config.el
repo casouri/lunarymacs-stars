@@ -88,6 +88,10 @@
                         counsel-descbinds counsel-org-capture
                         counsel-grep-or-swiper))
 
+;; Used by counsel-M-x
+(use-package| smex
+  :defer t)
+
 (use-package| (ivy-filthy-rich :repo "casouri/ivy-filthy-rich" :fetcher github)
   :after counsel
   :config (ivy-filthy-rich-mode))
