@@ -1,4 +1,4 @@
- (post-config| general
+(post-config| general
   (moon-default-leader
     "C-o e" '((lambda ()
                 "Open in eshell."
@@ -11,8 +11,8 @@
     "yp" #'aweshell-prev
     "yN" #'aweshell-new
     "Y" #'moon/toggle-eshell)
-  (moon-cx-leader
-    "C-y" #'moon/toggle-eshell))
+  (general-define-key
+   "s-e" #'moon/toggle-eshell))
 
 (defun moon/toggle-eshell ()
   "Toggle eshell"
