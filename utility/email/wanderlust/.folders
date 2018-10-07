@@ -3,9 +3,11 @@
 GMAIL {
    .~/Mail/Gmail/Inbox             "Inbox"
    .~/Mail/Gmail/[Gmail]/Sent Mail "Sent"
-   .~/Mail/Gmail/[Gmail]/All Mail  "All Mail"
+   .~/Mail/Gmail/[Gmail]/Important "Important"
    .~/Mail/Gmail/[Gmail]/Starred   "Starred"
-
+   .~/Mail/Gmail/[Gmail]/Trash     "Trash"
+   .~/Mail/Gmail/Trivial           "Trivial"
+   /cc:emacs-devel@gnu.org/.~/Mail/Gmail/Inbox        "Emacs Devel"
 }
 
 PSU {

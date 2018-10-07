@@ -13,71 +13,64 @@
 ;;; Code:
 ;;
 
+;;; Keys
+
+(post-config| general
+  (moon-default-leader
+    "uw" #'wl))
+
+
+;;; MUA
+
 (use-package| wanderlust
-  :commands wl
-  :config
-  (if (boundp 'mail-user-agent)
-      (setq mail-user-agent 'wl-user-agent))
-  (if (fboundp 'define-mail-user-agent)
-      (define-mail-user-agent
-        'wl-user-agent
-        'wl-user-agent-compose
-        'wl-draft-send
-        'wl-draft-kill
-        'mail-send-hook))
+  :commands wl)
+
+;;; Contacts
+
+(use-package| bbdb
+  :defer t
+  ;; http://emacs-fu.blogspot.com/2009/08/managing-e-mail-addresses-with-bbdb.html
   :init
-  ;; send mail
-  ;; default template
-  (setq wl-smtp-connection-type 'starttls
-        wl-smtp-posting-port 587
-        wl-smtp-authenticate-type "plain"
-        wl-smtp-posting-user "casouri"
-        wl-smtp-posting-server "smtp.gmail.com"
-        wl-local-domain "gmail.com"
-        wl-message-id-domain "smtp.gmail.com")
+  (setq bbdb-file (concat moon-star-dir "utility/email/bbdb"))
+  :config
+  (require 'bbdb-wl)
+  (bbdb-initialize 'wl)
+  (setq
+   bbdb-wl-folder-regexp    ;; get addresses only from these folders
+   "^\.inbox$\\|^.sent")
+  (setq
+   bbdb-offer-save 1                        ;; 1 means save-without-asking
 
-  (setq wl-user-mail-address-list '("casouri@gmail.com" "ykf5041@psu.edu"))
-  (setq wl-template-alist
-        '(("GMAIL"
-           (wl-from . "Yuan Fu <casouri@gmail.com>")
-           (wl-smtp-posting-user . "casouri")
-           (wl-smtp-posting-server . "smtp.gmail.com")
-           (wl-smtp-authenticate-type ."plain")
-           (wl-smtp-connection-type . 'starttls)
-           (wl-smtp-posting-port . 587)
-           (wl-local-domain . "gmail.com")
-           (wl-message-id-domain . "smtp.gmail.com")
-           ("From" . wl-from))
-          ("PSU"
-           (wl-from . "Yuan Fu <ykf5041@psu.edu>")
-           (wl-smtp-posting-user . "ykf5041@psu.edu")
-           (wl-smtp-posting-server . "smtp.office365.com")
-           (wl-smtp-authenticate-type . "login")
-           (wl-smtp-connection-type . 'starttls)
-           (wl-smtp-posting-port . 587)
-           ("From" . wl-from))))
+   bbdb-use-pop-up t                        ;; allow popups for addresses
+   bbdb-electric-p t                        ;; be disposable with SPC
+   bbdb-popup-target-lines  1               ;; very small
 
-  ;; ignore craps in header
-  (setq wl-message-ignored-field-list
-        '(".")
-        wl-message-visible-field-list
-        '("^\\(To\\|Cc\\):"
-          "^Subject:"
-          "^\\(From\\|Reply-To\\):"
-          "^\\(Posted\\|Date\\):"
-          "^Organization:"
-          "^X-\\(Face\\(-[0-9]+\\)?\\|Weather\\|Fortune\\|Now-Playing\\):")
-        wl-message-sort-field-list
-        '("^Reply-To" "^Posted" "^Date" "^Organization"))
+   bbdb-dwim-net-address-allow-redundancy t ;; always use full name
+   bbdb-quiet-about-name-mismatches 2       ;; show name-mismatches 2 secs
 
-  ;; x-face
-  (autoload 'x-face-decode-message-header "x-face-e21")
-  (setq wl-highlight-x-face-function 'x-face-decode-message-header)
-  (setq wl-x-face-file (concat moon-star-dir "utility/email/x-face"))
+   bbdb-always-add-address t                ;; add new addresses to existing...
+   ;; ...contacts automatically
+   bbdb-canonicalize-redundant-nets-p t     ;; x@foo.bar.cx => x@bar.cx
 
-  (setq elmo-imap4-use-modified-utf7 t)
-  (setq wl-folder-check-async t)
-  (setq elmo-imap4-use-modified-utf7 t))
+   bbdb-completion-type nil                 ;; complete on anything
 
+   bbdb-complete-name-allow-cycling t       ;; cycle through matches
+   ;; this only works partially
+
+   bbbd-message-caching-enabled t           ;; be fast
+   bbdb-use-alternate-names t               ;; use AKA
+
+
+   bbdb-elided-display t                    ;; single-line addresses
+
+   ;; auto-create addresses from mail
+   bbdb/mail-auto-create-p 'bbdb-ignore-some-messages-hook
+
+   ;; don't ask about fake addresses
+   ;; NOTE: there can be only one entry per header (such as To, From)
+   ;; http://flex.ee.uec.ac.jp/texi/bbdb/bbdb_11.html
+   bbdb-ignore-some-messages-alist
+   '(( "From" . "no.?reply\\|DAEMON\\|daemon\\|facebookmail\\|twitter")))
+  )
 
 ;;; config.el ends here
