@@ -35,6 +35,7 @@
        syntax
        spell
        :lang
+       general
        common-lisp
        cc
        lsp
@@ -106,7 +107,7 @@
  (setq moon-format-on-save t)
 
  ;;;; scroll margin
- (setq scroll-margin 8)
+ ;; (setq scroll-margin 8)
 
  ;;;; Font
  ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
@@ -141,3 +142,5 @@
  ;;
  ;;; customize ends here
  )
+
+(put 'narrow-to-page 'disabled nil)
