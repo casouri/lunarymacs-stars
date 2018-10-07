@@ -4,8 +4,8 @@
 
 (post-config| general
   (general-define-key
-   "s-b" #'tabbar-backward
-   "s-f" #'tabbar-forward
+   "s-b" #'awesome-backward-tab
+   "s-f" #'awesome-forward-tab
    ;; "s-n" #'tabbar-forward-group
    ;; "s-p" #'tabbar-backward-group
    )
@@ -206,16 +206,6 @@ and saveing desktop."
 
 (use-package| (awesome-tab :fetcher github :repo "manateelazycat/awesome-tab")
   :defer t)
-
-(define-minor-mode awesome-tab-mode
-  "Inproved tabbar mode"
-  :lighter "AWT"
-  (if awesome-tab-mode
-      (progn
-        (require 'awesome-tab)
-        (tabbar-mode))
-    (tabbar-mode -1)))
-
 
 ;;;; Syntax
 ;;
