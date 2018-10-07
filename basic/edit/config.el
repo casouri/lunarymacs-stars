@@ -7,7 +7,12 @@
     "o" '(:ignore t :which-key "outline")
     "o <tab>" #'outline-toggle-children
     "os" #'outline-show-all
-    "oh" #'outline-hide-body))
+    "oh" #'outline-hide-body)
+  (general-define-key
+   :keymaps 'override
+   ;; this is binded by default,
+   ;; but flyspell mode shadows it
+   "C-M-i" #'outshine-cycle-buffer))
 
 (global-set-key (kbd (mve "<C-return>" "<S-return>")) #'moon/return-cancel-completion)
 
@@ -31,6 +36,11 @@
   :config (ws-butler-global-mode))
 
 (use-package| expand-region
+  :config
+  ;; it interferes angel.el's region transient map
+  ;; specifically, the region-deactive-hook
+  ;; doesn't run right after the region highlight is off
+  (setq expand-region-fast-keys-enabled nil)
   :commands
   er/expand-region
   er/mark-defun
@@ -53,7 +63,9 @@
 (use-package| undo-tree
   :config (global-undo-tree-mode)
   (setq undo-tree-visualizer-timestamps t
-        undo-tree-visualizer-diff t))
+        undo-tree-visualizer-diff t
+        undo-tree-auto-save-history t
+        undo-tree-history-directory-alist `(("." . ,moon-cache-dir))))
 
 (use-package| hungry-delete
   :commands hungry-delete-backward
@@ -159,13 +171,5 @@
   (interactive)
   (company-abort)
   (newline nil t))
-
-;; never tested
-;; http://emacsredux.com/blog/2013/04/21/edit-files-as-root/
-(defadvice ivy-find-file (after find-file-sudo activate)
-  "Find file as root if necessary."
-  (unless (and buffer-file-name
-               (file-writable-p buffer-file-name))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 ;;; config.el ends here
