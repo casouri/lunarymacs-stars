@@ -68,3 +68,6 @@
 
 ;;;; don't open new frame
 (setq ns-pop-up-frames nil)
+
+;;;; "Dangerous Commands"
+(put 'narrow-to-page 'disabled nil)

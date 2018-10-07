@@ -142,5 +142,3 @@
  ;;
  ;;; customize ends here
  )
-
-(put 'narrow-to-page 'disabled nil)
