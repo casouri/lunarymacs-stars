@@ -23,6 +23,7 @@
    :keymaps 'override
    "C-'"   #'jump-char-forward
    "M-'"   #'avy-goto-char
+   "C-M-;" #'inline-replace
    "C-M-f" #'next-space
    "M-f"   #'next-char
    "C-M-b" #'last-space
@@ -59,7 +60,7 @@
     "0"   #'quit-window
     "C-," #'beginning-of-buffer ; as of <
     "C-." #'end-of-buffer ; as of >
-    "C-q" #'smart-query-edit-mode
+    "C-q" #'query-replace+-mode
     "C-b" #'switch-to-buffer
     "M-b" (lambda (arg)
             (interactive "p")
@@ -154,44 +155,44 @@
   (set-mark-command nil)
   (end-of-line))
 
-;;; Smart query replace
+;;; Query Replace +
 
-(defvar smart-query-edit-mode-overlay nil
+(defvar query-replace+-mode-overlay nil
   "Overlay of region to be replaced.")
 
-(defvar smart-query-edit-mode-from-string nil
+(defvar query-replace+-mode-from-string nil
   "The from-string for `query-replace'.")
 
-(define-minor-mode smart-query-edit-mode
+(define-minor-mode query-replace+-mode
   "Edit region and query replace."
   :lighter "QUERY"
-  (if smart-query-edit-mode
+  (if query-replace+-mode
       (if (not mark-active)
-          (setq smart-query-edit-mode nil)
+          (setq query-replace+-mode nil)
         (overlay-put
-         (setq smart-query-edit-mode-from-string
+         (setq query-replace+-mode-from-string
                (buffer-substring
                 (region-beginning)
                 (region-end))
-               smart-query-edit-mode-overlay
+               query-replace+-mode-overlay
                (make-overlay (region-beginning)
                              (region-end)
                              nil
                              nil
                              t))
          'face '(:inherit region)))
-    (overlay-put smart-query-edit-mode-overlay
+    (overlay-put query-replace+-mode-overlay
                  'face '(:inherit region))
     (goto-char (overlay-end
-                smart-query-edit-mode-overlay))
-    (query-replace smart-query-edit-mode-from-string
+                query-replace+-mode-overlay))
+    (query-replace query-replace+-mode-from-string
                    (buffer-substring-no-properties
                     (overlay-start
-                     smart-query-edit-mode-overlay)
+                     query-replace+-mode-overlay)
                     (overlay-end
-                     smart-query-edit-mode-overlay)))
+                     query-replace+-mode-overlay)))
     (delete-overlay
-     smart-query-edit-mode-overlay)))
+     query-replace+-mode-overlay)))
 
 ;;; Better isearch
 
@@ -265,8 +266,78 @@
   :commands jump-char-forward
   :init (setq jump-char-forward-key "'"
               jump-char-backward-key ";"))
-;; avy-goto-char is bind to M-'
 
 ;;; Inline replace
+
+
+(defvar inline-replace-last-input "")
+(defvar inline-replace-history nil)
+(defvar inline-replace-count 1)
+(defvar inline-replace-original-buffer nil)
+(defvar inline-replace-overlay nil)
+(defvar inline-replace-beg nil)
+
+(defvar inline-replace-minibuffer-map (let ((map minibuffer-local-map))
+                                        (define-key map (kbd "C-p") #'inline-replace-previous)
+                                        (define-key map (kbd "C-n") #'inline-replace-next)
+                                        map))
+
+(defun inline-replace-previous ()
+  "Previous match."
+  (interactive)
+  (when (> inline-replace-count 1)
+    (decf inline-replace-count)))
+
+(defun inline-replace-next ()
+  "Next match."
+  (interactive)
+  (incf inline-replace-count))
+
+(defun inline-replace ()
+  "Search for the matching REGEXP COUNT times before END.
+You can use \\&, \\N to refer matched text."
+  (interactive)
+  (condition-case nil
+      (save-excursion
+        (setq inline-replace-beg (line-beginning-position))
+        (setq inline-replace-original-buffer (current-buffer))
+        (add-hook 'post-command-hook #'inline-replace-highlight)
+
+        (let* ((minibuffer-local-map inline-replace-minibuffer-map)
+               (input (read-string "regexp/replacement: " nil 'inline-replace-history))
+               (replace (or (nth 1 (split-string input "/")) "")))
+          (goto-char inline-replace-beg)
+          (re-search-forward (car (split-string input "/")) (line-end-position) t inline-replace-count)
+
+          (unless (equal input inline-replace-last-input)
+            (push input inline-replace-history)
+            (setq inline-replace-last-input input))
+          (remove-hook 'post-command-hook #'inline-replace-highlight)
+          (delete-overlay inline-replace-overlay)
+          (replace-match replace)
+          (setq inline-replace-count 0)))
+    ((quit error)
+     (delete-overlay inline-replace-overlay)
+     (remove-hook 'post-command-hook #'inline-replace-highlight)
+     (setq inline-replace-count 0))))
+
+(defun inline-replace-highlight ()
+  "Highlight matched text and replacement."
+  (when inline-replace-overlay
+    (delete-overlay inline-replace-overlay))
+  (when (>= (point-max) (length "regexp/replacement: "))
+    (let* ((input (buffer-substring-no-properties (1+ (length "regexp/replacement: ")) (point-max)))
+           (replace (or (nth 1 (split-string input "/")) "")))
+      (with-current-buffer inline-replace-original-buffer
+        (goto-char inline-replace-beg)
+        (when (and (re-search-forward (car (split-string input "/")) (line-end-position) t inline-replace-count)
+                   (> inline-replace-count 1))
+          (decf inline-replace-count))
+        (setq inline-replace-overlay (make-overlay (match-beginning 0) (match-end 0)))
+        (overlay-put inline-replace-overlay 'face '(:strike-through t :background "#75000F"))
+        (overlay-put inline-replace-overlay 'after-string (propertize replace 'face '(:background "#078A00")))))))
+
+
+
 
 ;;; config.el ends here
