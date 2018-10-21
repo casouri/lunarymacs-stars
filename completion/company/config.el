@@ -2,7 +2,7 @@
 
 (use-package| company
   :config
-  (setq company-idle-delay 0
+  (setq company-idle-delay 0.2
         company-minimum-prefix-length 2
         company-dabbrev-downcase nil
         company-tooltip-limit 15)
