@@ -95,7 +95,7 @@
   (setq org-capture-templates
         (append org-capture-templates
                 `(("t" "TODOs")
-                  ("te" "Emacs" entry (file+olp "~/note/todo.org" "Emacs") "** TODO %?")
-                  ("to" "Other" entry (file+olp "~/note/todo.org" "Other") "** TODO %?")
-                  ("ts" "School" entry (file+olp "~/note/todo.org" "School") "** TODO %?")
+                  ("te" "Emacs" entry (file+olp "~/note/todo.org" "Emacs" "Priority") "*** TODO %?")
+                  ("to" "Other" entry (file+olp "~/note/todo.org" "Other" "Priority") "*** TODO %?")
+                  ("ts" "School" entry (file+olp "~/note/todo.org" "School" "Priority") "*** TODO %?")
                   ))))
