@@ -15,11 +15,11 @@
   (moon-cx-leader
     :keymaps 'emacs-lisp-mode-map
     ;; eval
-    "e" '(:ignore t :which-key "eval")
-    "ee" #'eval-last-sexp
-    "er" #'eval-region
-    "ef" #'eval-defun
-    "eb" #'eval-buffer))
+    "w" '(:ignore t :which-key "eval")
+    "w e" #'eval-last-sexp
+    "w r" #'eval-region
+    "w f" #'eval-defun
+    "w b" #'eval-buffer))
 
 (use-package| aggressive-indent
   :defer t
