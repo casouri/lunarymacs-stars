@@ -64,7 +64,7 @@
     "C-b" #'switch-to-buffer
     "C-;" #'goto-last-change
     "M-;" #'goto-last-change-reverse))
-n
+
 ;;; Navigation
 ;;
 ;; Overall behavior:
