@@ -1,13 +1,10 @@
 # -*- conf-unix -*-
 
 GMAIL {
-   .~/Mail/Gmail/Inbox             "Inbox"
-   .~/Mail/Gmail/[Gmail]/Sent Mail "Sent"
-   .~/Mail/Gmail/[Gmail]/Important "Important"
-   .~/Mail/Gmail/[Gmail]/Starred   "Starred"
+   [tag:news]                      "News"
+   [tag:mailling-list]             "Mailing List"
+   [-tag:news -tag:mailling-list]  "Inbox"
    .~/Mail/Gmail/[Gmail]/Trash     "Trash"
-   .~/Mail/Gmail/Trivial           "Trivial"
-   /cc:emacs-devel@gnu.org/.~/Mail/Gmail/Inbox        "Emacs Devel"
 }
 
 PSU {

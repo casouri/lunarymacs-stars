@@ -14,6 +14,8 @@
 ;; don't ask for confirmation when there are too many mail
 (setq elmo-folder-update-confirm nil)
 
+(add-hook 'wl-folder-mode-hook (lambda () (wl-folder-sync-region (point-min) (point-max))))
+
 ;; send mail
 ;; default template
 (setq wl-smtp-connection-type 'starttls
@@ -58,9 +60,6 @@
       wl-message-sort-field-list
       '("^Reply-To" "^Posted" "^Date" "^Organization"))
 
-(setq moon-wl-trvial-folder ".~/Mail/Gmail/[Gmail]/Trivial")
-(setq moon-wl-important-folder ".~/Mail/Gmail/[Gmail]/Important")
-
 ;; Use the same address to reply
 (setq wl-draft-config-alist
       '(((string-match "psu" wl-draft-parent-folder)
@@ -69,19 +68,20 @@
          (template . "GMAIL"))))
 
 ;; refile
-(setq wl-refile-rule-alist
-      `("From"
-        (,(regexp-quote "@pnc.com") . ,moon-wl-trvial-folder)
-        (,(regexp-quote "@github.com") . ,moon-wl-trvial-folder)
-        (,(regexp-quote "noreply@emacs-china.org") . ,moon-wl-trvial-folder)
-        (,(regexp-quote "no-reply@accounts.nintendo.com") . ,moon-wl-trvial-folder)
-        (,(regexp-quote "ebay@ebay.com") . ,moon-wl-trvial-folder)
-        (,(regexp-quote "no-reply@mail.newsletter.instructables.com") . ,moon-wl-trvial-folder)))
+;; (setq wl-refile-rule-alist
+;;       `("From"
+;;         (,(regexp-quote "@pnc.com") . ,moon-wl-trvial-folder)
+;;         (,(regexp-quote "@github.com") . ,moon-wl-trvial-folder)
+;;         (,(regexp-quote "noreply@emacs-china.org") . ,moon-wl-trvial-folder)
+;;         (,(regexp-quote "no-reply@accounts.nintendo.com") . ,moon-wl-trvial-folder)
+;;         (,(regexp-quote "ebay@ebay.com") . ,moon-wl-trvial-folder)
+;;         (,(regexp-quote "no-reply@mail.newsletter.instructables.com") . ,moon-wl-trvial-folder)))
 
 ;; expire
 (setq wl-expire-alist
-      `((,(concat "/cc:emacs-devel@gnu.org/" (regexp-quote ".~/Mail/Gmail/Inbox")) (date 7) trash)
-        (,(regexp-quote ".~/Mail/Gmail/[Gmail]/Trivial") (date 14) trash)))
+      '(("[tag:news]" (date 30) ".~/Mail/Gmail/[Gmail]/Trash")
+        ([tag:mailling-list] (date 30) ".~/Mail/Gmail/[Gmail]/Trash")
+        ([tag:mailling-list] (date 30) ".~/Mail/Gmail/[Gmail]/Trash")))
 
 ;; x-face
 (autoload 'x-face-decode-message-header "x-face-e21")
