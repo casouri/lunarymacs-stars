@@ -35,11 +35,13 @@
        syntax
        spell
        :lang
+       eglot
+       ;; arduino
        general
        common-lisp
        cc
-       lsp
-       python
+       ;; lsp
+       ;; python
        elisp
        ;; rust
        javascript
@@ -56,6 +58,9 @@
 ;; I put them here so I can change them easily
 
 (unless moon-setup
+
+  ;;;; speed up for long lines
+  (setq bidi-display-reordering nil)
 
   ;;;; email
   (setq user-mail-address "casouri@gmail.com")
@@ -100,14 +105,14 @@
  ;;;; theme
  ;; (require 'atom-one-dark-theme)
  (require 'doom-themes)
- (load-theme 'doom-one t)
+ (load-theme 'doom-cyberpunk t)
 
 
  ;;;; format on save
  (setq moon-format-on-save t)
 
  ;;;; scroll margin
- ;; (setq scroll-margin 8)
+ (setq scroll-margin 4)
 
  ;;;; Font
  ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
