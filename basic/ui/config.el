@@ -31,9 +31,9 @@
 
 (use-package| (doom-themes :repo "casouri/emacs-doom-themes")
   :config
-  (add-to-list 'moon-toggle-theme-list 'doom-one)
+  ;; (add-to-list 'moon-toggle-theme-list 'doom-one)
   (add-to-list 'moon-toggle-theme-list 'doom-one-light t)
-  )
+  (add-to-list 'moon-toggle-theme-list 'doom-cyberpunk))
 
 
 (use-package| rainbow-delimiters
@@ -53,6 +53,9 @@
   (add-hook 'moon-load-theme-hook
             (lambda ()
               (pcase moon-current-theme
+                ("doom-cyberpunk" (progn (setq hl-paren-colors '("green"))
+                                   (global-highlight-parentheses-mode -1)
+                                   (global-highlight-parentheses-mode)))
                 ("doom-one" (progn (setq hl-paren-colors '("green"))
                                    (global-highlight-parentheses-mode -1)
                                    (global-highlight-parentheses-mode)))
