@@ -62,37 +62,72 @@
     "C-." #'end-of-buffer ; as of >
     "C-q" #'query-replace+-mode
     "C-b" #'switch-to-buffer
-    "M-b" (lambda (arg)
-            (interactive "p")
-            (if (>= arg 0)
-                (kill-buffer (current-buffer))
-              (kill-buffer-and-window (current-buffer))))
     "C-;" #'goto-last-change
     "M-;" #'goto-last-change-reverse))
-
+n
 ;;; Navigation
+;;
+;; Overall behavior:
+;;
+;; last-char goes back a word, stops at beginning of line and parenthesis
+;; next-char goes foward a wrod, stops at end of line and parenthesis
 
-(defsubst next-of (charset &optional stop-charset)
-  "Forward until hit char from CHARSET. Or before a char from STOP-CHARSET."
-  (when stop-charset
-    (while (member (char-after) stop-charset)
-      (forward-char)))
-  (while (member (char-after) charset)
-    (forward-char))
-  (unless (member (char-after) stop-charset)
-    (while (not (member (char-after) charset))
-      (forward-char))))
+(defmacro forward-char-while (condition &optional whitespace-charset)
+  "Go forward while CONDITION evaluate to t.
+But if hit newline, stop,  rollback (skipping spaces) and throw 'return.
+If WHITESPACE-CHARSET is non-nil,
+chars in it will be used as white space char (to be skipped over when rolling bck)."
+  `(while ,condition
+     (when (eq (char-after) ?\n)
+       (while (member (char-after) (or ,whitespace-charset '(?\s)))
+         (backword-char))
+       (throw 'return nil))
+     (forward-char)))
+
+(defmacro backward-char-while (condition &optional whitespace-charset)
+  "Go backward while CONDITION evaluate to t.
+But if hit newline, stop,  rollback (skipping spaces) and throw 'return.
+If WHITESPACE-CHARSET is non-nil,
+chars in it will be used as white space char (to be skipped over when rolling bck)."
+  `(while ,condition
+     (when (eq (char-before) ?\n)
+       (while (member (char-after) (or ,whitespace-charset '(?\s)))
+         (forward-char))
+       (throw 'return nil))
+     (backward-char)))
+
+
+(defsubst next-of (charset &optional stop-charset whitespace-charset)
+  "Forward until hit char from CHARSET. Or before a char from STOP-CHARSET.
+But if hit newline, stop,  rollback (skipping spaces) and throw 'return.
+If WHITESPACE-CHARSET is non-nil,
+chars in it will be used as white space char (to be skipped over when rolling back)."
+  ;; skip over stop-charset char if you are already on one
+  (catch 'return
+    ;; skip over eol if already on it
+    (when (eq (char-after) ?\n) (forward-char))
+    (when stop-charset
+      (forward-char-while (member (char-after) stop-charset)))
+    ;; skip over charset car if you are already on one
+    (forward-char-while (member (char-after) charset))
+    ;; go forwarduntill hit a char not from charset
+    (unless (member (char-after) stop-charset)
+      (forward-char-while (not (member (char-after) charset))))))
 
 (defsubst last-of (charset &optional stop-charset)
-  "Backward until hit char from CHARSET. Or before a char from STOP-CHARSET."
-  (when stop-charset
-    (while (member (char-before) stop-charset)
-      (backward-char)))
-  (while (member (char-before) charset)
-    (backward-char))
-  (unless (member (char-before) stop-charset)
-    (while (not (member (char-before) charset))
-      (backward-char))))
+  "Backward until hit char from CHARSET. Or before a char from STOP-CHARSET.
+But if hit newline, stop,  rollback (skipping spaces) and throw 'return.
+If WHITESPACE-CHARSET is non-nil,
+chars in it will be used as white space char (to be skipped over when rolling back)."
+  (catch 'return
+    ;; skip over eol if already on it
+    (when (eq (save-excursion (back-to-indentation) (point)) (point))
+      (beginning-of-line) (backward-char) (throw 'return nil))
+    (when stop-charset
+      (backward-char-while (member (char-before) stop-charset)))
+    (backward-char-while (member (char-before) charset))
+    (unless (member (char-before) stop-charset)
+      (backward-char-while (not (member (char-before) charset))))))
 
 (defun next-space ()
   "Go to next space."
@@ -155,6 +190,36 @@
   (set-mark-command nil)
   (end-of-line))
 
+;;; Better C-a
+
+;; http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; remap C-a to `smarter-move-beginning-of-line'
+(global-set-key [remap move-beginning-of-line]
+                'smarter-move-beginning-of-line)
+
 ;;; Query Replace +
 
 (defvar query-replace+-mode-overlay nil
@@ -209,56 +274,52 @@
 
 ;;; Transient map in region
 
-(defvar transient-map-exit-func nil
-  "Function used to exit transient map.")
+(defconst angel-transient-mode-map-alist
+  `((mark-active
+     ,@(let ((map (make-sparse-keymap)))
+         ;; operations
+         (define-key map "p" (lambda (b e)
+                               (interactive "r") (delete-region b e) (yank)))
+         (define-key map (kbd "M-p") #'counsel-yank-pop)
+         (define-key map "x" #'exchange-point-and-mark)
+         (define-key map ";" #'comment-dwim)
+         (define-key map "y" #'kill-ring-save)
+         (define-key map (kbd "C-y") #'kill-ring-save)
+         (define-key map "Y" (lambda
+                               (b e)
+                               (interactive "r")
+                               (kill-new (buffer-substring b e))
+                               (message "Region saved")))
+         ;; isolate
+         (define-key map "s" #'isolate-quick-add)
+         (define-key map "S" #'isolate-long-add)
+         (define-key map "d" #'isolate-quick-delete)
+         (define-key map "D" #'isolate-long-delete)
+         (define-key map "c" #'isolate-quick-change)
+         (define-key map "C" #'isolate-long-change)
+         ;; mark things
+         (define-key map "f" #'er/mark-defun)
+         (define-key map "w" #'er/mark-word)
+         (define-key map "W" #'er/mark-symbol)
+         (define-key map "P" #'mark-paragraph)
+         ;; inner & outer
+         ;; (define-key map "C-i" inner-map)
+         ;; (define-key map "C-a" outer-map)
+         ;; (define-key inner-map "q" #'er/mark-inside-quotes)
+         ;; (define-key outer-map "q" #'er/mark-outside-quotes)
+         ;; (define-key inner-map "b" #'er/mark-inside-pairs)
+         ;; (define-key outer-map "b" #'er/mark-outside-pairs)
+         (define-key map "q" #'er/mark-inside-quotes)
+         (define-key map "b" #'er/mark-inside-pairs)
 
-(defun activate-mark-hook@set-transient-map ()
-  (setq transient-map-exit-func
-        (set-transient-map
-         (let ((map (make-sparse-keymap))
-               (inner-map (make-sparse-keymap))
-               (outer-map (make-sparse-keymap)))
-           ;; operations
-           (define-key map "p" (lambda (b e)
-                                 (interactive "r") (delete-region b e) (yank)))
-           (define-key map (kbd "M-p") #'counsel-yank-pop)
-           (define-key map "x" #'exchange-point-and-mark)
-           (define-key map ";" #'comment-dwim)
-           (define-key map "y" #'kill-ring-save)
-           (define-key map (kbd "C-y") #'kill-ring-save)
-           (define-key map "Y" (lambda
-                                 (b e)
-                                 (interactive "r")
-                                 (kill-new (buffer-substring b e))
-                                 (message "Region saved")))
-           ;; isolate
-           (define-key map "s" #'isolate-quick-add)
-           (define-key map "S" #'isolate-long-add)
-           (define-key map "d" #'isolate-quick-delete)
-           (define-key map "D" #'isolate-long-delete)
-           (define-key map "c" #'isolate-quick-change)
-           (define-key map "C" #'isolate-long-change)
-           ;; mark things
-           (define-key map "f" #'er/mark-defun)
-           (define-key map "w" #'er/mark-word)
-           (define-key map "W" #'er/mark-symbol)
-           (define-key map "P" #'mark-paragraph)
-           ;; inner & outer
-           (define-key map "i" inner-map)
-           (define-key map "a" outer-map)
-           (define-key inner-map "q" #'er/mark-inside-quotes)
-           (define-key outer-map "q" #'er/mark-outside-quotes)
-           (define-key inner-map "b" #'er/mark-inside-pairs)
-           (define-key outer-map "b" #'er/mark-outside-pairs)
-           ;; expand-region
-           (define-key map (kbd "C--") #'er/contract-region)
-           (define-key map (kbd "C-=") #'er/expand-region)
-           map)
-         #'region-active-p)))
+         ;; expand-region
+         (define-key map (kbd "C--") #'er/contract-region)
+         (define-key map (kbd "C-=") #'er/expand-region)
+         map))))
 
-(add-hook 'activate-mark-hook #'activate-mark-hook@set-transient-map)
-(add-hook 'deactivate-mark-hook (lambda ()
-                                  (funcall transient-map-exit-func)))
+(add-to-list 'emulation-mode-map-alists
+             'angel-transient-mode-map-alist t)
+
 
 ;;; Jump char
 
