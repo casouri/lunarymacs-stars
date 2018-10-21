@@ -15,7 +15,7 @@
    "C-M-i" #'outshine-cycle-buffer
    "C-<mouse-1>" #'mc/add-cursor-on-click))
 (global-unset-key (kbd "C-<down-mouse-1>"))
-(global-set-key (kbd (mve "<C-return>" "<S-return>")) #'moon/return-cancel-completion)
+(mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
 
 (post-config| general
   (moon-g-leader
@@ -137,7 +137,7 @@
 (use-package| multiple-cursors
   :commands (mc/edit-lines
              mc/add-cursor-on-click)
-  :condig (setq mc/list-file (concat moon-local-dir "mc-lists.el")))
+  :config (setq mc/list-file (concat moon-local-dir "mc-lists.el")))
 
 
 ;;; Config
