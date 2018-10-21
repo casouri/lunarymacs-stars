@@ -16,7 +16,7 @@
 ;;               (lsp-python-enable)))
 ;;   (add-to-list 'moon-smart-format-alist '(python-mode . lsp-format-buffer)))
 
-(add-hook 'python-mode-hook eglot-ensure)
+(add-hook 'python-mode-hook 'eglot-ensure)
 
 (use-package| pyvenv
   :commands pyvenv-activate)
