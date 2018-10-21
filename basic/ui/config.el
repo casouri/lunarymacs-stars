@@ -4,8 +4,8 @@
 
 (post-config| general
   (general-define-key
-   "s-b" #'awesome-backward-tab
-   "s-f" #'awesome-forward-tab
+   "s-b" #'awesome-tab-backward
+   "s-f" #'awesome-tab-forward
    ;; "s-n" #'tabbar-forward-group
    ;; "s-p" #'tabbar-backward-group
    )
@@ -204,8 +204,7 @@ and saveing desktop."
 ;;;; Tab
 ;;
 
-(use-package| (awesome-tab :fetcher github :repo "manateelazycat/awesome-tab")
-  :defer t)
+(use-package| awesome-tab :defer t)
 
 ;;;; Syntax
 ;;
