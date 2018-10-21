@@ -12,7 +12,7 @@
     "yN" #'aweshell-new
     "Y" #'moon/toggle-eshell)
   (general-define-key
-   "s-e" #'moon/toggle-eshell))
+   "s-e" #'aweshell-toggle))
 
 (defun moon/toggle-eshell ()
   "Toggle eshell"
@@ -34,7 +34,7 @@
 
 
 (use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell")
-  :commands (aweshell-new aweshell-next aweshell-prev)
+  :commands (aweshell-new aweshell-next aweshell-prev aweshell-toggle)
   :init (setq aweshell-use-exec-path-from-shell nil)
   :config
   (custom-set-faces
