@@ -20,9 +20,7 @@
          (general-define-key
           :keymaps 'override
           "<S-return>" #'ivy-switch-buffer))
-       (general-define-key
-        :keymaps 'override
-        "<C-return>" #'ivy-switch-buffer))
+       nil)
   (general-define-key
    "M-x" #'counsel-M-x)
   (moon-default-leader
@@ -95,4 +93,6 @@
 
 (use-package| (ivy-filthy-rich :repo "casouri/ivy-filthy-rich" :fetcher github)
   :after counsel
-  :config (ivy-filthy-rich-mode))
+  :init (setq ivy-filthy-rich-color-list '#1=("#46EAFF" . ("#49C790" . #1#)))
+  :config
+  (ivy-filthy-rich-mode))
