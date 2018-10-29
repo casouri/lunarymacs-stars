@@ -26,7 +26,6 @@
 
 ;;; Package
 
-
 ;;;; Edit
 
 (use-package| (camelsnake-mode :fetcher github :repo "casouri/camelsnake-mode")
@@ -110,7 +109,7 @@
 ;; (load| switch-input-mode)
 
 
-;;;; code structure
+;;;; Code Structure
 
 (use-package| outshine
   :defer t
