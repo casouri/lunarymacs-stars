@@ -3,23 +3,31 @@
 ;;; Key
 
 (post-config| general
+  ;;;; Outshine
   (moon-default-leader
     "o" '(:ignore t :which-key "outline")
     "o <tab>" #'outline-toggle-children
     "os" #'outline-show-all
     "oh" #'outline-hide-body)
+  (global-unset-key (kbd "C-<down-mouse-1>"))
   (general-define-key
    :keymaps 'override
    ;; this is binded by default,
    ;; but flyspell mode shadows it
    "C-M-i" #'outshine-cycle-buffer
    "C-<mouse-1>" #'mc/add-cursor-on-click)
+  ;;;; Expand Region
   (moon-g-leader
     "v" #'er/expand-region)
   (moon-default-leader
-    "v" #'er/expand-region))
+    "v" #'er/expand-region)
+  ;;;; Helpful
+  (general-define-key
+   :keymaps 'override
+   "C-h f" #'helpful-callable
+   "C-h v" #'helpful-variable
+   "C-h k" #'helpful-key))
 
-(global-unset-key (kbd "C-<down-mouse-1>"))
 (mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
 
 
@@ -137,6 +145,13 @@
              mc/add-cursor-on-click)
   :init (setq mc/list-file (concat moon-local-dir "mc-lists.el")))
 
+;;;; Help
+
+(use-package| helpful
+  :commands (helpful-callable
+             helpful-variable
+             helpful-key
+             helpful-at-point))
 
 ;;; Config
 
