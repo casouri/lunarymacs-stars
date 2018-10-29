@@ -19,7 +19,7 @@ h   l <   >
     (?j (select-window (split-window-below))) ; down
     (?h (split-window-right))                 ; left
     (?l (select-window (split-window-right))) ; right
-   ))
+    ))
 
 ;;
 ;; Moody
@@ -28,11 +28,12 @@ h   l <   >
 ;;;###autoload
 (defun flycheck-lighter (state bullet)
   "Return flycheck information for the given error type STATE."
-  (let* ((counts (flycheck-count-errors flycheck-current-errors))
-          (errorp (flycheck-has-current-errors-p state))
-          (err (or (cdr (assq state counts)) "?"))
-          (running (eq 'running flycheck-last-status-change)))
-     (if (or errorp running) (format bullet err) "")))
+  (when (bound-and-true-p flycheck-mode)
+    (let* ((counts (flycheck-count-errors flycheck-current-errors))
+           (errorp (flycheck-has-current-errors-p state))
+           (err (or (cdr (assq state counts)) "?"))
+           (running (eq 'running flycheck-last-status-change)))
+      (if (or errorp running) (format bullet err) ""))))
 
 ;;;###autoload
 (defun moon-edit-lighter ()
@@ -69,12 +70,11 @@ else just return the form's return."
                                (:eval (moody-tab "%b"))
                                " "
                                mode-line-modes
-                               (when (bound-and-true-p 'flycheck-mode)
-                                 (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
-                                                                          (flycheck-lighter 'warning "⚠%s")
-                                                                          (flycheck-lighter 'info "𝌆%s")) "" "OK") nil 'up)))
+                               (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
+                                                                        (flycheck-lighter 'warning "⚠%s")
+                                                                        (flycheck-lighter 'info "𝌆%s")) "" "OK") nil 'up))
                                " "
-                               (:eval (if (bound-and-true-p nyan-mode) (nyan-create) "%p"))
+                               (:eval (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "%p"))
                                " "
                                ;; moody-vc-mode
                                (:eval (moody-tab (if vc-mode (substring-no-properties vc-mode 1) "NO VC")))

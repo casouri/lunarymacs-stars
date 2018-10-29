@@ -54,8 +54,8 @@
             (lambda ()
               (pcase moon-current-theme
                 ("doom-cyberpunk" (progn (setq hl-paren-colors '("green"))
-                                   (global-highlight-parentheses-mode -1)
-                                   (global-highlight-parentheses-mode)))
+                                         (global-highlight-parentheses-mode -1)
+                                         (global-highlight-parentheses-mode)))
                 ("doom-one" (progn (setq hl-paren-colors '("green"))
                                    (global-highlight-parentheses-mode -1)
                                    (global-highlight-parentheses-mode)))
