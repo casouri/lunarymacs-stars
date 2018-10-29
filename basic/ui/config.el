@@ -112,9 +112,17 @@ minor-modes that is usually displayed directly in the mode line."
 ;;;;
 ;;;; Misc
 
-(use-package| nyan-mode
-  :init (setq nyan-wavy-trail t
-              nyan-bar-length 12))
+(use-package| nyan-lite
+  :init (setq nyan-lite-add-mode-line nil
+              nyan-lite-progress-bar t)
+  :commands nyan-lite-mode)
+
+(use-package| zone-nyan
+  :defer 5
+  :config
+  (require 'zone)
+  ;; (setq zone-programs [zone-nyan])
+  (zone-when-idle 120))
 
 (use-package| hl-todo
   :defer 5
