@@ -13,15 +13,14 @@
    ;; this is binded by default,
    ;; but flyspell mode shadows it
    "C-M-i" #'outshine-cycle-buffer
-   "C-<mouse-1>" #'mc/add-cursor-on-click))
-(global-unset-key (kbd "C-<down-mouse-1>"))
-(mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
-
-(post-config| general
+   "C-<mouse-1>" #'mc/add-cursor-on-click)
   (moon-g-leader
     "v" #'er/expand-region)
   (moon-default-leader
     "v" #'er/expand-region))
+
+(global-unset-key (kbd "C-<down-mouse-1>"))
+(mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
 
 
 ;;; Package
