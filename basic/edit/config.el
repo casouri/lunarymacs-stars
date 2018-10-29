@@ -26,7 +26,8 @@
    :keymaps 'override
    "C-h f" #'helpful-callable
    "C-h v" #'helpful-variable
-   "C-h k" #'helpful-key))
+   "C-h k" #'helpful-key
+   "C-c d" #'helpful-at-point))
 
 (mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
 
