@@ -3,6 +3,8 @@
 
 ;;; Commentary:
 ;;
+;; This star must run before any specific language star
+;; because they depends on `moon-use-eglot'.
 
 ;;; Code:
 ;;
@@ -13,6 +15,11 @@
   (moon-default-leader
     "l f" #'eglot-format-buffer
     "l R" #'eglot-rename))
+
+;;; Variables
+
+(defvar moon-use-eglot t
+  "Whether to use eglot instead of lsp.")
 
 ;;; Packages
 
