@@ -35,13 +35,13 @@
        syntax
        spell
        :lang
-       eglot
+       lsp
+       ;; eglot
        ;; arduino
        general
        common-lisp
        cc
-       ;; lsp
-       ;; python
+       python
        elisp
        ;; rust
        javascript
