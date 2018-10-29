@@ -107,6 +107,8 @@
  (require 'doom-themes)
  (load-theme 'doom-cyberpunk t)
 
+ ;;;; Faster long lines
+ (setq-default bidi-display-reordering nil)
 
  ;;;; format on save
  (setq moon-format-on-save t)
