@@ -117,12 +117,12 @@ minor-modes that is usually displayed directly in the mode line."
               nyan-lite-progress-bar t)
   :commands nyan-lite-mode)
 
-(use-package| zone-nyan
-  :defer 5
-  :config
-  (require 'zone)
-  ;; (setq zone-programs [zone-nyan])
-  (zone-when-idle 120))
+;; (use-package| zone-nyan
+;;   :defer 5
+;;   :config
+;;   (require 'zone)
+;;   ;; (setq zone-programs [zone-nyan])
+;;   (zone-when-idle 120))
 
 (use-package| hl-todo
   :defer 5
