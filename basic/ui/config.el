@@ -215,7 +215,12 @@ and saveing desktop."
 ;;;; Tab
 ;;
 
-(use-package| awesome-tab :defer t)
+;; don't load it, it has performance issues
+;; (use-package| awesome-tab
+;;   :defer 2
+;;   ;; to sync face
+;;   ;; TODO maybe fix this
+;;   :config (add-hook 'moon-load-theme-hook (lambda () (awesome-tab-mode -1) (awesome-tab-mode))))
 
 ;;;; Syntax
 ;;
