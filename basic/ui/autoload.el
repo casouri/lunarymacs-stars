@@ -87,5 +87,4 @@ else just return the form's return."
                 (setq mode-line-format my-mode-line-format)))
             (buffer-list)))
     ;; change default value of mode-line-format
-    (setq-default mode-line-format my-mode-line-format)
-    ))
+    (setq-default mode-line-format my-mode-line-format)))
