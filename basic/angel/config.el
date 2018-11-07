@@ -355,7 +355,7 @@ You can use \\&, \\N to refer matched text."
   (interactive)
   (condition-case nil
       (save-excursion
-        (setq inline-replace-beg (line-beginning-position))
+        (setq inline-replace-beg (progn (beginning-of-line) (point-marker)))
         (setq inline-replace-original-buffer (current-buffer))
         (add-hook 'post-command-hook #'inline-replace-highlight)
 
@@ -371,11 +371,11 @@ You can use \\&, \\N to refer matched text."
           (remove-hook 'post-command-hook #'inline-replace-highlight)
           (delete-overlay inline-replace-overlay)
           (replace-match replace)
-          (setq inline-replace-count 0)))
+          (setq inline-replace-count 1)))
     ((quit error)
      (delete-overlay inline-replace-overlay)
      (remove-hook 'post-command-hook #'inline-replace-highlight)
-     (setq inline-replace-count 0))))
+     (setq inline-replace-count 1))))
 
 (defun inline-replace-highlight ()
   "Highlight matched text and replacement."
@@ -386,9 +386,7 @@ You can use \\&, \\N to refer matched text."
            (replace (or (nth 1 (split-string input "/")) "")))
       (with-current-buffer inline-replace-original-buffer
         (goto-char inline-replace-beg)
-        (when (and (re-search-forward (car (split-string input "/")) (line-end-position) t inline-replace-count)
-                   (> inline-replace-count 1))
-          (decf inline-replace-count))
+        (re-search-forward (car (split-string input "/")) (line-end-position) t inline-replace-count)
         (setq inline-replace-overlay (make-overlay (match-beginning 0) (match-end 0)))
         (overlay-put inline-replace-overlay 'face '(:strike-through t :background "#75000F"))
         (overlay-put inline-replace-overlay 'after-string (propertize replace 'face '(:background "#078A00")))))))
