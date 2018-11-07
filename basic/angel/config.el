@@ -24,21 +24,16 @@
    "C-'"   #'jump-char-forward
    "M-'"   #'avy-goto-char
    "C-M-;" #'inline-replace
-   "C-M-f" #'next-space
    "M-f"   #'next-char
-   "C-M-b" #'last-space
    "M-b"   #'last-char
 
    "M-y"   #'kill-region
-   "C-y"   #'kill-ring-save
-   "s-y"   #'yank
 
    "C-."   #'undo-tree-redo
 
    "M-v"   #'select-line
    "C-="   #'er/expand-region
-   "C-M-p" #'backward-up-list
-   "C-M-n" #'down-list
+
    "C-M-0" #'forward-sexp ; \)
    "C-M-9" #'backward-sexp ; ;\(
 
