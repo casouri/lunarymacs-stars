@@ -386,7 +386,11 @@ You can use \\&, \\N to refer matched text."
            (replace (or (nth 1 (split-string input "/")) "")))
       (with-current-buffer inline-replace-original-buffer
         (goto-char inline-replace-beg)
-        (re-search-forward (car (split-string input "/")) (line-end-position) t inline-replace-count)
+        ;; if no match and count is greater than 1, try to decrease count
+        ;; this way if there are only 2 match, you can't increase count to anything greater than 2
+        (while (and (not (re-search-forward (car (split-string input "/")) (line-end-position) t inline-replace-count))
+                    (> inline-replace-count 1))
+          (decf inline-replace-count))
         (setq inline-replace-overlay (make-overlay (match-beginning 0) (match-end 0)))
         (overlay-put inline-replace-overlay 'face '(:strike-through t :background "#75000F"))
         (overlay-put inline-replace-overlay 'after-string (propertize replace 'face '(:background "#078A00")))))))
