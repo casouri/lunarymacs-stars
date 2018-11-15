@@ -242,7 +242,7 @@ point reaches the beginning or end of the buffer, stop there."
                              t))
          'face '(:inherit region)))
     (overlay-put query-replace+-mode-overlay
-                 'face '(:inherit region))
+                 'face '(:inherit lazy-highlight))
     (goto-char (overlay-end
                 query-replace+-mode-overlay))
     (query-replace query-replace+-mode-from-string
