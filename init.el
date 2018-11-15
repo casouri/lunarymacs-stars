@@ -17,7 +17,8 @@
        edit
        project
        :completion
-       ivy
+       ;; ivy
+       helm
        company
        snippet
        :os
