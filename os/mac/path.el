@@ -45,3 +45,5 @@
 ;; fix python error about locale
 (setenv "LC_ALL" "en_US.UTF-8")
 (setenv "LANG" "en_US.UTF-8")
+
+(setq exec-path '("/usr/local/opt/make/libexec/gnubin" "/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "~/bin" "/Library/TeX/texbin" "/usr/local/aria2/bin" "/usr/local/MacGPG2/bin" "/opt/X11/bin" "/Library/Frameworks/Mono.framework/Versions/Current/Commands" "/Applications/Wireshark.app/Contents/MacOS" "/Library/TeX/texbin/" "/Users/yuan/.cargo/bin" "/usr/local/opt/make/libexec/gnubin" "/usr/local/lib/python3.6" "/usr/local/lib/python3.6/site-packages" "/System/Library/Frameworks/Python.framework/Versions/2.7" "/usr/local/sbin" "/Users/yuan/bin"))
