@@ -31,7 +31,10 @@
     "ot" '((lambda () (interactive)
              (find-file moon-todo-file)) :which-key "jump todo")
     "oc" #'org-capture
-    "oa" #'org-agenda))
+    "oa" #'org-agenda)
+  (general-define-key
+   :keymaps 'org-mode-map
+   "C-c i" #'moon/insert-heading))
 
 (defvar moon-todo-file "~/note/todo.org")
 
@@ -54,6 +57,11 @@
 
 ;;; Function
 
+(defun moon/open-album-dir ()
+  "Open ~/p/casouri/rock/day/album/."
+  (interactive)
+  (shell-command-to-string (format "open ~/p/casouri/rock/day/album/")))
+
 (defun moon/new-blog (title)
   "Make a new blog post with TITLE."
   (interactive "M")
@@ -66,21 +74,40 @@
                             "/index.org")))
     (mkdir dir-path)
     (find-file file-path)
-    (insert (format "#+OPTIONS: html-style:nil
-#+HTML_HEAD: <link rel=\"stylesheet\" type=\"text/css\" href=\"/note/style.css\"/>
-#+HTML_HEAD_EXTRA: <script type=\"text/javascript\" src=\"/note/script.js\"></script>
-#+HTML_LINK_UP: /note
-#+HTML_LINK_HOME: /note
+    (insert (format "#+SETUPFILE: ../setup.org
 #+TITLE: %s
 #+DATE:
 "
                     title))
-    (kill-new (format "- [[./%s/%s/][%s]]"
+    (kill-new (format "- [[./%s/%s/index.html][%s]]"
                       year
                       dir-file-name
                       title))
     (save-buffer)
     (find-file "~/p/casouri/note/index.org")))
+
+(defun moon/new-rock/day (day)
+  "Make a new blog post of rock/day of DAY."
+  (interactive "n")
+  (mkdir (format "~/p/casouri/rock/day/day-%d" day))
+  (find-file (format "~/p/casouri/rock/day/day-%d/index.org" day))
+  (insert (format "#+SETUPFILE: ../setup.org
+#+TITLE: Day %d
+#+DATE:
+
+#+HTML: <div style=\"display: flex; justify-content: space-between;\"><a href=\"../day-%d/index.html\"><< Yesterday <<</a><a href=\"../day-%d/index.html\">>> Tommorrow >></a></div>
+
+
+[[../album/]]
+
+* - *
+
+#+BEGIN_SRC
+#+END_SRC
+" day (1- day) (1+ day)))
+  (save-buffer)
+  (kill-new (format "- [[./day-%d/index.html][Day %d]]" day day))
+  (find-file "~/p/casouri/rock/day/index.org"))
 
 ;;; Config
 

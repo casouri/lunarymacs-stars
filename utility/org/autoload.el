@@ -24,3 +24,16 @@
   "Insert filename as title attribute."
   (interactive)
   (insert (format "#+TITLE: %s" (buffer-file-name))))
+
+;;;###autoload
+(defun moon/insert-heading (heading)
+  "Insert a Org Mode heading with appropriate id."
+  (interactive "M")
+  ;; (let ((level (length (progn (string-match "\\(\\*+?\\) " heading)
+  ;;                             (match-string 1 heading))))))
+  (insert (format "%s
+::PROPERTIES:
+:CUSTOM_ID: #%s
+:END:"
+                  heading
+                  (downcase (replace-regexp-in-string "[ ;/?:@=&<>#%{}|\\\\^~\[\]`]" "-" heading)))))
