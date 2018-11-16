@@ -74,7 +74,7 @@
                             "/index.org")))
     (mkdir dir-path)
     (find-file file-path)
-    (insert (format "#+SETUPFILE: ../setup.org
+    (insert (format "#+SETUPFILE: ../../setup.org
 #+TITLE: %s
 #+DATE:
 "
