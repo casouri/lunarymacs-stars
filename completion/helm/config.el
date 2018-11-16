@@ -19,8 +19,8 @@
     "ss" #'helm-swoop)
   (general-define-key
    :keymaps 'override
-   "C-x C-p" #'helm-show-kill-ring
-   "C-x C-n" #'helm-recentf
+   [remap moon/kill-ring-select]     #'helm-show-kill-ring
+   [remap switch-to-buffer]          #'helm-mini
    [remap apropos]                   #'helm-apropos
    [remap find-file]                 #'helm-find-files
    [remap recentf-open-files]        #'helm-recentf

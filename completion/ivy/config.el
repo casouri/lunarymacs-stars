@@ -58,7 +58,7 @@
     )
   (general-define-key
    :keymaps 'override
-   "C-x C-p" #'counsel-yank-pop
+   [remap moon/kill-ring-select] #'counsel-yank-pop
    "C-x C-m" #'counsel-mark-ring
    "C-x C-r" #'ivy-resume)
   )

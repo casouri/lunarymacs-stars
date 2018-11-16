@@ -28,7 +28,12 @@
    "C-h f" #'helpful-callable
    "C-h v" #'helpful-variable
    "C-h k" #'helpful-key
-   "C-c d" #'helpful-at-point))
+   "C-c d" #'helpful-at-point)
+  ;;;; Kill Ring Select
+  (moon-cx-leader
+    "C-y" #'moon/kill-ring-select)
+  )
+
 
 (mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
 
@@ -189,6 +194,14 @@
 ;;;; split screen vertically in ediff
 (setq ediff-split-window-function #'split-window-horizontally)
 
+;;;; Kill Ring
+
+(defun moon/kill-ring-select ()
+  "Select from `kill-ring' and yank.
+Helm and ivy starts will remap this function,
+so the definition doesn't really matter."
+  (interactive)
+  (message "This is intended to be remapped by either Helm or ivy star."))
 
 ;;;; Fix
 

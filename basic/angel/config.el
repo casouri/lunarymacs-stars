@@ -275,7 +275,6 @@ point reaches the beginning or end of the buffer, stop there."
          ;; operations
          (define-key map "p" (lambda (b e)
                                (interactive "r") (delete-region b e) (yank)))
-         (define-key map (kbd "M-p") #'counsel-yank-pop)
          (define-key map "x" #'exchange-point-and-mark)
          (define-key map ";" #'comment-dwim)
          (define-key map "y" #'kill-ring-save)
