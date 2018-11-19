@@ -60,7 +60,8 @@
    ;; helm-split-window-in-side-p t
    helm-ff-file-name-history-use-recentf t
    helm-autoresize-max-height 30
-   helm-autoresize-min-height 30)
+   helm-autoresize-min-height 30
+   helm-buffer-max-length 55)
   (helm-autoresize-mode)
   (helm-mode))
 
