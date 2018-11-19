@@ -43,10 +43,9 @@
   :commands rainbow-mode)
 
 (use-package| highlight-parentheses
-  :defer t
   :config
   (set-face-attribute 'hl-paren-face nil :weight 'bold)
-  ;; (global-highlight-parentheses-mode 1)
+  (global-highlight-parentheses-mode)
   ;; highlight only the most inner pair
   (setq hl-paren-colors '("green"))
   ;; red in light theme, green in dark
@@ -61,7 +60,8 @@
                                    (global-highlight-parentheses-mode)))
                 ("doom-one-light" (progn (setq hl-paren-colors '("red"))
                                          (global-highlight-parentheses-mode -1)
-                                         (global-highlight-parentheses-mode)))))))
+                                         (global-highlight-parentheses-mode))))))
+  )
 
 
 ;;;;
