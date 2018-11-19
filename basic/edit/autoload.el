@@ -104,3 +104,42 @@ buffer is not visiting a file."
 
 ;;; %s ends here"
                     filename description year feature filename))))
+
+(defvar moon-special-symbol-alist '(("(c)" . "©")
+                                    ("tm" . "™")
+                                    ("p" . " ")
+                                    ("s" . "§")
+                                    ("---" . "—") ; em dash
+                                    ("--" . "–") ; en dash
+                                    ("..." . "…")
+                                    ("<" . "⃖")
+                                    (">" . "⃗")
+                                    ("^" . "ꜛ")
+                                    ("v" . "ꜜ")
+                                    ("<<" . "←")
+                                    (">>" . "→")
+                                    ("^^" . "↑")
+                                    ("vv" . "↓")
+                                    ("l'" . "‘")
+                                    ("l''" . "‘")
+                                    ("r'" . "’")
+                                    ("r''" . "’")
+                                    ("l\"" . "“")
+                                    ("l\"\"" . "“")
+                                    ("r\"" . "”")
+                                    ("r\"\"" . "”")
+                                    (" " . " ") ; non-breaking spacef
+                                    )
+  "Alist used by `moon/insert-special-symbol'.")
+
+;;;###autoload
+(defun moon/insert-special-symbol (surname)
+  "Insert special symbol at point, SURNAME is used to search for symbol.
+E.g. SURNAME (c) to symbol ©."
+  (interactive "MAbbrev: ")
+  (insert (catch 'ret (dolist (elt moon-special-symbol-alist)
+                        (when (equal (car elt) surname)
+                          (throw 'ret (cdr elt)))
+                        ""))))
+
+;;; autoload.el ens here
