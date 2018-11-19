@@ -20,8 +20,7 @@
             '(:with company-yasnippet))))
 
 (use-package| auto-yasnippet
-  :commands (aya-create aya-expand aya-open-line)
-  :config (require 'yasnippet))
+  :commands (aya-create aya-expand aya-open-line))
 
 
 (post-config| general
