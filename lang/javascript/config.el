@@ -13,7 +13,9 @@
 (if moon-use-eglot
     (progn
       (add-hook 'js-mode-hook #'eglot-ensure)
-      (add-hook 'typescript-mode #'eglot-ensure))
+      (add-hook 'typescript-mode #'eglot-ensure)
+      (push '(js-mode . eglot-format-buffer) moon-smart-format-alist)
+      (push '(typescript-mode . eglot-format-buffer) moon-smart-format-alist))
   (use-package| lsp-typescript
     :defer t)
 
@@ -38,7 +40,10 @@
     (require 'lsp-typescript)
     (lsp-typescript-enable))
 
-  (add-hook 'js-mode-hook 'lsp-js-hook))
+  (add-hook 'js-mode-hook 'lsp-js-hook)
+
+  (push '(js-mode . lsp-format-buffer) moon-smart-format-alist)
+  (push '(typescript-mode . lsp-format-buffer) moon-smart-format-alist))
 
 
 
