@@ -32,8 +32,10 @@
    "C-c d" #'helpful-at-point)
   ;;;; Kill Ring Select
   (moon-cx-leader
-    "C-y" #'moon/kill-ring-select)
-  )
+    ;; C-y is too uncomfortable to reach
+    ;; so C-p here we go
+    "C-p" #'moon/kill-ring-select
+    "<C-i>" #'moon/insert-special-symbol))
 
 
 (mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
