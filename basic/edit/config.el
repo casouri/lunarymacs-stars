@@ -5,6 +5,7 @@
 (post-config| general
   ;;;; Outshine
   (moon-default-leader
+    "iu" #'insert-char
     "sr" #'color-rg-search-input
     "o" '(:ignore t :which-key "outline")
     "o <tab>" #'outline-toggle-children
