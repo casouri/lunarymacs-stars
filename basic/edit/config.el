@@ -168,6 +168,7 @@
 ;;;; Default
 
 (electric-pair-mode 1)
+(minibuffer-electric-default-mode 1)
 
 ;; smooth scrolling
 (setq scroll-conservatively 101)
