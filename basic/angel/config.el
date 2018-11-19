@@ -52,7 +52,8 @@
   (moon-cx-leader
     "C-u" #'undo-tree-visualize
     "C-v" #'cua-rectangle-mark-mode
-    "0"   #'quit-window
+    "9"   '((lambda () (interactive) (kill-buffer (current-buffer))) :which-key "kill-current-buffer")
+    "0"   #'delete-window
     "C-," #'beginning-of-buffer ; as of <
     "C-." #'end-of-buffer ; as of >
     "C-q" #'query-replace+-mode
