@@ -1,9 +1,11 @@
 ;; -*- lexical-binding: t -*-
 
 
-;;
-;; Package
-;;
+
+;;; Packages
+
+;; separate C-i from TAB
+(define-key input-decode-map "\C-i" [C-i])
 
 (use-package| general
   :after which-key
