@@ -79,10 +79,10 @@
 #+DATE:
 "
                     title))
-    (kill-new (format "- [[./%s/%s/index.html][%s]]"
+    (kill-new (format "{{{post(%s,%s/%s/)}}}"
+                      title
                       year
-                      dir-file-name
-                      title))
+                      dir-file-name))
     (save-buffer)
     (find-file "~/p/casouri/note/index.org")))
 
@@ -126,3 +126,57 @@
                   ("to" "Other" entry (file+olp "~/note/todo.org" "Other" "Priority") "*** TODO %?")
                   ("ts" "School" entry (file+olp "~/note/todo.org" "School" "Priority") "*** TODO %?")
                   ))))
+
+;;; Blog
+
+(defvar moon-org-html-postamble-format
+  '(("en" "<p class=\"author\">Written by %a <%e></p>
+<p class=\"first-publish\">First Published on %d</p>
+<p class-\"last-modified\">Last modified on %C</p>")))
+
+(defvar moon-org-html-home/up-format
+  "<div id=\"org-div-home-and-up-index-page\">
+<div>
+<a accesskey=\"h\" href=\"%s\"> UP </a> |
+<a accesskey=\"H\" href=\"%s\"> HOME </a>
+</div>
+<div>
+<a href=\"./index.xml\"> RSS </a> |
+<a href=\"https://github.com/casouri/casouri.github.io\"> Source </a> |
+<a href=\"https://creativecommons.org/licenses/by-sa/4.0/\"> License </a>
+</div>
+</div>")
+
+(defvar moon-publish-root-dir "~/p/casouri/note/")
+
+(require 'f)
+
+(defun moon/publish (&optional force)
+  "Publish my blog.
+If FORCE is non-nil, only export when org file is newer than html file."
+  (interactive)
+  (dolist (dir (f-directories moon-publish-root-dir))
+    (dolist (post-dir (f-directories dir))
+      (moon-html-export post-dir force)))
+  (require 'ox-rss)
+  (moon-html-export moon-publish-root-dir force)
+  (let ((buffer (find-file (expand-file-name "index.org" moon-publish-root-dir))))
+    (with-current-buffer buffer
+      (org-rss-export-to-rss))
+    (kill-buffer buffer)))
+
+(defun moon-html-export (dir &optional force)
+  "Export index.org to index.html in DIR is the latter is older.
+If FORCE is non-nil, only export when org file is newer than html file."
+  (moon-load-theme 'doom-one-light)
+  (let ((org-html-postamble-format moon-org-html-postamble-format)
+        (org-html-postamble t)
+        (org-html-home/up-format moon-org-html-home/up-format)
+        (org-file (expand-file-name "index.org" dir))
+        (html-file (expand-file-name "index.html" dir)))
+    (when (or force (file-newer-than-file-p org-file html-file))
+      (let ((buffer (find-file org-file)))
+        (with-current-buffer buffer
+          (org-html-export-to-html))
+        (kill-buffer))))
+  (moon-load-theme 'doom-cyberpunk))
