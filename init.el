@@ -24,7 +24,7 @@
        :os
        mac
        :utility
-       email
+       ;; email
        markdown
        eshell
        tex
@@ -36,8 +36,8 @@
        syntax
        spell
        :lang
-       lsp
-       ;; eglot
+       ;; lsp
+       eglot
        ;; arduino
        general
        common-lisp
