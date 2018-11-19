@@ -5,4 +5,4 @@
 This is the star files for my lunarymacs config, the framework file is in [[https://github.com/casouri/lunarymacs][casouri/lunarymacs]].
 
 Note: Since Aug 2018 I shifted to emacs key bindings (see angel star),
-evil intergration will almost certainly fall behind/unsupported.
+evil intergration will almost certainly fall behind / break.
