@@ -172,9 +172,9 @@
       #'electric-pair-conservative-inhibit)
 (push '(?< . ?>) electric-pair-pairs)
 (add-hook 'emacs-lisp-mode-hook
-          (setq-local electric-pair-text-pairs
-                      (append '((?` . ?'))
-                              electric-pair-text-pairs)))
+          (lambda () (setq-local electric-pair-text-pairs
+                                 (append '((?` . ?'))
+                                         electric-pair-text-pairs))))
 
 (minibuffer-electric-default-mode 1)
 
