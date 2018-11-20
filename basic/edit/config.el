@@ -168,6 +168,14 @@
 ;;;; Default
 
 (electric-pair-mode 1)
+(setq electric-pair-inhibit-predicate
+      #'electric-pair-conservative-inhibit)
+(push '(?< . ?>) electric-pair-pairs)
+(add-hook 'emacs-lisp-mode-hook
+          (setq-local electric-pair-text-pairs
+                      (append '((?` . ?'))
+                              electric-pair-text-pairs)))
+
 (minibuffer-electric-default-mode 1)
 
 ;; smooth scrolling
