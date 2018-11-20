@@ -47,21 +47,14 @@
   (set-face-attribute 'hl-paren-face nil :weight 'bold)
   (global-highlight-parentheses-mode)
   ;; highlight only the most inner pair
-  (setq hl-paren-colors '("green"))
-  ;; red in light theme, green in dark
-  (add-hook 'moon-load-theme-hook
-            (lambda ()
-              (pcase moon-current-theme
-                ("doom-cyberpunk" (progn (setq hl-paren-colors '("green"))
-                                         (global-highlight-parentheses-mode -1)
-                                         (global-highlight-parentheses-mode)))
-                ("doom-one" (progn (setq hl-paren-colors '("green"))
-                                   (global-highlight-parentheses-mode -1)
-                                   (global-highlight-parentheses-mode)))
-                ("doom-one-light" (progn (setq hl-paren-colors '("red"))
-                                         (global-highlight-parentheses-mode -1)
-                                         (global-highlight-parentheses-mode))))))
-  )
+  (setq hl-paren-colors (lambda () (pcase moon-current-theme
+                                     ('doom-cyberpunk '("green"))
+                                     ('doom-one-light '("red"))
+                                     (_ '("cyan")))))
+  ;; to reflect changes in parentheses color
+  (add-hook 'moon-load-theme-hook (lambda ()
+                                    (global-highlight-parentheses-mode -1)
+                                    (global-highlight-parentheses-mode))))
 
 
 ;;;;
