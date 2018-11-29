@@ -43,7 +43,10 @@
 
 
 (use-package| ranger
-  :init (setq ranger-show-hidden t)
+  :init (setq ranger-show-hidden t
+              ;; otherwise ranger binds ranger-key (C-p)
+              ;; to `deer-from-dired' in dired mode
+              ranger-key nil)
   :commands ranger)
 
 (use-package| dired-narrow
