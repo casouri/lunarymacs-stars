@@ -6,7 +6,8 @@
   (setq yas-snippet-dirs (list (concat moon-emacs-d-dir "snippet/")))
   (setq yas-verbosity 0) ; don't message anything
   :config
-  (yas-reload-all))
+  ;; in case yasnippet is not loaded from autoload
+  (yas-global-mode))
 
 (with-eval-after-load 'company
   (setq company-backends
