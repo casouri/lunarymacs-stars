@@ -53,7 +53,7 @@
     "C-u" #'undo-tree-visualize
     "C-v" #'cua-rectangle-mark-mode
     "9"   '((lambda () (interactive) (kill-buffer (current-buffer))) :which-key "kill-current-buffer")
-    "0"   #'delete-window
+    "0"   #'moon-quit-window
     "C-," #'beginning-of-buffer ; as of <
     "C-." #'end-of-buffer ; as of >
     "C-q" #'query-replace+-mode
