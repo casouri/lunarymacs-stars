@@ -61,6 +61,21 @@
     "C-;" #'goto-last-change
     "M-;" #'goto-last-change-reverse))
 
+(defvar moon-scroll-map (let ((map (make-sparse-keymap)))
+                          (define-key map (kbd "n") #'moon/scroll-down-reserve-point)
+                          (define-key map (kbd "p") #'moon/scroll-up-reserve-point)
+                          map)
+  "Transient map for `moon-scroll-mode'.")
+
+(define-minor-mode moon-scroll-mode
+  "Scroll and not insert n/p accidentally when switching between C-n/p and M-n/p."
+  :lighter ""
+  (if moon-scroll-mode
+      (set-transient-map moon-scroll-map t)))
+
+(advice-add #'moon/scroll-down-reserve-point :after (lambda () (moon-scroll-mode)))
+(advice-add #'moon/scroll-up-reserve-point :after (lambda () (moon-scroll-mode)))
+
 ;;; Navigation
 ;;
 ;; Overall behavior:
