@@ -55,6 +55,10 @@
   (add-hook 'org-mode-hook #'olivetti-mode)
   :commands olivetti-mode)
 
+(use-package| org-download
+  :defer t
+  :init (add-hook 'org-mode-hook #'org-download-enable))
+
 ;;; Function
 
 (defun moon/open-album-dir ()
@@ -114,6 +118,30 @@
 ;;;; Org Agenda
 
 (setq org-agenda-files (list moon-todo-file))
+(setq org-todo-keywords
+      '((sequence "TODO"
+                  "NEXT"
+                  "START"
+                  "WAIT"
+                  "DEFER"
+                  "|"
+                  "DONE"
+                  "CANCEL")))
+(setq org-agenda-custom-commands
+      '(("d" "Default Agenda View"
+         ((agenda "")
+          (todo ""
+                ((org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+                 (org-agenda-overriding-header "Unscheduled/deadline tasks:")))))))
+
+(setq org-priority-faces
+      '((?A . (:inherit font-lock-warning-face))
+        (?B . (:inherit default))
+        (?C . (:inherit font-lock-comment-face))))
+
+(setq org-todo-keyword-faces
+      '(("DEFER" . (:inherit default :weight bold))))
+
 
 ;;;; Org Capture
 
@@ -122,9 +150,10 @@
   (setq org-capture-templates
         (append org-capture-templates
                 `(("t" "TODOs")
-                  ("te" "Emacs" entry (file+olp "~/note/todo.org" "Emacs" "Priority") "*** TODO %?")
-                  ("to" "Other" entry (file+olp "~/note/todo.org" "Other" "Priority") "*** TODO %?")
-                  ("ts" "School" entry (file+olp "~/note/todo.org" "School" "Priority") "*** TODO %?")
+                  ("te" "Emacs" entry (file+olp "~/note/todo.org" "Emacs") "*** TODO %?")
+                  ("th" "Homework" entry (file+olp "~/note/todo.org" "Homework") "*** TODO %?")
+                  ("to" "Other" entry (file+olp "~/note/todo.org" "Other") "*** TODO %?")
+                  ("ts" "School" entry (file+olp "~/note/todo.org" "School") "*** TODO %?")
                   ))))
 
 ;;; Blog
