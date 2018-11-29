@@ -5,13 +5,16 @@
 (post-config| general
   (general-define-key
    :keymaps 'dired-mode-map
-   "C-c C-f" #'dired-narrow-fuzzy
    "b" #'dired-up-directory
-   "q" #'quit-window
-   "j" #'next-line
-   "k" #'previous-line
-   "h" #'dired-up-directory
-   "l" #'dired-find-file))
+   "q" #'moon-quit-window
+   "C-c C-s" #'dired-explore-mode)
+  (mve
+   (general-define-key
+    "j" #'next-line
+    "k" #'previous-line
+    "h" #'dired-up-directory
+    "l" #'dired-find-file)
+   nil))
 
 (post-config| general
   (moon-default-leader
