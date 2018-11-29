@@ -11,7 +11,10 @@
 (defvar moon-image-moon "moon-300.xpm"
   "Image moon file name.")
 
-
+(defface moon-face
+  '((((background  dark)) . (:foreground "#52DEA1"))
+    (t . (:foreground "black")))
+  "The face of moon.")
 
 (defvar moon-banner "
 ███╗   ███╗ ██████╗  ██████╗ ███╗   ██╗    ███████╗███╗   ███╗ █████╗  ██████╗███████╗
@@ -57,18 +60,18 @@
 
 (defvar moon-moon-banner-2 "
            ████
-      ████████████ 
-   ███████         █ 
-  ██████  
- █████  
-██████  
-██████  
-██████ 
- █████   
+      ████████████
+   ███████         █
+  ██████
+ █████
+██████
+██████
+██████
+ █████
   ██████            █
    ███████        ██
       ████████████
-          █████ 
+          █████
 ")
 
 (defvar moon-footer-1 "
@@ -155,20 +158,20 @@
   "Draw moon."
   (interactive)
   (let* ((banner (if (>= (window-width) 86)
-                       banner
-                     short-banner))
-           (banner-list (split-string (car banner) "\n"))
-           (banner-width (or (nth 1 banner) (length (nth 1 banner-list))))
-           (pad-length (let ((total-extra (- (window-width) banner-width)))
-                         (if (wholenump total-extra)
-                             (/ total-extra 2)
-                           0))))
-      (let ((space-to-insert
-	     (make-string pad-length ?\s)))
-        (dolist (line banner-list)
-	  (insert space-to-insert)
-	  (insert line)
-	  (insert "\n")))))
+                     banner
+                   short-banner))
+         (banner-list (split-string (car banner) "\n"))
+         (banner-width (or (nth 1 banner) (length (nth 1 banner-list))))
+         (pad-length (let ((total-extra (- (window-width) banner-width)))
+                       (if (wholenump total-extra)
+                           (/ total-extra 2)
+                         0))))
+    (let ((space-to-insert
+	   (make-string pad-length ?\s)))
+      (dolist (line banner-list)
+	(insert space-to-insert)
+	(insert line)
+	(insert "\n")))))
 
 (defun moon/log-news ()
   "Log core changes since last pull."
@@ -182,11 +185,13 @@
 (defun moon/draw-homepage ()
   "Draw MOON EMACS or MOON on the middle of current buffer.
 
+Update: now it draws a real moon.
+
 MOON is used when buffer's width is less than 86."
   (interactive)
   (unless noninteractive
     (insert (make-string 5 ?\n))
-    
+
     (if (and window-system moon-do-draw-image-moon)
         (progn
           (insert (make-string (/ (- (window-width) 50) 2) ?\s))
@@ -197,6 +202,7 @@ MOON is used when buffer's width is less than 86."
     (when moon-do-draw-footer
       (moon-draw-footer moon-footer-2 (if (and moon-do-draw-image-moon window-system) 20 0)))
     (moon/log-news))
+  (put-text-property (point-min) (point-max) 'face 'moon-face)
   (goto-char (point-min)))
 
 ;;
