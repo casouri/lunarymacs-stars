@@ -7,7 +7,7 @@
    :keymaps 'dired-mode-map
    "b" #'dired-up-directory
    "q" #'moon-quit-window
-   "C-c C-s" #'dired-explore-mode)
+   "C-c C-s" #'dired-narrow)
   (mve
    (general-define-key
     "j" #'next-line
