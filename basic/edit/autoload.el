@@ -7,8 +7,7 @@
 (defun moon/insert-current-date ()
   "insert date for blog composing"
   (interactive)
-  (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)"))
-  )
+  (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
 
 ;;;###autoload
 (defun moon/insert-semi-at-eol ()
@@ -16,8 +15,7 @@
   (interactive)
   (save-excursion
     (end-of-line)
-    (insert ";")
-    ))
+    (insert ";")))
 
 ;;;###autoload
 (defun moon/jump-newline-below ()
@@ -38,16 +36,14 @@
   (interactive)
   (scroll-up 2)
   (next-line)
-  (next-line)
-  )
+  (next-line))
 
 ;;;###autoload
 (defun moon/scroll-up-reserve-point ()
   (interactive)
   (scroll-down 2)
   (previous-line)
-  (previous-line)
-  )
+  (previous-line))
 
 ;;;###autoload
 (defun moon/sudo-edit (&optional arg)
