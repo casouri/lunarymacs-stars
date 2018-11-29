@@ -161,7 +161,8 @@
   :commands (helpful-callable
              helpful-variable
              helpful-key
-             helpful-at-point))
+             helpful-at-point)
+  :config (setq helpful-max-buffers 1))
 
 ;;; Config
 
