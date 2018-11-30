@@ -5,6 +5,7 @@
 (post-config| general
   ;;;; Outshine
   (moon-default-leader
+    "tl" #'moon/toggle-left-margin
     "iu" #'insert-char
     "sr" #'color-rg-search-input
     "o" '(:ignore t :which-key "outline")
@@ -222,5 +223,32 @@ so the definition doesn't really matter."
   (interactive)
   (company-abort)
   (newline nil t))
+
+;;; Functions
+
+(defvar moon-left-margin-window nil
+  "Left margin window")
+
+(defvar moon-left-margin-buffer (get-buffer-create " moon-left-margin")
+  "Empty buffer used by `moon-left-margin-mode'.")
+
+(define-minor-mode moon-left-margin-mode
+  "Create a empty window to the left that act as a margin."
+  :lighter ""
+  :global t
+  (if moon-left-margin-mode
+      (unless moon-left-margin-window
+        (setq moon-left-margin-window
+              (display-buffer-in-side-window moon-left-margin-buffer '((side . left)))))
+    (when (and moon-left-margin-window (window-live-p moon-left-margin-window))
+      (delete-window moon-left-margin-window)
+      (setq moon-left-margin-window nil))))
+
+(defun moon/toggle-left-margin ()
+  "Toggle left margin side window."
+  (interactive)
+  (if moon-left-margin-window
+      (window-toggle-side-windows)
+    (moon-left-margin-mode)))
 
 ;;; config.el ends here
