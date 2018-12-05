@@ -35,32 +35,27 @@
 (use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell")
   :commands (aweshell-new aweshell-next aweshell-prev aweshell-toggle)
   :init (setq aweshell-use-exec-path-from-shell nil)
-  :config
   (custom-set-faces
    '(epe-dir-face ((t (:foreground "#51afef"))))
    '(epe-git-face ((t (:foreground "#bbc2cf"))))
    '(epe-pipeline-delimiter-face ((t (:foreground "#98be65"))))
    '(epe-pipeline-host-face ((t (:foreground "#bbc2cf"))))
    '(epe-pipeline-time-face ((t (:foreground "#bbc2cf"))))
-   '(epe-pipeline-user-face ((t (:foreground "#bbc2cf"))))
-   )
+   '(epe-pipeline-user-face ((t (:foreground "#bbc2cf")))))
   (require 'em-hist)
   (add-hook
    'eshell-mode-hook
    (lambda ()
-     (with-eval-after-load 'general
-       (with-eval-after-load 'evil
-         (lambda ()
-           (mve
-            (general-define-key
-             :states 'insert
-             :keymaps 'eshell-mode-map
-             "C-p" #'eshell-previous-matching-input-from-input
-             "C-n" #'eshell-next-matching-input-from-input)
-            (general-define-key
-             :keymaps 'eshell-mode-map
-             "M-p" #'eshell-previous-matching-input-from-input
-             "M-n" #'eshell-next-matching-input-from-input))))))))
+     (mve
+      (with-eval-after-load 'general
+        (with-eval-after-load 'evil
+          (general-define-key
+           :states 'insert
+           :keymaps 'eshell-mode-map
+           "C-p" #'eshell-previous-matching-input-from-input
+           "C-n" #'eshell-next-matching-input-from-input)))
+      (define-key eshell-mode-map
+        (kbd "<tab>") #'helm-esh-pcomplete)))))
 
 ;;; Config
 
