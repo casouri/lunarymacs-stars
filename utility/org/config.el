@@ -176,7 +176,10 @@
 </div>
 </div>")
 
-(defvar moon-publish-root-dir "~/p/casouri/note/")
+(defvar moon-publish-root-dir "~/p/casouri/note/"
+  "Make sure the path follow the convention of adding slash and the end of directory.")
+(defvar moon-publish-rock/day-dir "~/p/casouri/rock/day/"
+  "Make sure the path follow the convention of adding slash and the end of directory.")
 
 (require 'f)
 
@@ -184,28 +187,51 @@
   "Publish my blog.
 If FORCE is non-nil, only export when org file is newer than html file."
   (interactive)
-  (dolist (dir (f-directories moon-publish-root-dir))
-    (dolist (post-dir (f-directories dir))
-      (moon-html-export post-dir force)))
-  (require 'ox-rss)
-  (moon-html-export moon-publish-root-dir force)
-  (let ((buffer (find-file (expand-file-name "index.org" moon-publish-root-dir))))
-    (with-current-buffer buffer
-      (org-rss-export-to-rss))
-    (kill-buffer buffer)))
-
-(defun moon-html-export (dir &optional force)
-  "Export index.org to index.html in DIR is the latter is older.
-If FORCE is non-nil, only export when org file is newer than html file."
+  ;; so the syntax color is good for light background
   (moon-load-theme 'doom-one-light)
-  (let ((org-html-postamble-format moon-org-html-postamble-format)
-        (org-html-postamble t)
-        (org-html-home/up-format moon-org-html-home/up-format)
-        (org-file (expand-file-name "index.org" dir))
-        (html-file (expand-file-name "index.html" dir)))
-    (when (or force (file-newer-than-file-p org-file html-file))
-      (let ((buffer (find-file org-file)))
-        (with-current-buffer buffer
-          (org-html-export-to-html))
-        (kill-buffer))))
+  (let ((environment '((org-html-postamble-format moon-org-html-postamble-format)
+                       (org-html-postamble t)
+                       (org-html-home/up-format moon-org-html-home/up-format))))
+    (dolist (dir (f-directories moon-publish-root-dir))
+      (dolist (post-dir (f-directories dir))
+        ;; publish each post
+        (moon-html-export post-dir environment force)))
+    (require 'ox-rss)
+    ;; publish index page
+    (moon-html-export moon-publish-root-dir environment force)
+    ;; export RSS
+    (let ((buffer (find-file (expand-file-name "index.org" moon-publish-root-dir))))
+      (with-current-buffer buffer
+        (org-rss-export-to-rss))
+      (kill-buffer buffer)))
+  (moon-load-theme 'doom-cyberpunk))
+
+(defun moon-html-export (dir &optional environment force)
+  "Export index.org to index.html in DIR if the latter is older.
+If FORCE is non-nil, only export when org file is newer than html file.
+
+ENVIRONMENT is passed to `let' to setup environments."
+  (eval `(let ,environment
+           (let ((org-file (expand-file-name "index.org" dir))
+                 (html-file (expand-file-name "index.html" dir)))
+             (when (and (file-exists-p org-file)
+                        (or force (file-newer-than-file-p org-file html-file)))
+               (let ((buffer (find-file org-file)))
+                 (with-current-buffer buffer
+                   (org-html-export-to-html))
+                 (kill-buffer)))))))
+
+(defun moon/publish-rock/day (&optional force)
+  "Publish rock/day blog.
+If FORCE is non-nil, only export when org file is newer than html file."
+  (interactive)
+  ;; so the syntax color is good for light background
+  (moon-load-theme 'doom-one-light)
+  (let ((environment '((org-html-postamble-format moon-org-html-postamble-format)
+                       (org-html-postamble t))))
+    (dolist (post-dir (f-directories moon-publish-rock/day-dir))
+      ;; publish each post
+      (moon-html-export post-dir environment force))
+    ;; publish index page
+    (moon-html-export moon-publish-rock/day-dir environment force))
   (moon-load-theme 'doom-cyberpunk))
