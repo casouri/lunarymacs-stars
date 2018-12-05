@@ -120,8 +120,15 @@ minor-modes that is usually displayed directly in the mode line."
 (use-package| hl-todo
   :defer 5
   :config
-  (add-to-list 'hl-todo-keyword-faces
-               '("TOTEST" . "#d0bf8f"))
+  (push 'org-mode hl-todo-text-modes)
+  (push 'fundamental-mode hl-todo-text-modes)
+  (setq hl-todo-keyword-faces ; override
+        (append '(("FAIL" . "red1")
+                  ("TOTEST" . "#d0bf8f")
+                  ("UNSURE" . "#FE6266")
+                  ("TRY" . "#FFF100")
+                  ("GOOD" . "#52DEA1"))
+                hl-todo-keyword-faces))
   (global-hl-todo-mode))
 
 ;; form feed
