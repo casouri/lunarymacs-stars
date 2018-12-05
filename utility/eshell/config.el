@@ -9,8 +9,7 @@
     "ys" #'counsel-switch-to-eshell-buffer
     "yn" #'aweshell-next
     "yp" #'aweshell-prev
-    "yN" #'aweshell-new
-    "Y" #'moon/toggle-eshell)
+    "yN" #'aweshell-new)
   (general-define-key
    "s-e" #'aweshell-toggle))
 
