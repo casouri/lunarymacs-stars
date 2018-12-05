@@ -16,7 +16,8 @@
 (post-config| gerneral
   (moon-default-leader
     "fr" #'helm-recentf
-    "ss" #'helm-swoop)
+    "ss" #'helm-swoop
+    "ip" #'helm-yas-complete)
   (general-define-key
    :keymaps 'override
    [remap moon/kill-ring-select]     #'helm-show-kill-ring
@@ -72,5 +73,11 @@
 
 (use-package| helm-swoop
   :commands helm-swoop)
+
+(use-package| helm-c-yasnippet
+  :config
+  (require 'yasnippet) ; yas configs turns yas-mode on
+  (setq helm-yas-space-match-any-greedy t)
+  :commands helm-yas-complete)
 
 ;;; config.el ends here
