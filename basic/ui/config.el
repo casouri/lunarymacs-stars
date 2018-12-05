@@ -255,15 +255,9 @@ and saveing desktop."
 
 ;; not autoloaded
 (use-package| diff-hl
-  :defer t
-  :init
-  (add-hook 'after-change-major-mode-hook
-            (lambda ()
-              "Enable `diff-hl-mode' or `diff-hl-margin-mode'."
-              (require 'diff-hl)
-              (if window-system
-                  (diff-hl-mode)
-                (diff-hl-margin-mode))))
   :config
+  (unless window-system
+    (diff-hl-margin-mode))
+  (diff-hl-mode)
   (setq diff-hl-draw-borders nil)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
