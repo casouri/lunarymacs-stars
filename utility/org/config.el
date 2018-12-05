@@ -51,7 +51,7 @@
 
 (use-package| olivetti
   :init
-  (setq olivetti-body-width 110)
+  (setq olivetti-body-width 80)
   (add-hook 'org-mode-hook #'olivetti-mode)
   :commands olivetti-mode)
 
