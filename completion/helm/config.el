@@ -61,7 +61,12 @@
    helm-ff-file-name-history-use-recentf t
    helm-autoresize-max-height 30
    helm-autoresize-min-height 30
-   helm-buffer-max-length 55)
+   helm-buffer-max-length 55
+   ;; although unintuitive, setting this to t makes helm's window
+   ;; stay OUTSIDE of the selected window
+   ;; when there are two windows side by side,
+   ;; helm doesn't hide the right window when splitting
+   helm-split-window-inside-p t)
   (helm-autoresize-mode)
   (helm-mode))
 
