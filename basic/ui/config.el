@@ -107,7 +107,8 @@ minor-modes that is usually displayed directly in the mode line."
 
 (use-package| nyan-lite
   :init (setq nyan-lite-add-mode-line nil
-              nyan-lite-progress-bar t)
+              nyan-lite-progress-bar t
+              nyan-lite-animate nil)
   :commands nyan-lite-mode)
 
 ;; (use-package| zone-nyan
