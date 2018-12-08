@@ -9,16 +9,17 @@
   ;; in case yasnippet is not loaded from autoload
   (yas-global-mode))
 
-(with-eval-after-load 'company
-  (setq company-backends
-        (mapcar #'company-mode-backend-with-yas company-backends)))
+;; no need for company yas
+;; (with-eval-after-load 'company
+;;   (setq company-backends
+;;         (mapcar #'company-mode-backend-with-yas company-backends)))
 
-(defun company-mode-backend-with-yas (backend)
-  (if (and (listp backend)
-           (member 'company-yasnippet backend))
-      backend
-    (append (if (consp backend) backend (list backend))
-            '(:with company-yasnippet))))
+;; (defun company-mode-backend-with-yas (backend)
+;;   (if (and (listp backend)
+;;            (member 'company-yasnippet backend))
+;;       backend
+;;     (append (if (consp backend) backend (list backend))
+;;             '(:with company-yasnippet))))
 
 (use-package| auto-yasnippet
   :commands (aya-create aya-expand aya-open-line))
