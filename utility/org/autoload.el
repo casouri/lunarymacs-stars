@@ -13,9 +13,9 @@
 
 * Commands
 
-| key | command |
-|-----+---------|
-|     |         |" (file-name-nondirectory
+Refer to source file
+
+* External dependencies" (file-name-nondirectory
                       (directory-file-name dir))))))
 
 
