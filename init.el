@@ -109,8 +109,8 @@
  ;; (require 'atom-one-dark-theme)
  ;; (require 'doom-themes)
  (if moon-theme
-     (moon-load-theme moon-theme)
-   (load-theme 'doom-cyberpunk t))
+     (moon-load-theme moon-theme t)
+   (moon-load-theme 'doom-cyberpunk t))
 
  ;;;; Faster long lines
  (setq-default bidi-display-reordering nil)
