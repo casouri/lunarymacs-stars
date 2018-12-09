@@ -117,7 +117,9 @@
 
 ;; This should be used with `doom-cyberpunk-theme' or `doom-one-light-theme'(modified)
 ;; see casouri/doom-themes repo for more
-(add-hook 'org-mode #'variable-pitch-mode)
+(add-hook 'org-mode-hook #'variable-pitch-mode)
+;; use bar cursor in org mode with variable pitch
+(add-hook 'org-mode-hook (lambda () (setq cursor-type 'bar)))
 
 ;;;; Org Agenda
 
