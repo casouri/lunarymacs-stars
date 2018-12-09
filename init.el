@@ -36,8 +36,7 @@
        syntax
        spell
        :lang
-       ;; lsp
-       eglot
+       lsp
        ;; arduino
        general
        common-lisp
@@ -59,6 +58,9 @@
 ;; I put them here so I can change them easily
 
 (unless moon-setup
+
+  ;;;; Lsp backend
+  (setq moon-lsp 'lsp)
 
   ;;;; speed up for long lines
   (setq bidi-display-reordering nil)
