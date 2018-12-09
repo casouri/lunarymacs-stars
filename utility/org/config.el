@@ -115,6 +115,10 @@
 
 ;;; Config
 
+;; This should be used with `doom-cyberpunk-theme' or `doom-one-light-theme'(modified)
+;; see casouri/doom-themes repo for more
+(add-hook 'org-mode #'variable-pitch-mode)
+
 ;;;; Org Agenda
 
 (setq org-agenda-files (list moon-todo-file))
