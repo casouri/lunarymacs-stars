@@ -63,6 +63,7 @@
    helm-autoresize-max-height 30
    helm-autoresize-min-height 30
    helm-buffer-max-length 55
+   helm-split-window-inside-p t
    helm-split-window-preferred-function #'helm-split-window-my-fn)
   (helm-autoresize-mode)
   (helm-mode)
@@ -83,14 +84,8 @@
 ;;; Functions
 
 (defun helm-split-window-my-fn (window)
-  "Replace `helm-split-window-default-fn'.
+  "Replace `helm-split-window-preferred-function'.
 WINDOW."
-  (let (split-width-threshold)
-    (if (and (fboundp 'window-in-direction)
-             ;; Don't try to split when starting in a minibuffer
-             ;; e.g M-: and try to use helm-show-kill-ring.
-             (not (minibufferp helm-current-buffer)))
-        (display-buffer-in-side-window "*scratch*" '((side . bottom)))
-      (split-window-sensibly window))))
+  (display-buffer-in-side-window "*scratch*" '((side . bottom))))
 
 ;;; config.el ends here
