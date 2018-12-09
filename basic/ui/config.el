@@ -60,47 +60,33 @@
 ;;;;
 ;;;; Mode-line
 
-(package| minions)
+(use-package| minions
+  :config (minions-mode))
+
+(setq-default mode-line-format '(" "
+                                 (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
+                                 " %I "
+                                 (:eval (moon-edit-lighter))
+                                 (:eval (moon-root-lighter))
+                                 ;; moody-mode-line-buffer-identification
+                                 (:eval (moody-tab "%b"))
+                                 " "
+                                 mode-line-modes
+                                 (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
+                                                                          (flycheck-lighter 'warning "⚠%s")
+                                                                          (flycheck-lighter 'info "𝌆%s")) "" "OK") nil 'up))
+                                 " "
+                                 (:eval (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "%p"))
+                                 " "
+                                 ;; moody-vc-mode
+                                 (:eval (moody-tab (if vc-mode (substring-no-properties vc-mode 1) "NO VC")))
+                                 mode-line-misc-info
+                                 mode-line-end-spaces))
 
 (use-package| moody
   :config
   (setq moody-slant-function #'moody-slant-apple-rgb)
-  (setq x-underline-at-descent-line t)
-  (moon/setup-moody)
-  (use-package minions
-    ;; minions need to override mode-line-format
-    ;; setted by moon/setup-moody
-    :config
-    ;; patch minions-mode
-    ;; so it applyies change to opended buffers too
-
-    (define-minor-mode minions-mode
-      "Display a minor-mode menu in the mode line.
-
-This replaces the likely incomplete and possibly cut off list of
-minor-modes that is usually displayed directly in the mode line."
-      :group 'minions
-      :global t
-      (if minions-mode
-          (let ((banana (cl-subst 'minions-mode-line-modes
-                                  'mode-line-modes
-                                  (default-value 'mode-line-format)
-                                  :test #'equal)))
-            (if (eq banana (default-value 'mode-line-format))
-                (progn (setq minions-mode nil)
-                       (error "Cannot turn on Minions mode"))
-              (setq-default mode-line-format banana)
-              ;; apply change to opended buffers
-              (save-excursion
-                (mapc (lambda (buffer)
-                        (with-current-buffer buffer
-                          (setq mode-line-format banana)))
-                      (buffer-list)))))
-        (cl-nsubst 'mode-line-modes
-                   'minions-mode-line-modes
-                   mode-line-format)))
-
-    (minions-mode 1)))
+  (setq x-underline-at-descent-line t))
 
 ;;;;
 ;;;; Misc
