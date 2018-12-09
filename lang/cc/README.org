@@ -1,0 +1,19 @@
+#+TITLE: cc
+
+
+* Package list
+- ccls
+
+* Commands
+
+Refer to source file
+
+* External dependency
+
+** ccls
+
+https://github.com/MaskRay/ccls/wiki/Getting-started
+
+#+BEGIN_SRC shell
+brew tap twlz0ne/homebrew-ccls && brew install ccls
+#+END_SRC

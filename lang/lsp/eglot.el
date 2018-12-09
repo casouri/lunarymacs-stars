@@ -1,10 +1,8 @@
-;;; config.el --- Eglot Config      -*- lexical-binding: t; -*-
+;;; eglot.el --- Eglot Config      -*- lexical-binding: t; -*-
 
 
 ;;; Commentary:
 ;;
-;; This star must run before any specific language star
-;; because they depends on `moon-use-eglot'.
 
 ;;; Code:
 ;;
@@ -16,11 +14,6 @@
     "l f" #'eglot-format-buffer
     "l R" #'eglot-rename))
 
-;;; Variables
-
-(defvar moon-use-eglot t
-  "Whether to use eglot instead of lsp.")
-
 ;;; Packages
 
 (use-package| eglot
@@ -31,4 +24,4 @@
   ;; additional language server support
   (add-to-list 'eglot-server-programs '((typescript-mode js-mode js2-mode) . ("typescript-language-server" "--stdio"))))
 
-;;; config.el ends here
+;;; eglot.el ends here
