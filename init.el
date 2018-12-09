@@ -28,7 +28,7 @@
        markdown
        eshell
        tex
-       ;; dir
+       dir
        git
        org
        ;; imagemagick
