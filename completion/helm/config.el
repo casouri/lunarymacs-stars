@@ -63,11 +63,7 @@
    helm-autoresize-max-height 30
    helm-autoresize-min-height 30
    helm-buffer-max-length 55
-   ;; although unintuitive, setting this to t makes helm's window
-   ;; stay OUTSIDE of the selected window
-   ;; when there are two windows side by side,
-   ;; helm doesn't hide the right window when splitting
-   helm-split-window-inside-p t)
+   helm-split-window-preferred-function #'helm-split-window-my-fn)
   (helm-autoresize-mode)
   (helm-mode)
   (define-key helm-find-files-map (kbd "C-i") #'helm-execute-persistent-action)
@@ -83,5 +79,18 @@
   (require 'yasnippet) ; yas configs turns yas-mode on
   (setq helm-yas-space-match-any-greedy t)
   :commands helm-yas-complete)
+
+;;; Functions
+
+(defun helm-split-window-my-fn (window)
+  "Replace `helm-split-window-default-fn'.
+WINDOW."
+  (let (split-width-threshold)
+    (if (and (fboundp 'window-in-direction)
+             ;; Don't try to split when starting in a minibuffer
+             ;; e.g M-: and try to use helm-show-kill-ring.
+             (not (minibufferp helm-current-buffer)))
+        (display-buffer-in-side-window "*scratch*" '((side . bottom)))
+      (split-window-sensibly window))))
 
 ;;; config.el ends here
