@@ -69,7 +69,11 @@
    ;; helm doesn't hide the right window when splitting
    helm-split-window-inside-p t)
   (helm-autoresize-mode)
-  (helm-mode))
+  (helm-mode)
+  (define-key helm-find-files-map (kbd "C-i") #'helm-execute-persistent-action)
+  (define-key helm-find-files-map (kbd "C-j") #'helm-select-action)
+  (define-key helm-find-files-map (kbd "<RET>") #'helm-maybe-exit-minibuffer)
+  (define-key helm-find-files-map (kbd "M-<backspace>") #'helm-find-files-up-one-level))
 
 (use-package| helm-swoop
   :commands helm-swoop)
