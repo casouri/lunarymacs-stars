@@ -60,7 +60,7 @@
 (unless moon-setup
 
   ;;;; Lsp backend
-  (setq moon-lsp 'lsp)
+  (setq moon-lsp 'eglot)
 
   ;;;; speed up for long lines
   (setq bidi-display-reordering nil)
