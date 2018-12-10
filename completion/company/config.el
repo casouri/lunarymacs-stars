@@ -20,19 +20,9 @@
    :keymaps 'company-search-map
    "<escape>" #'company-abort))
 
-;; (use-package| company-box
-;;   ;; TODO common face
-;;   :init
-;;   ;; (defface company-box-candidates
-;;   ;;   '((t (:inherit company-tooltip)))
-;;   ;;   "Override face of company-box.")
-;;   ;; (defface company-box-selection
-;;   ;;   '((t (:inherit company-tooltip-selection)))
-;;   ;;   "Override face of company-box.")
-;;   ;; (defface company-box-annotation
-;;   ;;   '((t (:inherit company-tooltip-annotation)))
-;;   ;;   "Override face of company-box.")
-;;   :config
-;;   (setq company-box-enable-icon nil)
-;;   (setq company-box-doc-delay 0.3)
-;;   :hook (company-mode . company-box-mode))
+(use-package| company-box
+  ;; don't enable by default
+  :config
+  (setq company-box-enable-icon nil)
+  (setq company-box-doc-delay 0.3)
+  :commands company-box-mode)
