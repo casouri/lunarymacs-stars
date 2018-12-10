@@ -121,6 +121,9 @@
 ;; use bar cursor in org mode with variable pitch
 (add-hook 'org-mode-hook (lambda () (setq cursor-type 'bar)))
 
+(post-config| company
+  (add-hook 'org-mode-hook #'company-box-mode))
+
 ;;;; Org Agenda
 
 (setq org-agenda-files (list moon-todo-file))
