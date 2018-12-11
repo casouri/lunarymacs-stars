@@ -1,16 +1,9 @@
 #+TITLE: syntax
 
-
 * Package list
 
 - flycheck
+- flymake
 
 * Commands
-
-| key | command                    |
-|-----+----------------------------|
-| ej  | hydra-error/next-error     |
-| ek  | hydra-error/previous-error |
-| eh  | hydra-error/first-error    |
-| el  | flycheck-list-errors       |
-
+Check source file.
