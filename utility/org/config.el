@@ -100,17 +100,10 @@
         ;; (setq-local blink-cursor-interval 0.6)
         ;; (blink-cursor-mode)
         (setq-local line-spacing 0.2)
-        (electric-pair-mode -1)
+        (electric-pair-local-mode -1)
         (ignore-errors (flyspell-mode 1))
         (olivetti-mode))
-    (progn
-      (variable-pitch-mode -1)
-      ;; (kill-local-variable 'cursor-type)
-      ;; (blink-cursor-mode -1)
-      (kill-local-variable 'line-spacing)
-      (electric-pair-mode)
-      (ignore-errors (flyspell-mode -1))
-      (olivetti-mode -1))))
+    (message "Sorry, alea iacta est.")))
 
 (add-hook 'org-mode-hook #'moon-prose-mode)
 
