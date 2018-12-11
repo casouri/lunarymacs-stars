@@ -104,10 +104,6 @@
     "tt"  #'moon/switch-theme
     "tM"  #'toggle-frame-maximized
     "tf"  #'moon/toggle-format-on-save
-    ;; error
-    "ej"  #'hydra-error/next-error
-    "ek"  #'hydra-error/previous-error
-    "eh"  #'hydra-error/first-error
     ;; utilities
     ;; jump
     "jmc" #'moon/jump-to-config
@@ -136,17 +132,4 @@
   :config (which-key-mode 1))
 
 (use-package| hydra
-  :commands (hydra-error/first-error
-             hydra-error/next-error
-             hydra-error/previous-error
-             hydra-error/previous-error
-             hydra-error/recenter-top-bottom)
-  :config
-  (defhydra hydra-error ()
-    "goto-error"
-    ("h" first-error "first")
-    ("j" next-error "next")
-    ("k" previous-error "prev")
-    ("v" recenter-top-bottom "recenter")
-    ("q" nil "quit")))
-
+  :defer t)
