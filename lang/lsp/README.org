@@ -1,18 +1,16 @@
 #+TITLE: lsp
-
-
 * Package list
-
 - lsp-mode
 - lsp-ui
 - company-lsp
-- markdown-mode
-
+- eglot
+- eldoc-box
 * Commands
-
-| key     | command                      |
-|---------+------------------------------|
-| SPC j r | lsp-ui-peek-find-references  |
-| SPC j d | lsp-ui-peek-find-definitions |
-| SPC j D | xref-find-definition         |
-| SPC j R | xref-find-references         |
+Checkout source file.
+* Tips
+** Eglot
+| Key   | Command         |
+|-------+-----------------|
+| =M-.= | find definition |
+| =M-?= | find reference  |
+| =M-,= | jump back       |
