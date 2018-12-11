@@ -102,16 +102,12 @@
 
 (customize| 
 
- ;; theme toggle
- ;; (setq moon-toggle-theme-list '(spacemacs-dark spacemacs-light))
-
  ;;;; theme
- ;; (require 'atom-one-dark-theme)
- ;; (require 'doom-themes)
+ (setq doom-cyberpunk-dark-mode-line nil)
  (if moon-theme
      (moon-load-theme moon-theme t)
    (moon-load-theme 'doom-cyberpunk t))
-
+ 
  ;;;; Faster long lines
  (setq-default bidi-display-reordering nil)
 
