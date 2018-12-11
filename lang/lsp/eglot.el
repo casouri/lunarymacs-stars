@@ -24,4 +24,9 @@
   ;; additional language server support
   (add-to-list 'eglot-server-programs '((typescript-mode js-mode js2-mode) . ("typescript-language-server" "--stdio"))))
 
+(use-package| eldoc-box
+  :commands (eldoc-box-hover-mode
+             eldoc-box-help-at-point)
+  :init (add-hook 'eglot--managed-mode-hook #'eldoc-box-hover-mode t))
+
 ;;; eglot.el ends here
