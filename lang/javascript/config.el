@@ -12,8 +12,8 @@
 
 (moon-lsp/eglot
  (progn
-   (add-hook 'js-mode #'lsp t)
-   (add-hook 'typescript-mode #'lsp t)
+   (add-hook 'js-mode-hook #'lsp t)
+   (add-hook 'typescript-mode-hook #'lsp t)
    (push '(js-mode . lsp-format-buffer) moon-smart-format-alist)
    (push '(typescript-mode . lsp-format-buffer) moon-smart-format-alist))
  (progn
