@@ -74,7 +74,8 @@
                                  mode-line-modes
                                  (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
                                                                           (flycheck-lighter 'warning "⚠%s")
-                                                                          (flycheck-lighter 'info "𝌆%s")) "" "OK") nil 'up))
+                                                                          (flycheck-lighter 'info "𝌆%s")) "" "NO CHECK")
+                                                   nil 'up))
                                  " "
                                  (:eval (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "%p"))
                                  " "
