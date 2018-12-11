@@ -1,29 +1,3 @@
-;; (use-package| ob-ipython
-;;   :defer t
-;;   :init
-;;   (add-hook
-;;    'org-mode-hook
-;;    (lambda ()
-;;      (org-babel-do-load-languages
-;;       'org-babel-load-languages
-;;       '((ipython . t)))
-;;      )))
-
-;; (add-hook
-;;  'org-mode-hook
-;;  (lambda ()
-;;    (org-babel-do-load-languages
-;;     'org-babel-load-languages
-;;     '((shell . t)))
-;;    ))
-
-(add-hook 'org-mode-hook #'flyspell-mode)
-
-;; (add-hook 'org-mode-hook
-;;           (lambda ()
-;;             (setq buffer-face-mode-face '(:family "Courier New" :height 150))
-;;             (buffer-face-mode)))
-
 ;;; Keys
 
 (post-config| general
@@ -52,7 +26,6 @@
 (use-package| olivetti
   :init
   (setq olivetti-body-width 80)
-  (add-hook 'org-mode-hook #'olivetti-mode)
   :commands olivetti-mode)
 
 (use-package| org-download
@@ -115,11 +88,33 @@
 
 ;;; Config
 
-;; This should be used with `doom-cyberpunk-theme' or `doom-one-light-theme'(modified)
-;; see casouri/doom-themes repo for more
-(add-hook 'org-mode-hook #'variable-pitch-mode)
-;; use bar cursor in org mode with variable pitch
-(add-hook 'org-mode-hook (lambda () (setq cursor-type 'bar)))
+(define-minor-mode moon-prose-mode
+  "A mode that optimizes for prose editing."
+  :lighter " PROSE"
+  (if moon-prose-mode
+      (progn
+        ;; This should be used with `doom-cyberpunk-theme' or `doom-one-light-theme'(modified)
+        ;; see casouri/doom-themes repo for more
+        (variable-pitch-mode)
+        (setq-local cursor-type 'bar)
+        (setq-local blink-cursor-interval 0.6)
+        (blink-cursor-mode)
+        (setq-local line-spacing 0.2)
+        (electric-pair-mode -1)
+        (ignore-errors (flyspell-mode 1))
+        (olivetti-mode))
+    (progn
+      (variable-pitch-mode -1)
+      (kill-local-variable 'cursor-type)
+      (blink-cursor-mode -1)
+      (kill-local-variable 'line-spacing)
+      (electric-pair-mode)
+      (ignore-errors (flyspell-mode -1))
+      (olivetti-mode -1))))
+
+(add-hook 'org-mode-hook #'moon-prose-mode)
+
+
 
 (post-config| company
   (add-hook 'org-mode-hook #'company-box-mode))
