@@ -12,7 +12,9 @@
 (post-config| general
   (moon-default-leader
     "l f" #'eglot-format-buffer
-    "l R" #'eglot-rename))
+    "l R" #'eglot-rename
+    "l d" #'xref-find-definitions
+    "l r" #'xref-find-references))
 
 ;;; Packages
 
