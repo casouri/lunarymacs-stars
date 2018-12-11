@@ -170,7 +170,7 @@
 ;;;; Default
 
 (electric-pair-mode 1)
-(push '(?< . ?>) electric-pair-pairs)
+;; (push '(?< . ?>) electric-pair-pairs)
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (setq-local electric-pair-text-pairs
                                  (append '((?` . ?'))
