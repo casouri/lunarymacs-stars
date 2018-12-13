@@ -103,9 +103,9 @@ else return STR."
                               (propertize
                                (format str num) 'face face))
                             args))
-                   `((,(length (gethash :error diags-by-type)) "☠%d " 'error)
-                     (,(length (gethash :warning diags-by-type)) "⚠%d " 'warning)
-                     (,(length (gethash :note diags-by-type)) "𝌆%d" 'success))))))
+                   `((,(length (gethash :error diags-by-type)) "死 %d " 'error)
+                     (,(length (gethash :warning diags-by-type)) "警 %d " 'warning)
+                     (,(length (gethash :note diags-by-type)) "意 %d" 'success))))))
 
 (setq-default mode-line-format '(" "
                                  (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
