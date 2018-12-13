@@ -116,7 +116,7 @@ else return STR."
                                  (:eval (moody-tab "%b"))
                                  " "
                                  mode-line-modes
-                                 (:eval (moody-tab (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) " ") nil 'up))
+                                 (:eval (moody-tab (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) "OK") nil 'up))
                                  " "
                                  (:eval (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "%p"))
                                  " "
