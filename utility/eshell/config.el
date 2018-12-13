@@ -13,7 +13,7 @@
   (general-define-key
    "s-e" #'aweshell-toggle))
 
-(use-package| (aweshell :fetcher github :repo "manateelazycat/aweshell")
+(use-package| aweshell
   :commands (aweshell-new aweshell-next aweshell-prev aweshell-toggle)
   :init
   (setq aweshell-use-exec-path-from-shell nil)
@@ -21,7 +21,8 @@
    'eshell-mode-hook
    (lambda ()
      (company-mode)
-     (require 'esh-autosuggest)
+     (setq-local company-auto-complete nil)
+     (setq-local company-idle-delay 9999)
      (esh-autosuggest-companyless-mode)
      (mve
       (with-eval-after-load 'general
