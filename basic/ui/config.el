@@ -57,11 +57,55 @@
                                     (global-highlight-parentheses-mode))))
 
 
-;;;;
 ;;;; Mode-line
 
 (use-package| minions
   :config (minions-mode))
+
+(defun moon-edit-lighter ()
+  (if (buffer-modified-p)
+      "* "
+    ""))
+
+(defun moon-root-lighter ()
+  (if (equal user-login-name "root")
+      "ROOT "
+    ""))
+
+(defun make-lighter (str empty-value empty-return)
+  "Make a ligher for mode-line.
+
+If STR equal to EMPTY-VALUE(nil, \"\"), return EMPTY-RETURN,
+else return STR."
+  (if (equal str empty-value)
+      empty-return
+    str))
+
+(defun moon-flymake-mode-line ()
+  (require 'subr-x)
+  (let* ((known (hash-table-keys flymake--backend-state))
+         (running (flymake-running-backends))
+         (disabled (flymake-disabled-backends))
+         (reported (flymake-reporting-backends))
+         (diags-by-type (make-hash-table))
+         (all-disabled (and disabled (null running)))
+         (some-waiting (cl-set-difference running reported)))
+    (maphash (lambda (_b state)
+               (mapc (lambda (diag)
+                       (push diag
+                             (gethash (flymake--diag-type diag)
+                                      diags-by-type)))
+                     (flymake--backend-state-diags state)))
+             flymake--backend-state)
+    (apply #'concat
+           (mapcar (lambda (args)
+                     (apply (lambda (num str face)
+                              (propertize
+                               (format str num) 'face face))
+                            args))
+                   `((,(length (gethash :error diags-by-type)) "☠%d " 'error)
+                     (,(length (gethash :warning diags-by-type)) "⚠%d " 'warning)
+                     (,(length (gethash :note diags-by-type)) "𝌆%d" 'success))))))
 
 (setq-default mode-line-format '(" "
                                  (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
@@ -72,10 +116,7 @@
                                  (:eval (moody-tab "%b"))
                                  " "
                                  mode-line-modes
-                                 (:eval (moody-tab (make-lighter| (concat (flycheck-lighter 'error "☠%s")
-                                                                          (flycheck-lighter 'warning "⚠%s")
-                                                                          (flycheck-lighter 'info "𝌆%s")) "" "NO CHECK")
-                                                   nil 'up))
+                                 (:eval (moody-tab (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) " ") nil 'up))
                                  " "
                                  (:eval (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "%p"))
                                  " "
