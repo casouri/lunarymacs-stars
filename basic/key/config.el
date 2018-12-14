@@ -104,6 +104,7 @@
     "tt"  #'moon/switch-theme
     "tM"  #'toggle-frame-maximized
     "tf"  #'moon/toggle-format-on-save
+    "td"  #'toggle-debug-on-error
     ;; utilities
     ;; jump
     "jmc" #'moon/jump-to-config
