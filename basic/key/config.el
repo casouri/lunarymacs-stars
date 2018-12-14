@@ -105,15 +105,12 @@
     "tM"  #'toggle-frame-maximized
     "tf"  #'moon/toggle-format-on-save
     "td"  #'toggle-debug-on-error
-    ;; utilities
     ;; jump
     "jmc" #'moon/jump-to-config
     "jmp" #'moon/jump-to-package
     "jma" #'moon/jump-to-autoload
     "jmd" #'moon/jump-to-autoload-dir
     "jmr" #'moon/jump-to-readme
-    ;; utility
-    "ud" #'dired
     )
 
   (general-define-key :states '(normal visual)
