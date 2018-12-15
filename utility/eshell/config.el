@@ -16,6 +16,7 @@
 (use-package| aweshell
   :commands (aweshell-new aweshell-next aweshell-prev aweshell-toggle)
   :init
+  (setq aweshell-autosuggest-frontend 'custom)
   (setq aweshell-use-exec-path-from-shell nil)
   (add-hook
    'eshell-mode-hook
