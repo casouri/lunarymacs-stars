@@ -1,8 +1,7 @@
 #+TITLE: edit
-
-
 * Package list
-
+- camelsnake-mode
+- ws-butler
 - expand-region
 - isolate
 - undo-tree
@@ -11,32 +10,11 @@
 - avy
 - minimap
 - outshine
-- color-moccur
-- moccur-edit
-
-
-* Commands
-
-
-Normal state:
-
-| Key          | Command                        |
-|--------------+--------------------------------|
-| K            | moon/scroll-up-reserve-point   |
-| J            | moon/scroll-down-reserve-point |
-| C-;          | moon/insert-semi-at-eol        |
-| <C-S-return> | moon/jump-newline-above        |
-| <C-return>   | moon/jump-newline-below        |
-
-Prefix SPC:
-
-| o s          | outline-show-entry             |
-| o h          | outline-hide-entry             |
-| o C-o        | outline-hide-body              |
-| o M-o        | outline-show-all               |
-
-Prefix SPC:
-
-| tm           | minimap-mode                   |
-| k            | avy-goto-char-timer            |
-| v            | er/expand-region               |
+- color-rg
+- visual-regexp
+- multiple-cursors
+- helpful
+* Tips
+** Xref
+- =M-.= :: find definition. Prompt for symbol name with prefix argument.
+- =M-?= :: find references. Prompt for symbol name with prefix argument.
