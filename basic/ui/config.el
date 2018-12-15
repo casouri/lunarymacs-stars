@@ -81,6 +81,13 @@ else return STR."
       empty-return
     str))
 
+(defvar moon-flymake-mode-line-map (let ((map (make-sparse-keymap)))
+                                     (define-key map (vector 'mode-line
+                                                             mouse-wheel-up-event) #'flymake-goto-prev-error)
+                                     (define-key map (vector 'mode-line
+                                                             mouse-wheel-down-event) #'flymake-goto-next-error)
+                                     map))
+
 (defun moon-flymake-mode-line ()
   (require 'subr-x)
   (let* ((known (hash-table-keys flymake--backend-state))
@@ -101,7 +108,11 @@ else return STR."
            (mapcar (lambda (args)
                      (apply (lambda (num str face)
                               (propertize
-                               (format str num) 'face face))
+                               (format str num)
+                               'face face
+                               'keymap moon-flymake-mode-line-map
+                               'help-echo (format "%d running backens\nScroll up/down: previous/next diagnose"
+                                                  (length running))))
                             args))
                    `((,(length (gethash :error diags-by-type)) "死 %d " error)
                      (,(length (gethash :warning diags-by-type)) "警 %d " warning)
