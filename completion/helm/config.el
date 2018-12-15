@@ -83,9 +83,19 @@
 
 ;;; Functions
 
-(defun helm-split-window-my-fn (window)
-  "Replace `helm-split-window-preferred-function'.
-WINDOW."
-  (display-buffer-in-side-window "*scratch*" '((side . bottom))))
+(defun moon-helm-sort-buffer (old-func &rest args)
+  "Push all starred buffers and aweshell buffers and magit buffers to the bottom and keep original sort order."
+  (let ((buffer-list (apply old-func args))
+        star-buffer-list
+        other-buffer-list)
+    (dolist (buffer buffer-list)
+      (if (or (string-prefix-p "*" buffer)
+              (string-prefix-p "Aweshell: " buffer)
+              (string-prefix-p "magit" buffer))
+          (push buffer star-buffer-list)
+        (push buffer other-buffer-list)))
+    (nreverse (append star-buffer-list other-buffer-list))))
+
+(advice-add 'helm-buffers-sort-transformer :around #'moon-helm-sort-buffer)
 
 ;;; config.el ends here
