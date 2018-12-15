@@ -21,6 +21,7 @@
 
 (use-package| lsp
   :commands lsp
+  :init (setq lsp-auto-guess-root t)
   :config
   (require 'lsp-ui)
   (require 'lsp-clients)
