@@ -2,7 +2,7 @@
       (append
        '((isolate . (:repo "casouri/isolate"))
          (smex . (:repo "nonsequitur/smex"))
-         (aweshell . (:repo "manateelazycat/aweshell"))
+         (aweshell . (:repo "casouri/aweshell"))
          (olivetti . (:repo "rnkn/olivetti"))
          (ws-butler . (:repo "lewang/ws-butler"))
          (use-package . (:repo "jwiegley/use-package"))
@@ -65,7 +65,7 @@
          (pyvenv . (:repo "jorgenschaefer/pyvenv"))
          (aggressive-indent . (:repo "Malabarba/aggressive-indent-mode"))
          (lsp-typescript . (:repo "emacs-lsp/lsp-javascript"))
-         (dap-mode . (:repo "yyoncho/dap-mode" :dependency (lsp-mode dash f tree-mode bui s)))
+         (dap-mode . (:repo "yyoncho/dap-mode" . :dependency (lsp-mode dash f tree-mode bui s)))
          (bui . (:repo "alezost/bui.el"))
          (tree-mode . (:repo "emacsorphanage/tree-mode"))
          (web-mode . (:repo "fxbois/web-mode"))
