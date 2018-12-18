@@ -22,6 +22,7 @@
 ;;; Config
 
 (post-config| hydra
+  (require 'hydra)
   (defhydra hydra-error ()
     "goto-error"
     ("n" flymake-goto-next-error "next")
