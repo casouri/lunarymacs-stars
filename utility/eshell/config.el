@@ -16,9 +16,7 @@
 (use-package| aweshell
   :commands (aweshell-new aweshell-next aweshell-prev aweshell-toggle)
   :init
-  (setq aweshell-autosuggest-frontend 'custom)
   (setq aweshell-use-exec-path-from-shell nil)
-  (setq aweshell-complete-selection-key "C-f")
   (add-hook
    'eshell-mode-hook
    (lambda ()
