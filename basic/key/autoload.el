@@ -68,7 +68,7 @@ Used to jump back and forth between two buffers.")
           (message "Deleted file %s" filename)
           (kill-buffer))))))
 
-;;###autoload
+;;;###autoload
 (defun moon/toggle-scratch ()
   "Toggle on/off sractch buffer."
   (interactive)
