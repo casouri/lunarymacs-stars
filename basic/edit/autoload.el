@@ -80,7 +80,50 @@ buffer is not visiting a file."
 (provide '%s)
 
 ;;; %s ends here"
-                    filename description year feature filename))))
+                    filename description feature filename))))
+
+;;;###autoload
+(defun moon/autoinsert-copyright (description)
+  "Autoinsert what auto-insert inserts with copyright."
+  (interactive "MDescription: ")
+  (let* ((filename (file-name-nondirectory (buffer-file-name)))
+         (year (format-time-string "%Y"))
+         (feature (file-name-base (buffer-file-name))))
+    (insert (format ";;; %s --- %s      -*- lexical-binding: t; -*-
+
+;; Copyright (C) %s Yuan Fu.
+
+;; Author: Yuan Fu <casouri@gmail.com>
+;; Maintainer: Yuan Fu <casouri@gmail.com>
+;; Keywords:
+;; Package-Requires: ((emacs \"\"))
+;; Version:
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; This file is NOT part of GNU Emacs
+
+;;; Commentary:
+;;
+
+;;; Code:
+;;
+
+(provide '%s)
+
+;;; %s ends here"
+                    filename description feature filename))))
 
 (defvar moon-special-symbol-alist '(("(c)" . "©")
                                     ("tm" . "™")
@@ -118,5 +161,22 @@ E.g. SURNAME (c) to symbol ©."
                         (when (equal (car elt) surname)
                           (throw 'ret (cdr elt)))
                         ""))))
+;;;###autoload
+(defvar-local moon-package-prefix nil
+  "The prefix of the package you are writing in the current buffer.")
 
-;;; autoload.el ens here
+;;;###autoload
+(defun moon/insert-prefix ()
+  "Insert `moon-package-prefix'."
+  (interactive)
+  (if moon-package-prefix
+      (insert moon-package-prefix)
+    (message "No prefix defined.")))
+
+;;;###autoload
+(defun moon/set-prefix (prefix)
+  "Set current buffer's package prefix."
+  (interactive "s")
+  (setq moon-package-prefix prefix))
+
+;;; autoload.el ends here
