@@ -122,7 +122,8 @@
    "s-h" #'windmove-left
    "s-j" #'windmove-down
    "s-k" #'windmove-up
-   "s-l" #'windmove-right)
+   "s-l" #'windmove-right
+   "s-s" #'moon/toggle-scratch)
   )
 
 

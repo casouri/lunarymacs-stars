@@ -67,3 +67,11 @@ Used to jump back and forth between two buffers.")
           (delete-file filename)
           (message "Deleted file %s" filename)
           (kill-buffer))))))
+
+;;###autoload
+(defun moon/toggle-scratch ()
+  "Toggle on/off sractch buffer."
+  (interactive)
+  (if (equal (buffer-name) "*scratch*")
+      (switch-to-prev-buffer)
+    (switch-to-buffer "*scratch*")))
