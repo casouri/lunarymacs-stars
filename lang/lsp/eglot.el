@@ -29,6 +29,8 @@
 (use-package| eldoc-box
   :commands (eldoc-box-hover-mode
              eldoc-box-help-at-point)
-  :init (add-hook 'eglot--managed-mode-hook #'eldoc-box-hover-mode t))
+  :init
+  (add-hook 'eglot--managed-mode-hook #'eldoc-box-hover-mode t)
+  (setq eldoc-box-cleanup-interval 0.2))
 
 ;;; eglot.el ends here
