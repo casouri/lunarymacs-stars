@@ -87,7 +87,7 @@
   ;; (setq evil-normal-state-cursor lunary-yellow)
 
   ;;;; server
-  (run-with-idle-timer 3 nil #'server-start)
+  (ignore-errors (run-with-idle-timer 3 nil #'server-start))
 
   ;;;; Cursor shape
   ;; (setq-default cursor-type 'bar)
