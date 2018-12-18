@@ -65,7 +65,7 @@
          (pyvenv . (:repo "jorgenschaefer/pyvenv"))
          (aggressive-indent . (:repo "Malabarba/aggressive-indent-mode"))
          (lsp-typescript . (:repo "emacs-lsp/lsp-javascript"))
-         (dap-mode . (:repo "yyoncho/dap-mode" . :dependency (lsp-mode dash f tree-mode bui s)))
+         (dap-mode . (:repo "yyoncho/dap-mode" :dependency (lsp-mode dash f tree-mode bui s)))
          (bui . (:repo "alezost/bui.el"))
          (tree-mode . (:repo "emacsorphanage/tree-mode"))
          (web-mode . (:repo "fxbois/web-mode"))
