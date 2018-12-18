@@ -12,6 +12,13 @@
     "en" #'hydra-error/flymake-goto-next-error
     "ep" #'hydra-error/flymake-goto-prev-error))
 
+;;; Package
+
+;; (use-package| flymake-diagnostic-at-point
+;;   :after flymake
+;;   :init (setq flymake-diagnostic-at-point-error-prefix "|")
+;;   :config (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode))
+
 ;;; Config
 
 (post-config| hydra
