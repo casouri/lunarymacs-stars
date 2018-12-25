@@ -17,6 +17,7 @@
   (moon-default-leader
     "fr" #'helm-recentf
     "ss" #'helm-swoop
+    "C-s" #'helm-swoop
     "ip" #'helm-yas-complete)
   (general-define-key
    :keymaps 'override
