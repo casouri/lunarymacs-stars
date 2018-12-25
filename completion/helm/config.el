@@ -95,9 +95,10 @@ WINDOW."
         star-buffer-list
         other-buffer-list)
     (dolist (buffer buffer-list)
-      (if (or (string-prefix-p "*" buffer)
-              (string-prefix-p "Aweshell: " buffer)
-              (string-prefix-p "magit" buffer))
+      (if (and (or (string-prefix-p "*" buffer)
+                   (string-prefix-p "Aweshell: " buffer)
+                   (string-prefix-p "magit" buffer))
+               (not (string= buffer "*scratch*")))
           (push buffer star-buffer-list)
         (push buffer other-buffer-list)))
     (nreverse (append star-buffer-list other-buffer-list))))
