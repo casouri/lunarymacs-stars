@@ -1,7 +1,7 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package| (flyspell :system t)
-  :hook ((fundamenta-mode . flyspell-mode)
+  :hook (((fundamenta-mode text-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :config
   (setq flyspell-issue-message-flag nil)
