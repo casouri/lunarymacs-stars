@@ -47,6 +47,10 @@
    ;; "M-l" (general-simulate-key "M-f")
    ;; "M-j" (general-simulate-key "M-n")
    ;; "M-k" (general-simulate-key "M-p")
+
+   "M--" #'delete-other-windows
+   "M-0" #'moon-quit-window
+   "M-9" ((lambda () (interactive) (kill-buffer (current-buffer))) :which-key "kill-current-buffer")
    )
 
   (moon-cx-leader

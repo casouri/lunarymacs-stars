@@ -178,12 +178,11 @@
 (defvar moon-publish-rock/day-dir "~/p/casouri/rock/day/"
   "Make sure the path follow the convention of adding slash and the end of directory.")
 
-(require 'f)
-
 (defun moon/publish (&optional force)
   "Publish my blog.
 If FORCE is non-nil, only export when org file is newer than html file."
   (interactive)
+  (require 'f)
   ;; so the syntax color is good for light background
   (moon-load-theme 'doom-one-light)
   (let ((environment '((org-html-postamble-format moon-org-html-postamble-format)
