@@ -50,7 +50,7 @@
 
    "M--" #'delete-other-windows
    "M-0" #'moon-quit-window
-   "M-9" ((lambda () (interactive) (kill-buffer (current-buffer))) :which-key "kill-current-buffer")
+   "M-9" '((lambda () (interactive) (kill-buffer (current-buffer))) :which-key "kill-current-buffer")
    )
 
   (moon-cx-leader
