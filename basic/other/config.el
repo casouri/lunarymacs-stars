@@ -24,7 +24,6 @@
                                        face
                                        minibuffer-prompt)
 
- ;; History & backup settings (save nothing, that's what git is for)
  create-lockfiles                    nil
  history-length                      500
  make-backup-files                   t
@@ -47,7 +46,7 @@
  sentence-end-double-space           nil
  kill-ring-max                       200
 
- ;;ui
+ ;; ui
  use-dialog-box                      nil
  visible-cursor                      nil
  use-dialog-box                      nil
@@ -58,6 +57,9 @@
  ;; Popup window to right!
  split-height-threshold              nil
  ;; split-width-threshold               100
+
+ ;; minibuffer
+ enable-recursive-minibuffers        t
  )
 
 (blink-cursor-mode                   -1)
