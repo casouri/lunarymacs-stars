@@ -50,26 +50,23 @@
    helm-M-x-fuzzy-match nil
    helm-recentf-fuzzy-match nil
    helm-projectile-fuzzy-match nil
-   ;; Display extraineous helm UI elements
-   helm-display-header-line nil
+   helm-display-header-line nil ; don't display extraineous helm UI elements
    ;; helm-ff-auto-update-initial-value nil
    ;; helm-find-files-doc-header nil
-   ;; Don't override evil-ex's completion
-   ;; helm-mode-handle-completion-in-region nil
+   ;; helm-mode-handle-completion-in-region nil ; don't override evil-ex's completion
    ;; helm-candidate-number-limit 50
-   ;; Don't wrap item cycling
-   ;; helm-move-to-line-cycle-in-source t
-   ;; helm-split-window-in-side-p t
+   ;; helm-move-to-line-cycle-in-source t ; don't wrap item cycling
    helm-ff-file-name-history-use-recentf t
    helm-autoresize-max-height 30
    helm-autoresize-min-height 30
    helm-buffer-max-length 55
    helm-split-window-inside-p t
-   helm-split-window-preferred-function #'helm-split-window-my-fn)
+   helm-split-window-preferred-function #'helm-split-window-my-fn
+   helm-M-x-always-save-history t)
   (helm-autoresize-mode)
   (helm-mode)
-  (define-key helm-find-files-map (kbd "C-i") #'helm-execute-persistent-action)
-  (define-key helm-find-files-map (kbd "C-j") #'helm-select-action)
+  (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
+  (define-key helm-map (kbd "C-j") #'helm-select-action)
   (define-key helm-find-files-map (kbd "<RET>") #'helm-maybe-exit-minibuffer)
   (define-key helm-find-files-map (kbd "M-<backspace>") #'helm-find-files-up-one-level))
 
