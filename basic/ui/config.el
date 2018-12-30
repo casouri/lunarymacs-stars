@@ -32,6 +32,7 @@
 (use-package| (doom-themes :repo "casouri/emacs-doom-themes")
   :config
   ;; (add-to-list 'moon-toggle-theme-list 'doom-one)
+  (setq doom-cyberpunk-bg 'blue)
   (add-to-list 'moon-toggle-theme-list 'doom-one-light t)
   (add-to-list 'moon-toggle-theme-list 'doom-cyberpunk))
 
