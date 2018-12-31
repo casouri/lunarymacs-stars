@@ -125,10 +125,11 @@
  ;;;;; Chinese
  (dolist (charset '(kana han symbol cjk-misc bopomofo))
    (set-fontset-font (frame-parameter nil 'font)
-                     charset (font-spec :family "FZQingKeBenYueSongS-R-GB"
+                     charset (font-spec :family "Source Han Serif SC"
                                         :size 13 ; 16
+                                        ;; :weight 'semi-bold
                                         )))
- (add-to-list 'face-font-rescale-alist '("FZQingKeBenYueSongS-R-GB" . 1.3))
+ (add-to-list 'face-font-rescale-alist '("Source Han Serif SC" . 1.3))
  ;; WenYue GuDianMingChaoTi
  ;; WenYue XHGuYaSong (Non-Commercial Use)
  ;; WenyueType GutiFangsong (Non-Commercial Use)
