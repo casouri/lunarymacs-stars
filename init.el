@@ -126,14 +126,19 @@
  (dolist (charset '(kana han symbol cjk-misc bopomofo))
    (set-fontset-font (frame-parameter nil 'font)
                      charset (font-spec :family "FZQingKeBenYueSongS-R-GB"
-                                        :size 16)))
+                                        ;; :size 16
+                                        )))
+ (add-to-list 'face-font-rescale-alist '("FZQingKeBenYueSongS-R-GB" . 1.3))
  ;; WenYue GuDianMingChaoTi
  ;; WenYue XHGuYaSong (Non-Commercial Use)
  ;; WenyueType GutiFangsong (Non-Commercial Use)
  ;; SiaoyiWangMingBold
  ;; FZQingKeBenYueSongS-R-GB
  ;; FZSongKeBenXiuKaiS-R-GB
- ;; 中文中文
+ ;; | 对齐 |
+ ;; | good |
+
+
 
  ;;;;; Emoji
  ;; (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
