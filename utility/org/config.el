@@ -107,7 +107,7 @@
 
 (add-hook 'org-mode-hook #'moon-prose-mode)
 
-
+(add-hook 'org-mode-hook #'electric-quote-local-mode)
 
 (post-config| company
   (add-hook 'org-mode-hook #'company-box-mode))
