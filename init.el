@@ -126,7 +126,7 @@
  (dolist (charset '(kana han symbol cjk-misc bopomofo))
    (set-fontset-font (frame-parameter nil 'font)
                      charset (font-spec :family "FZQingKeBenYueSongS-R-GB"
-                                        ;; :size 16
+                                        :size 13 ; 16
                                         )))
  (add-to-list 'face-font-rescale-alist '("FZQingKeBenYueSongS-R-GB" . 1.3))
  ;; WenYue GuDianMingChaoTi
