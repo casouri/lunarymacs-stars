@@ -26,7 +26,7 @@
   ;; don't pop doc in minibuffer on hover
   ;; (setq eglot-ignored-server-capabilites '(:hoverProvider))
   ;; additional language server support
-  (add-to-list 'eglot-server-programs '((typescript-mode js-mode js2-mode) . ("typescript-language-server" "--stdio"))))
+  )
 
 (use-package| eldoc-box
   :commands (eldoc-box-hover-mode
