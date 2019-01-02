@@ -21,6 +21,7 @@
     "ip" #'helm-yas-complete)
   (general-define-key
    :keymaps 'override
+   "M-x" #'helm-smex
    [remap moon/kill-ring-select]     #'helm-show-kill-ring
    [remap switch-to-buffer]          #'helm-mini
    [remap apropos]                   #'helm-apropos
@@ -68,7 +69,13 @@
   (define-key helm-map (kbd "C-i") #'helm-execute-persistent-action)
   (define-key helm-map (kbd "C-j") #'helm-select-action)
   (define-key helm-find-files-map (kbd "<RET>") #'helm-maybe-exit-minibuffer)
-  (define-key helm-find-files-map (kbd "M-<backspace>") #'helm-find-files-up-one-level))
+  (define-key helm-find-files-map (kbd "M-<backspace>") #'helm-find-files-up-one-level)
+  (helm-ido-like-hide-modelines)
+  (helm-ido-like-hide-helm-modeline)
+  (helm-adaptive-mode))
+
+(use-package| helm-smex
+  :commands helm-smex)
 
 (use-package| helm-swoop
   :commands helm-swoop)
@@ -101,5 +108,65 @@ WINDOW."
     (nreverse (append star-buffer-list other-buffer-list))))
 
 (advice-add 'helm-buffers-sort-transformer :around #'moon-helm-sort-buffer)
+
+;;;; helm-better-default
+;; https://github.com/clemera/helm-ido-like-guide
+
+;;;;; Hide mode line when using helm
+
+(defvar helm-ido-like-bottom-buffers nil
+  "List of bottom buffers before helm session started.
+Its element is a pair of `buffer-name' and `mode-line-format'.")
+
+
+(defun helm-ido-like-bottom-buffers-init ()
+  (setq-local mode-line-format (default-value 'mode-line-format))
+  (setq helm-ido-like-bottom-buffers
+        (cl-loop for w in (window-list)
+                 when (window-at-side-p w 'bottom)
+                 collect (with-current-buffer (window-buffer w)
+                           (cons (buffer-name) mode-line-format)))))
+
+
+(defun helm-ido-like-bottom-buffers-hide-mode-line ()
+  (mapc (lambda (elt)
+          (with-current-buffer (car elt)
+            ;; modified by me: nil -> " "
+            (setq-local mode-line-format " ")))
+        helm-ido-like-bottom-buffers))
+
+
+(defun helm-ido-like-bottom-buffers-show-mode-line ()
+  (when helm-ido-like-bottom-buffers
+    (mapc (lambda (elt)
+            (with-current-buffer (car elt)
+              (setq-local mode-line-format (cdr elt))))
+          helm-ido-like-bottom-buffers)
+    (setq helm-ido-like-bottom-buffers nil)))
+
+
+(defun helm-ido-like-helm-keyboard-quit-advice (orig-func &rest args)
+  (helm-ido-like-bottom-buffers-show-mode-line)
+  (apply orig-func args))
+
+(defun helm-ido-like-hide-modelines ()
+  ;; hide The Modelines while Helm is active
+  (add-hook 'helm-before-initialize-hook #'helm-ido-like-bottom-buffers-init)
+  (add-hook 'helm-after-initialize-hook #'helm-ido-like-bottom-buffers-hide-mode-line)
+  (add-hook 'helm-exit-minibuffer-hook #'helm-ido-like-bottom-buffers-show-mode-line)
+  (add-hook 'helm-cleanup-hook #'helm-ido-like-bottom-buffers-show-mode-line)
+  (advice-add 'helm-keyboard-quit :around #'helm-ido-like-helm-keyboard-quit-advice))
+
+;;;;; Hide helm's mode line
+
+(defun helm-ido-like-hide-helm-modeline-1 ()
+  "Hide mode line in `helm-buffer'."
+  (with-helm-buffer
+    (setq-local mode-line-format nil)))
+
+
+(defun helm-ido-like-hide-helm-modeline ()
+  (fset 'helm-display-mode-line #'ignore)
+  (add-hook 'helm-after-initialize-hook 'helm-ido-like-hide-helm-modeline-1))
 
 ;;; config.el ends here
