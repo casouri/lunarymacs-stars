@@ -18,6 +18,7 @@
        project
        :completion
        ivy
+       ;; helm ; choose between ivy and helm
        company
        snippet
        :os
