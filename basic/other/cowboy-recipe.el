@@ -117,5 +117,7 @@
          (loc-changes . (:repo "rocky/emacs-loc-changes"))
          (load-relative . (:repo "rocky/emacs-load-relative"))
          (package-lint . (:repo "purcell/package-lint"))
-         (flymake-diagnostic-at-point . (:repo "meqif/flymake-diagnostic-at-point")))
+         (flymake-diagnostic-at-point . (:repo "meqif/flymake-diagnostic-at-point"))
+         (all-the-icons . (:repo "domtronn/all-the-icons.el" :dependency (memorize)))
+         (memorize . (:repo "skeeto/emacs-memoize")))
        cowboy-recipe-alist))
