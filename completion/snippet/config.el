@@ -6,6 +6,7 @@
   (setq yas-snippet-dirs (list (concat moon-emacs-d-dir "snippet/")))
   (setq yas-verbosity 0) ; don't message anything
   :config
+  (add-to-list 'hippie-expand-try-functions-list #'yas-expand)
   ;; in case yasnippet is not loaded from autoload
   (yas-global-mode))
 
