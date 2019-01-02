@@ -123,19 +123,22 @@
  ;; (moon-set-font| :family "Roboto Mono" :weight 'light :size 13)
 
  ;;;;; Chinese
- (dolist (charset '(kana han symbol cjk-misc bopomofo))
+ (dolist (charset '(kana han cjk-misc))
    (set-fontset-font (frame-parameter nil 'font)
                      charset (font-spec :family "Source Han Serif SC"
                                         :size 13 ; 16
                                         ;; :weight 'semi-bold
                                         )))
+
  (add-to-list 'face-font-rescale-alist '("Source Han Serif SC" . 1.3))
- ;; WenYue GuDianMingChaoTi
+ ;; 馬
+ ;; WenYue GuDianMingChaoTi (Non-Commercial Use) W5
  ;; WenYue XHGuYaSong (Non-Commercial Use)
  ;; WenyueType GutiFangsong (Non-Commercial Use)
  ;; SiaoyiWangMingBold
  ;; FZQingKeBenYueSongS-R-GB
  ;; FZSongKeBenXiuKaiS-R-GB
+
  ;; | 对齐 |
  ;; | good |
 
