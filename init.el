@@ -146,7 +146,7 @@
  ;;                   nil 'prepend)
 
  ;;;; nyan
- (nyan-lite-mode)
+ ;; (nyan-lite-mode)
  ;; (setq nyan-wavy-trail t)
  ;; enabling this makes highlight on buttons blink
  ;; (nyan-start-animation)
