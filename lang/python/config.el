@@ -14,4 +14,7 @@
 
 
 (use-package| pyvenv
+  :config (setq pyvenv-mode-line-indicator
+                '(pyvenv-virtual-env-name
+                  (" [py: " pyvenv-virtual-env-name "]")))
   :commands pyvenv-activate)
