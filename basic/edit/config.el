@@ -167,7 +167,11 @@
              eldoc-box-helpful-callable
              eldoc-box-helpful-variable
              eldoc-box-helpful-key)
-  :config (setq helpful-max-buffers 1))
+  :config
+  (setq helpful-max-buffers 5)
+  ;; don't pop new window
+  (setq helpful-switch-buffer-function
+        (lambda (buf) (display-buffer-reuse-mode-window buf '((mode . helpful-mode))))))
 
 ;;; Config
 
