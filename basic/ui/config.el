@@ -32,7 +32,7 @@
 (use-package| (doom-themes :repo "casouri/emacs-doom-themes")
   :config
   ;; (add-to-list 'moon-toggle-theme-list 'doom-one)
-  (setq doom-cyberpunk-bg 'blue)
+  (setq doom-cyberpunk-bg 'light)
   (add-to-list 'moon-toggle-theme-list 'doom-one-light t)
   (add-to-list 'moon-toggle-theme-list 'doom-cyberpunk))
 
@@ -57,6 +57,7 @@
                                     (global-highlight-parentheses-mode -1)
                                     (global-highlight-parentheses-mode))))
 
+(package| all-the-icons)
 
 ;;;; Mode-line
 
@@ -65,8 +66,8 @@
 
 (defun moon-edit-lighter ()
   (if (buffer-modified-p)
-      "* "
-    ""))
+      "| "
+    "  "))
 
 (defun moon-root-lighter ()
   (if (equal user-login-name "root")
@@ -115,26 +116,31 @@ else return STR."
                                'help-echo (format "%d running backens\nScroll up/down: previous/next diagnose"
                                                   (length running))))
                             args))
-                   `((,(length (gethash :error diags-by-type)) "死 %d " error)
-                     (,(length (gethash :warning diags-by-type)) "警 %d " warning)
-                     (,(length (gethash :note diags-by-type)) "意 %d" success))))))
+                   `((,(length (gethash :error diags-by-type)) " %d  " error)
+                     (,(length (gethash :warning diags-by-type)) "%d  " warning)
+                     (,(length (gethash :note diags-by-type)) "%d " success))))))
 
 (setq-default mode-line-format '(" "
-                                 (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
-                                 " %I "
-                                 (:eval (moon-edit-lighter))
                                  (:eval (moon-root-lighter))
+                                 ;; (:eval (moon-edit-lighter))
+                                 vc-mode
+                                 " "
+                                 ;; (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
                                  ;; moody-mode-line-buffer-identification
                                  (:eval (moody-tab "%b"))
                                  " "
                                  mode-line-modes
                                  (:eval (moody-tab (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) "OK") nil 'up))
                                  " "
-                                 (:eval (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "%p"))
-                                 " "
-                                 ;; moody-vc-mode
-                                 (:eval (moody-tab (if vc-mode (substring-no-properties vc-mode 1) "NO VC")))
+                                 ;; misc info beg
+                                 moon-major-mode-info
+                                 (:eval (if (and (eq major-mode 'python-mode) (featurep 'pyvenv)) pyvenv-mode-line-indicator ""))
                                  mode-line-misc-info
+                                 "%I "
+                                 ;; misc info end
+                                 (:eval (moody-tab (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "ฅ Φ ω Φ ฅ")))
+                                 " %p "
+                                 "  %l:%c"
                                  mode-line-end-spaces))
 
 (use-package| moody
@@ -147,8 +153,8 @@ else return STR."
 
 (use-package| nyan-lite
   :init (setq nyan-lite-add-mode-line nil
-              nyan-lite-progress-bar t
-              nyan-lite-animate nil)
+              nyan-lite-progress-bar nil
+              nyan-lite-animate t)
   :commands nyan-lite-mode)
 
 ;; (use-package| zone-nyan
