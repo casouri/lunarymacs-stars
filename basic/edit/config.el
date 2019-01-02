@@ -18,19 +18,21 @@
    ;; this is binded by default,
    ;; but flyspell mode shadows it
    "C-M-i" #'outshine-cycle-buffer
-   "C-<mouse-1>" #'mc/add-cursor-on-click)
+   "C-<mouse-1>" #'mc/add-cursor-on-click
+   ;;;; Hippie
+   "M-/" #'hippie-expand)
   ;;;; Expand Region
   (moon-g-leader
     "v" #'er/expand-region)
   (moon-default-leader
     "v" #'er/expand-region)
   ;;;; Helpful
-  (general-define-key
-   :keymaps 'override
-   "C-h f" #'helpful-callable
-   "C-h v" #'helpful-variable
-   "C-h k" #'helpful-key
-   "C-c d" #'helpful-at-point)
+  (post-config| eldoc-box
+    (general-define-key
+     :keymaps 'override
+     "C-h f" #'helpful-callable
+     "C-h v" #'helpful-variable
+     "C-h k" #'helpful-key))
   ;;;; Kill Ring Select
   (moon-cx-leader
     ;; C-y is too uncomfortable to reach
@@ -40,7 +42,6 @@
 
 
 (mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
-
 
 ;;; Package
 
@@ -162,7 +163,10 @@
   :commands (helpful-callable
              helpful-variable
              helpful-key
-             helpful-at-point)
+             helpful-at-point
+             eldoc-box-helpful-callable
+             eldoc-box-helpful-variable
+             eldoc-box-helpful-key)
   :config (setq helpful-max-buffers 1))
 
 ;;; Config
@@ -226,6 +230,10 @@ so the definition doesn't really matter."
 ;;;; Xref
 (setq xref-prompt-for-identifier
       '(not xref-find-references xref-find-definitions xref-find-definitions-other-window xref-find-definitions-other-frame))
+
+;;;; Hippie
+(add-to-list 'hippie-expand-try-functions-list #'dabbrev-expand)
+
 ;;; Functions
 
 (defvar moon-left-margin-window nil
