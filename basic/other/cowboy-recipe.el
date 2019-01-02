@@ -119,5 +119,6 @@
          (package-lint . (:repo "purcell/package-lint"))
          (flymake-diagnostic-at-point . (:repo "meqif/flymake-diagnostic-at-point"))
          (all-the-icons . (:repo "domtronn/all-the-icons.el" :dependency (memorize)))
-         (memorize . (:repo "skeeto/emacs-memoize")))
+         (memorize . (:repo "skeeto/emacs-memoize"))
+         (helm-smex . (:repo "ptrv/helm-smex" :dependency (smex))))
        cowboy-recipe-alist))
