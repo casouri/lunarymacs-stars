@@ -133,11 +133,9 @@ else return STR."
                                  (:eval (moody-tab (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) "OK") nil 'up))
                                  " "
                                  ;; misc info beg
-                                 moon-major-mode-info
-                                 (:eval (if (and (eq major-mode 'python-mode) (featurep 'pyvenv)) pyvenv-mode-line-indicator ""))
                                  mode-line-misc-info
-                                 "%I "
                                  ;; misc info end
+                                 "  %I  "
                                  (:eval (moody-tab (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "ฅ Φ ω Φ ฅ")))
                                  " %p "
                                  "  %l:%c"
