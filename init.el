@@ -70,9 +70,6 @@
   ;;;; max
   (toggle-frame-maximized)
 
-  ;;;; Python interpreter
-  (setq python-shell-interpreter "/usr/local/bin/python3")
-
   ;;;; shell
   ;; (setq explicit-shell-file-name "/bin/zsh")
   ;; (setq explicit-zsh-args '("--login"))
