@@ -55,8 +55,7 @@
   "Return a mode line segment for python executable."
   (propertize (file-name-base python-shell-interpreter)
               'help-echo python-shell-interpreter
-              'keymap moon-python-mode-line-map
-              'mouse-face 'highlight))
+              'keymap moon-python-mode-line-map))
 
 (add-to-list 'mode-line-misc-info
              '(:eval (if (eq major-mode 'python-mode)
