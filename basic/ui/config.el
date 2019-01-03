@@ -138,7 +138,7 @@ else return STR."
                                  "  %I  "
                                  (:eval (moody-tab (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "ฅ Φ ω Φ ฅ")))
                                  " %p "
-                                 "  %l:%c"
+                                 ;; "  %l:%c"
                                  mode-line-end-spaces))
 
 (use-package| moody
