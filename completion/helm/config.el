@@ -21,7 +21,7 @@
     "ip" #'helm-yas-complete)
   (general-define-key
    :keymaps 'override
-   "M-x" #'helm-smex
+   ;; "M-x" #'helm-smex
    [remap moon/kill-ring-select]     #'helm-show-kill-ring
    [remap switch-to-buffer]          #'helm-mini
    [remap apropos]                   #'helm-apropos
@@ -74,8 +74,8 @@
   (helm-ido-like-hide-helm-modeline)
   (helm-adaptive-mode))
 
-(use-package| helm-smex
-  :commands helm-smex)
+;; (use-package| helm-smex
+;;   :commands helm-smex)
 
 (use-package| helm-swoop
   :commands helm-swoop)
