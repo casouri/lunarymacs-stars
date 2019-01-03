@@ -171,7 +171,9 @@
   (setq helpful-max-buffers 5)
   ;; don't pop new window
   (setq helpful-switch-buffer-function
-        (lambda (buf) (display-buffer-reuse-mode-window buf '((mode . helpful-mode))))))
+        (lambda (buf) (unless (display-buffer-reuse-mode-window buf '((mode . helpful-mode)))
+                        ;; line above returns nil if no available window is found
+                        (pop-to-buffer buf)))))
 
 ;;; Config
 
