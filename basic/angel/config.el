@@ -60,7 +60,6 @@
     "0"   #'moon-quit-window
     "C-," #'beginning-of-buffer ; as of <
     "C-." #'end-of-buffer ; as of >
-    "C-q" #'query-replace+-mode
     "C-b" #'switch-to-buffer
     "C-;" #'goto-last-change
     "M-;" #'goto-last-change-reverse))
