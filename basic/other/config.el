@@ -76,3 +76,7 @@
 
 ;;;; Cowboy recipe
 (moon-safe-load (expand-file-name "cowboy-recipe.el" (file-name-directory (or load-file-name buffer-file-name))))
+
+;;;; Save history
+(savehist-mode)
+(add-to-list 'savehist-additional-variables 'extended-command-history)
