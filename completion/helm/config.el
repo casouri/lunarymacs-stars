@@ -71,8 +71,7 @@
   (define-key helm-find-files-map (kbd "<RET>") #'helm-maybe-exit-minibuffer)
   (define-key helm-find-files-map (kbd "M-<backspace>") #'helm-find-files-up-one-level)
   (helm-ido-like-hide-modelines)
-  (helm-ido-like-hide-helm-modeline)
-  (helm-adaptive-mode))
+  (helm-ido-like-hide-helm-modeline))
 
 ;; (use-package| helm-smex
 ;;   :commands helm-smex)
