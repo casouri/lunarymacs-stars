@@ -24,7 +24,9 @@
 
 ;;;; Exec path
 
-(customize-set-value 'python-shell-interpreter "/usr/local/bin/python3")
+;; set this to a absolute path then pyvenv won't work
+;; because it sets environment, but this variable
+(customize-set-value 'python-shell-interpreter "python3")
 
 ;;;; Quickrun
 ;;
@@ -54,7 +56,7 @@
 (defun moon-python-exec-mode-line ()
   "Return a mode line segment for python executable."
   (propertize (file-name-base python-shell-interpreter)
-              'help-echo python-shell-interpreter
+              'help-echo (executable-find python-shell-interpreter)
               'keymap moon-python-mode-line-map))
 
 (add-to-list 'mode-line-misc-info
