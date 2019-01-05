@@ -18,7 +18,7 @@
     "l k" #'eldoc-box-quit-frame
     "l s" #'eldoc-box-show-frame)
   (general-define-key
-   "C-h C-h" #'moon-help-at-point))
+   "C-h C-h" #'eldoc-box-eglot-help-at-point))
 
 ;;; Packages
 
@@ -26,11 +26,11 @@
   :defer t
   :config
   ;; don't pop doc in minibuffer on hover
-  (setq eglot-ignored-server-capabilites '(:hoverProvider)))
+  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider))
 
 (use-package| eldoc-box
   :commands (eldoc-box-hover-mode
-             eldoc-box-help-at-point
+             eldoc-box-eglot-help-at-point
              eldoc-box-helpful-callable
              eldoc-box-helpful-variable
              eldoc-box-helpful-key)
@@ -39,28 +39,8 @@
   (setq eldoc-box-cleanup-interval 0.2))
 
 ;;; Function
+
 ;;;; ElDoc-Box
-;;;;; Help at point
-
-(defun eldoc-box-hack-cleanup ()
-  "Try to clean up the childframe made by eldoc-box hack."
-  (if (eq (point) eldoc-box-hack-last-point)
-      (run-with-timer 0.1 nil #'eldoc-box-hack-cleanup)
-    (eldoc-box-quit-frame)))
-
-(defun moon-help-at-point ()
-  (interactive)
-  (when eglot--managed-mode
-    (require 'eldoc-box)
-    (let ((eldoc-box-position-function #'eldoc-box--default-at-point-position-function))
-      (eldoc-box--display
-       (eglot--dbind ((Hover) contents range)
-                     (jsonrpc-request (eglot--current-server-or-lose) :textDocument/hover
-                                      (eglot--TextDocumentPositionParams))
-                     (when (seq-empty-p contents) (eglot--error "No hover info here"))
-                     (eglot--hover-info contents range))))
-    (setq eldoc-box-hack-last-point (point))
-    (run-with-timer 0.1 nil #'eldoc-box-hack-cleanup)))
 
 ;;;;; Helpful
 
