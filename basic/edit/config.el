@@ -163,10 +163,7 @@
   :commands (helpful-callable
              helpful-variable
              helpful-key
-             helpful-at-point
-             eldoc-box-helpful-callable
-             eldoc-box-helpful-variable
-             eldoc-box-helpful-key)
+             helpful-at-point)
   :config
   (setq helpful-max-buffers 5)
   ;; don't pop new window
