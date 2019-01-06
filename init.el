@@ -151,7 +151,7 @@
 
  ;; (awesome-tab-mode)
 
- (winner-mode)
+ (run-with-idle-timer 2 nil (lambda () (winner-mode)))
  ;;
  ;;; customize ends here
  )
