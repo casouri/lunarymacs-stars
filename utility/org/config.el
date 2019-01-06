@@ -151,6 +151,7 @@
                   ("th" "Homework" entry (file+olp "~/note/todo.org" "Homework") "*** TODO %?")
                   ("to" "Other" entry (file+olp "~/note/todo.org" "Other") "*** TODO %?")
                   ("ts" "School" entry (file+olp "~/note/todo.org" "School") "*** TODO %?")
+                  ("tr" "Readlist" entry (file+olp "~/note/todo.org" "Readlist") "*** TODO %?")
                   ))))
 
 ;;; Blog
