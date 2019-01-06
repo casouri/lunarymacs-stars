@@ -171,7 +171,9 @@
   (setq helpful-max-buffers 5)
   ;; don't pop new window
   (setq helpful-switch-buffer-function
-        (lambda (buf) (unless (display-buffer-reuse-mode-window buf '((mode . helpful-mode)))
+        (lambda (buf) (if-let ((window (display-buffer-reuse-mode-window buf '((mode . helpful-mode)))))
+                          ;; ensure the helpful window is selected for `helpful-update'.
+                          (select-window window)
                         ;; line above returns nil if no available window is found
                         (pop-to-buffer buf)))))
 
