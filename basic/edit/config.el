@@ -192,6 +192,7 @@
   :config
   (setq helpful-max-buffers 5)
   ;; don't pop new window
+  (require 'subr-x)
   (setq helpful-switch-buffer-function
         (lambda (buf) (if-let ((window (display-buffer-reuse-mode-window buf '((mode . helpful-mode)))))
                           ;; ensure the helpful window is selected for `helpful-update'.
