@@ -32,7 +32,12 @@
      :keymaps 'override
      "C-h f" #'helpful-callable
      "C-h v" #'helpful-variable
-     "C-h k" #'helpful-key))
+     "C-h k" #'helpful-key)
+    (general-define-key
+     :keymaps 'helpful-mode-map
+     "b" #'helpful-previous-helpful-buffer
+     "f" #'helpful-next-helpful-buffer
+     "q" #'delete-window))
   ;;;; Kill Ring Select
   (moon-cx-leader
     ;; C-y is too uncomfortable to reach
@@ -210,36 +215,27 @@
   (let ((inhibit-read-only t))
     (goto-char (point-min))
     (insert-text-button "Back"
-                        'action (lambda (&rest _)
-                                  (interactive)
-                                  (moon-helpful-switch-to-buffer (current-buffer) 1)))
+                        'action #'helpful-previous-helpful-buffer)
     (insert " / ")
     (insert-text-button "Forward"
-                        'action (lambda (&rest _)
-                                  (interactive)
-                                  (moon-helpful-switch-to-buffer (current-buffer)  -1)))
+                        'action #'helpful-next-helpful-buffer)
     (insert "\n\n")))
 
-(defun moon-helpful-switch-to-buffer (buffer &optional offset)
-  "Jump to last SYMBOL in helpful history, offset by OFFSET."
+(defun helpful-previous-helpful-buffer ()
   (interactive)
-  (require 'seq)
-  (require 'cl-lib)
-  (setq moon-helpful-history (seq-remove (lambda (buf) (not (buffer-live-p buf))) moon-helpful-history))
-  (cl-labels ((find-index (elt lst)
-                          (let ((idx 0)
-                                (len (length lst)))
-                            (while (and (not (eq elt (nth idx lst)))
-                                        (not (eq idx len)))
-                              (setq idx (1+ idx)))
-                            (if (eq idx len)
-                                nil
-                              idx))))
-    (let ((idx (+ (or offset 0) (find-index buffer moon-helpful-history))))
-      (if (or (>= idx (length moon-helpful-history))
-              (< idx 0))
-          (message "No further history.")
-        (switch-to-buffer (nth idx moon-helpful-history))))))
+  (let ((bufname (buffer-name)))
+    (previous-buffer)
+    (while (and (not (eq major-mode 'helpful-mode))
+                (not (string= (buffer-name) bufname)))
+      (previous-buffer))))
+
+(defun helpful-next-helpful-buffer ()
+  (interactive)
+  (let ((bufname (buffer-name)))
+    (next-buffer)
+    (while (and (not (eq major-mode 'helpful-mode))
+                (not (string= (buffer-name) bufname)))
+      (next-buffer))))
 
 ;;; Config
 
