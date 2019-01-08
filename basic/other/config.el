@@ -39,6 +39,7 @@
  recentf-max-saved-items             300
  tramp-persistency-file-name         (concat moon-local-dir "tramp")
  bookmark-default-file               (concat moon-local-dir "bookmarks")
+ delete-by-moving-to-trash           t
  
  ;; edit
  indent-tabs-mode                    nil
