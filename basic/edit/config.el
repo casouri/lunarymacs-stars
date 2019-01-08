@@ -38,7 +38,12 @@
     ;; C-y is too uncomfortable to reach
     ;; so C-p here we go
     "C-p" #'moon/kill-ring-select
-    "<C-i>" #'moon/insert-special-symbol))
+    "<C-i>" #'moon/insert-special-symbol)
+  ;;;; Minimap
+  (moon-default-leader "tm" #'minimap-mode)
+  ;;;; avy
+  (moon-default-leader
+    "k" #'avy-goto-char-timer))
 
 
 (mve (global-set-key (kbd "<S-return>") #'moon/return-cancel-completion) nil)
@@ -104,10 +109,6 @@
   (setq avy-background t)
   (setq avy-all-windows nil))
 
-(post-config| general
-  (moon-default-leader
-    "k" #'avy-goto-char-timer))
-
 (use-package| minimap
   :config
   (setq
@@ -119,9 +120,6 @@
                             ((((background dark)) (:background "#61526E"))
                              (t (:background "#d3d3e7")))))
   :commands minimap-mode)
-
-(post-config| general
-  (moon-default-leader "tm" #'minimap-mode))
 
 ;; used for chinese editiing on macOS
 ;; TODO autoload this
