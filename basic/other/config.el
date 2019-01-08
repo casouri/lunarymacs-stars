@@ -58,6 +58,7 @@
  ;; Popup window to right!
  split-height-threshold              nil
  ;; split-width-threshold               100
+ ns-use-proxy-icon                   nil
 
  ;; minibuffer
  enable-recursive-minibuffers        t
