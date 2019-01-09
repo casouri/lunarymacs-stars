@@ -108,17 +108,18 @@ else return STR."
              flymake--backend-state)
     (apply #'concat
            (mapcar (lambda (args)
-                     (apply (lambda (num str face)
-                              (propertize
-                               (format str num)
-                               'face face
-                               'keymap moon-flymake-mode-line-map
-                               'help-echo (format "%d running backens\nScroll up/down: previous/next diagnose"
-                                                  (length running))))
+                     (apply (lambda (num str face pad)
+                              (concat (propertize
+                                       (format str num)
+                                       'face face
+                                       'keymap moon-flymake-mode-line-map
+                                       'help-echo (format "%d running backens\nScroll up/down: previous/next diagnose"
+                                                          (length running)))
+                                      (propertize pad 'face '(:foreground "gray"))))
                             args))
-                   `((,(length (gethash :error diags-by-type)) " %d  " error)
-                     (,(length (gethash :warning diags-by-type)) "%d  " warning)
-                     (,(length (gethash :note diags-by-type)) "%d " success))))))
+                   `((,(length (gethash :error diags-by-type)) " %d " error "|")
+                     (,(length (gethash :warning diags-by-type)) " %d " warning "|")
+                     (,(length (gethash :note diags-by-type)) " %d " success ""))))))
 
 (setq-default mode-line-format '(" "
                                  (:eval (moon-root-lighter))
