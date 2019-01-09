@@ -118,14 +118,13 @@
  ;; (moon-set-font| :family "Roboto Mono" :weight 'light :size 13)
 
  ;;;;; Chinese
- (when (display-graphic-p)
-   (dolist (charset '(kana han cjk-misc))
-     (set-fontset-font (frame-parameter nil 'font)
-                       charset (font-spec :family "Source Han Serif SC"
-                                          :size 13 ; 16
-                                          ;; :weight 'semi-bold
-                                          )))
-   (add-to-list 'face-font-rescale-alist '("Source Han Serif SC" . 1.3)))
+ (dolist (charset '(kana han cjk-misc))
+   (set-fontset-font (frame-parameter nil 'font)
+                     charset (font-spec :family "Source Han Serif SC"
+                                        :size 13 ; 16
+                                        ;; :weight 'semi-bold
+                                        )))
+ (add-to-list 'face-font-rescale-alist '("Source Han Serif SC" . 1.3))
 
  ;; 馬
  ;; WenYue GuDianMingChaoTi (Non-Commercial Use) W5
