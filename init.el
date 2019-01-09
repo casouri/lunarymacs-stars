@@ -39,6 +39,7 @@
        lsp
        ;; arduino
        general
+       java
        common-lisp
        cc
        python
