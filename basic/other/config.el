@@ -78,7 +78,14 @@
 (put 'narrow-to-page 'disabled nil)
 
 ;;;; Cowboy recipe
-(moon-safe-load (expand-file-name "cowboy-recipe.el" (file-name-directory (or load-file-name buffer-file-name))))
+(when moon-setup
+  (moon-safe-load (expand-file-name "cowboy-recipe.el" (this-dir|))))
+
+(defun moon-load-cowboy ()
+  "Get cowboy ready."
+  (interactive)
+  (require 'cowboy)
+  (moon-safe-load (expand-file-name "cowboy-recipe.el" (this-dir|))))
 
 ;;;; Save history
 (savehist-mode)
