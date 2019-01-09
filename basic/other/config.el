@@ -40,6 +40,7 @@
  tramp-persistency-file-name         (concat moon-local-dir "tramp")
  bookmark-default-file               (concat moon-local-dir "bookmarks")
  delete-by-moving-to-trash           t
+ savehist-file                       (concat moon-local-dir "history")
  
  ;; edit
  indent-tabs-mode                    nil
