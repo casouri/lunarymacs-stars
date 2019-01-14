@@ -115,6 +115,8 @@
  ;;;; Font
  ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
  (moon-set-font| :family "SF Mono" :weight 'light :size 13)
+ (add-hook 'after-make-frame-functions
+           (lambda (_) (moon-set-font| :family "SF Mono" :weight 'light :size 13)))
  ;; (moon-set-font| :family "Roboto Mono" :weight 'light :size 13)
 
  ;;;;; Chinese
@@ -155,3 +157,4 @@
  ;;
  ;;; customize ends here
  )
+(put 'erase-buffer 'disabled nil)
