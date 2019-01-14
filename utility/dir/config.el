@@ -7,7 +7,8 @@
    :keymaps 'dired-mode-map
    "b" #'dired-up-directory
    "q" #'moon-quit-window
-   "C-c C-s" #'dired-narrow)
+   "C-c C-s" #'dired-narrow
+   "C-c C-o" #'moon-dired-open-file-at-point)
   (mve
    (general-define-key
     "j" #'next-line
@@ -55,3 +56,19 @@
 ;;; Config
 
 (add-hook 'dired-mode-hook #'auto-revert-mode)
+
+;;; Function
+;; TODO
+(defun moon-dired-copy-file (file)
+  (shell-command (format "pbcopy < " file)))
+
+(defun moon-dired-past-file ()
+  )
+
+(defun moon-dired-open-file-at-point ()
+  (interactive)
+  (if-let ((file (dired-file-name-at-point)))
+      (shell-command (format "open %s" file))
+    (message "Not file found at point")))
+
+;;
