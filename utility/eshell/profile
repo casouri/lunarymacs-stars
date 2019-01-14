@@ -1,3 +1,3 @@
 (progn
-  (load (concat moon-star-dir "os/mac/path.el"))
+  (setenv "PAGER" "cat")
   nil)
