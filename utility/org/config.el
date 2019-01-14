@@ -156,6 +156,8 @@
 
 ;;; Blog
 
+(package| f)
+
 (defvar moon-org-html-postamble-format
   '(("en" "<p class=\"author\">Written by %a <%e></p>
 <p class=\"first-publish\">First Published on %d</p>
@@ -168,11 +170,25 @@
 <a accesskey=\"H\" href=\"%s\"> HOME </a>
 </div>
 <div>
-<a href=\"./index.xml\"> RSS </a> |
+<a href=\"../index.xml\"> RSS </a> |
 <a href=\"https://github.com/casouri/casouri.github.io\"> Source </a> |
 <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\"> License </a>
 </div>
 </div>")
+
+(defvar moon-org-html-home/up-format-for-note-index
+  "<div id=\"org-div-home-and-up-index-page\">
+<div>
+<a accesskey=\"h\" href=\"%s\"> UP </a> |
+<a accesskey=\"H\" href=\"%s\"> HOME </a>
+</div>
+<div>
+<a href=\"./index.xml\"> RSS </a> |
+<a href=\"https://github.com/casouri/casouri.github.io\"> Source </a> |
+<a href=\"https://creativecommons.org/licenses/by-sa/4.0/\"> License </a>
+</div>
+</div>"
+  "RSS url is different.")
 
 (defvar moon-publish-root-dir "~/p/casouri/note/"
   "Make sure the path follow the convention of adding slash and the end of directory.")
@@ -195,7 +211,10 @@ If FORCE is non-nil, only export when org file is newer than html file."
         (moon-html-export post-dir environment force)))
     (require 'ox-rss)
     ;; publish index page
-    (moon-html-export moon-publish-root-dir environment force)
+    (let ((environment '((org-html-postamble-format moon-org-html-postamble-format)
+                         (org-html-postamble t)
+                         (org-html-home/up-format moon-org-html-home/up-format-for-note-index))))
+      (moon-html-export moon-publish-root-dir environment force))
     ;; export RSS
     (let ((buffer (find-file (expand-file-name "index.org" moon-publish-root-dir))))
       (with-current-buffer buffer
@@ -222,6 +241,7 @@ ENVIRONMENT is passed to `let' to setup environments."
   "Publish rock/day blog.
 If FORCE is non-nil, only export when org file is newer than html file."
   (interactive)
+  (require 'f)
   ;; so the syntax color is good for light background
   (moon-load-theme 'doom-one-light)
   (let ((environment '((org-html-postamble-format moon-org-html-postamble-format)
