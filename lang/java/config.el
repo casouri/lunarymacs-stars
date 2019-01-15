@@ -22,6 +22,7 @@
    (push '(java-mode . lsp-format-buffer) moon-smart-format-alist))
  (progn
    (add-hook 'java-mode-hook #'eglot-ensure)
+   (add-hook 'java-mode-hook (lambda () (setq-local tab-width 2)))
    (push '(java-mode . eglot-format-buffer) moon-smart-format-alist)))
 
 
