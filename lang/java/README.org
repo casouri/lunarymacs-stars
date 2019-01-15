@@ -14,4 +14,4 @@ Since eglot has built-in support of Ecipse server, their is no need to read the 
 
 Now, open a java project and =M-x eglot=. It should as you for the path to “eclipse.jdt.ls”, that’s the root directory of the server. Point eglot to it and choose “yes” to save =CLASSPATH=, the server should start and connect to eglot.
 
-To save the time of typing the path to “eclipse.jdt.ls” every time, you can =(get-env "CLASS_PATH")= and get the environment variable. For me it is =".:/Users/yuan/attic/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar"=. Add it to your init file or profile file so eglot knows it on the next time.
+To save the time of typing the path to “eclipse.jdt.ls” every time, you can =(get-env "CLASS_PATH")= and get the environment variable. For me it is =.:/Users/yuan/attic/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar=. Add it to your init file or profile file so eglot knows it on the next time.
