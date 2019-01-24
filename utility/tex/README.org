@@ -1,0 +1,18 @@
+#+TITLE: tex
+
+
+* Package list
+
+
+* Commands
+
+Refer to source file
+
+* External dependencies
+** [[https://github.com/astoff/digestif][digestif]]
+a latex lsp server
+
+#+BEGIN_SRC shell
+brew install luarocks
+luarocks install https://github.com/astoff/digestif/raw/master/rockspec/digestif-scm-1.rockspec
+#+END_SRC
