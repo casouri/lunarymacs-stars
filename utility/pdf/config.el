@@ -12,4 +12,8 @@
 
 (setq doc-view-resolution 320)
 
+(use-package| pdf-tools
+  :mode "\\.pdf%"
+  :commands pdf-view-mode)
+
 ;;; config.el ends here
