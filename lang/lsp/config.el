@@ -8,11 +8,14 @@
 ;;; Code:
 ;;
 
+;; please compiler
+(defvar moon-lsp)
+
 (defmacro moon-lsp/eglot (lsp eglot)
   "Run LSP or EGLOT based on `moon-lsp'."
-  `(pcase moon-lsp
-     ('lsp ,lsp)
-     ('eglot ,eglot)))
+  (pcase moon-lsp
+    ('lsp `(post-config| lsp ,lsp))
+    ('eglot `(post-config| eglot ,eglot))))
 
 ;;; Variales
 
