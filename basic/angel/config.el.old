@@ -186,7 +186,7 @@ if BACKWARD, return negative number."
 (global-set-key (kbd "C-s") #'isolate-quick-add)
 (global-set-key (kbd "C-M-s") #'isolate-long-add)
 
-(post-config| gerneral
+(post-config| general
   (moon-default-leader
     "cs" #'isolate-quick-change
     "cS" #'isolate-long-change
