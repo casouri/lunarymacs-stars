@@ -13,12 +13,16 @@
 
 ;;; Keys
 
-(post-config| gerneral
+(post-config| general
   (moon-default-leader
     "fr" #'helm-recentf
     "ss" #'helm-swoop
+    "si" #'helm-imenu
+    "sI" #'helm-imenu-in-all-buffers
     "C-s" #'helm-swoop
     "ip" #'helm-yas-complete)
+  (moon-cx-leader
+    "C-r" #'helm-resume)
   (general-define-key
    :keymaps 'override
    ;; "M-x" #'helm-smex
@@ -85,6 +89,10 @@
   (setq helm-yas-space-match-any-greedy t)
   :commands helm-yas-complete)
 
+(use-package| helm-xref
+  :commands helm-xref-show-xrefs
+  :init (setq xref-show-xrefs-function 'helm-xref-show-xrefs))
+
 ;;; Functions
 
 (defun helm-split-window-my-fn (window)
@@ -106,7 +114,7 @@ WINDOW."
         (push buffer other-buffer-list)))
     (nreverse (append star-buffer-list other-buffer-list))))
 
-(advice-add 'helm-buffers-sort-transformer :around #'moon-helm-sort-buffer)
+;; (advice-add 'helm-buffers-sort-transformer :around #'moon-helm-sort-buffer)
 
 ;;;; helm-better-default
 ;; https://github.com/clemera/helm-ido-like-guide
