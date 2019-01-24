@@ -31,12 +31,14 @@
        dir
        git
        org
+       pdf
        ;; imagemagick
        :checker
        syntax
        spell
        :lang
        lsp
+       assembly
        ;; arduino
        general
        java
