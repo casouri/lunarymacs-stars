@@ -29,7 +29,7 @@
               (append '((company-math-symbols-latex company-latex-commands))
                       company-backends)))
 
-(add-hook 'tex-mode-hook 'my-latex-mode-setup)
+(add-hook 'tex-mode-hook 'moon-latex-company-setup)
 
 ;; (post-config| eglot
 ;;   (add-to-list 'eglot-server-programs '(latex-mode . ("digestif"))))
