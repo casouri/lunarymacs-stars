@@ -28,3 +28,9 @@
     ("n" flymake-goto-next-error "next")
     ("p" flymake-goto-prev-error "prev")
     ("q" nil "quit")))
+
+;;;; flymake
+(add-hook 'moon-startup-hook-2
+          (lambda ()
+            (setq elisp-flymake-byte-compile-load-path
+                  (append elisp-flymake-byte-compile-load-path load-path))))
