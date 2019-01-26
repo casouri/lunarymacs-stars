@@ -27,17 +27,16 @@
   (moon-default-leader
     "v" #'er/expand-region)
   ;;;; Helpful
-  (post-config| eldoc-box
-    (general-define-key
-     :keymaps 'override
-     "C-h f" #'helpful-callable
-     "C-h v" #'helpful-variable
-     "C-h k" #'helpful-key)
-    (general-define-key
-     :keymaps 'helpful-mode-map
-     "b" #'helpful-previous-helpful-buffer
-     "f" #'helpful-next-helpful-buffer
-     "q" #'delete-window))
+  (general-define-key
+   :keymaps 'override
+   "C-h f" #'helpful-callable
+   "C-h v" #'helpful-variable
+   "C-h k" #'helpful-key)
+  (general-define-key
+   :keymaps 'helpful-mode-map
+   "b" #'helpful-previous-helpful-buffer
+   "f" #'helpful-next-helpful-buffer
+   "q" #'delete-window)
   ;;;; Kill Ring Select
   (moon-cx-leader
     ;; C-y is too uncomfortable to reach
