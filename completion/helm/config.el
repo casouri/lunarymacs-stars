@@ -139,7 +139,7 @@ Its element is a pair of `buffer-name' and `mode-line-format'.")
   (mapc (lambda (elt)
           (with-current-buffer (car elt)
             ;; modified by me: nil -> " "
-            (setq-local mode-line-format " ")))
+            (setq-local mode-line-format (make-string (window-width) ?<))))
         helm-ido-like-bottom-buffers))
 
 
