@@ -14,8 +14,8 @@
 (defmacro moon-lsp/eglot (lsp eglot)
   "Run LSP or EGLOT based on `moon-lsp'."
   (pcase moon-lsp
-    ('lsp `(post-config| lsp ,lsp))
-    ('eglot `(post-config| eglot ,eglot))))
+    ('lsp ,lsp)
+    ('eglot ,eglot)))
 
 ;;; Variales
 
