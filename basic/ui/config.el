@@ -117,35 +117,40 @@ else return STR."
                                                           (length running)))
                                       (propertize pad 'face '(:foreground "gray"))))
                             args))
-                   `((,(length (gethash :error diags-by-type)) " %d " error "|")
+                   `((,(length (gethash :error diags-by-type)) "%d " error "|")
                      (,(length (gethash :warning diags-by-type)) " %d " warning "|")
-                     (,(length (gethash :note diags-by-type)) " %d " success ""))))))
+                     (,(length (gethash :note diags-by-type)) " %d" success ""))))))
+
+(defvar moon-many-space "   ")
 
 (setq-default mode-line-format '(" "
                                  (:eval (moon-root-lighter))
                                  ;; (:eval (moon-edit-lighter))
                                  vc-mode
-                                 " "
+                                 moon-many-space
                                  ;; (:eval (if (bound-and-true-p eyebrowse-mode) (eyebrowse-mode-line-indicator) ""))
-                                 ;; moody-mode-line-buffer-identification
-                                 (:eval (moody-tab "%b"))
-                                 " "
+                                 "%b"
+                                 moon-many-space
                                  mode-line-modes
-                                 (:eval (moody-tab (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) "OK") nil 'up))
-                                 " "
+                                 moon-many-space
+                                 (:eval (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) "OK"))
+                                 ;; makes mode line higher
+                                 (:eval (propertize " "
+                                                    'display '(height 1.4)))
+                                 ;; makes other text in the middle
+                                 (:eval (propertize " " 'display '(raise -0.3)))
+                                 moon-many-space
                                  ;; misc info beg
                                  mode-line-misc-info
                                  ;; misc info end
-                                 "  %I  "
-                                 (:eval (moody-tab (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "ฅ Φ ω Φ ฅ")))
-                                 " %p "
+                                 moon-many-space
+                                 "%I"
+                                 moon-many-space
+                                 (:eval (if (bound-and-true-p nyan-lite-mode) (nyan-lite-mode-line) "ฅ Φ ω Φ ฅ"))
+                                 moon-many-space
+                                 "%p"
                                  ;; "  %l:%c"
                                  mode-line-end-spaces))
-
-(use-package| moody
-  :config
-  (setq moody-slant-function #'moody-slant-apple-rgb)
-  (setq x-underline-at-descent-line t))
 
 ;;;;
 ;;;; Misc
