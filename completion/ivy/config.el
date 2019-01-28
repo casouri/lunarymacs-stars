@@ -23,6 +23,8 @@
        nil)
   (general-define-key
    "M-x" #'counsel-M-x)
+  (moon-cx-leader
+    [remap moon/kill-ring-select]     #'ivy-kill-ring-pop)
   (moon-default-leader
     ;; other
     "C-SPC" #'counsel-M-x
@@ -91,7 +93,7 @@
   :defer t
   :config (setq smex-save-file (concat moon-local-dir "smex-items")))
 
-(use-package| (ivy-filthy-rich :repo "casouri/ivy-filthy-rich" :fetcher github)
+(use-package| ivy-filthy-rich
   :after counsel
   :init (setq ivy-filthy-rich-color-list '#1=("#46EAFF" . ("#49C790" . #1#)))
   :config
