@@ -74,8 +74,9 @@
   (define-key helm-map (kbd "C-j") #'helm-select-action)
   (define-key helm-find-files-map (kbd "<RET>") #'helm-maybe-exit-minibuffer)
   (define-key helm-find-files-map (kbd "M-<backspace>") #'helm-find-files-up-one-level)
-  (helm-ido-like-hide-modelines)
-  (helm-ido-like-hide-helm-modeline))
+  ;; (helm-ido-like-hide-modelines)
+  (helm-ido-like-hide-helm-modeline)
+  )
 
 ;; (use-package| helm-smex
 ;;   :commands helm-smex)
@@ -139,7 +140,10 @@ Its element is a pair of `buffer-name' and `mode-line-format'.")
   (mapc (lambda (elt)
           (with-current-buffer (car elt)
             ;; modified by me: nil -> " "
-            (setq-local mode-line-format (make-string (window-width) ?<))))
+            ;; (setq-local mode-line-format nil)
+            ;; (setq-local mode-line-format (make-string (window-width) ?<))
+            (setq-local mode-line-format (propertize " " 'display '(height 1.3)))
+            ))
         helm-ido-like-bottom-buffers))
 
 
