@@ -26,7 +26,8 @@
        :utility
        ;; email
        markdown
-       eshell
+       ;; eshell
+       shell
        tex
        dir
        git
