@@ -19,6 +19,9 @@
    ;; but flyspell mode shadows it
    "C-M-i" #'outshine-cycle-buffer
    "C-<mouse-1>" #'mc/add-cursor-on-click
+   ;;;; Move up/down
+   "M-P" #'moon/move-up
+   "M-N" #'moon/move-down
    ;;;; Hippie
    "M-/" #'hippie-expand)
   ;;;; Expand Region
@@ -327,5 +330,55 @@ so the definition doesn't really matter."
   (if moon-left-margin-window
       (window-toggle-side-windows)
     (moon-left-margin-mode)))
+
+(defun moon--line-beg (point)
+  "Return the line beginning of POINT."
+  (save-excursion
+    (goto-char point)
+    (line-beginning-position)))
+
+(defun moon--line-end (point)
+  "Return the line end of POINT."
+  (save-excursion
+    (goto-char point)
+    (line-end-position)))
+
+(defun moon/transpose-region/line (count)
+  "Transpose region or current line with the line COUNT from current line.
+negative COUNT means go up.
+
+Transpose down one line means COUNT = 0, look at source for the reason."
+  ;; if the cursor is at end of a line, move to the beginning of
+  ;; the next line to include the trailing newline
+  (let* ((region-active (region-active-p))
+         (region1 (if (region-active-p)
+                      (cons (moon--line-beg (region-beginning))
+                            ;; include the trailing newline
+                            (1+ (moon--line-end (region-end))))
+                    ;; include the trailing newline
+                    (cons (line-beginning-position) (1+ (line-end-position)))))
+         (region2 (save-excursion
+                    ;; normalize starting point
+                    ;; go to the beginning of beg/end of region1
+                    (if (< count 0)
+                        (goto-char (car region1))
+                      (goto-char (cdr region1)))
+                    ;; go up/down to beg of line of region2
+                    (forward-line count)
+                    ;; include the trailing newline
+                    (cons (line-beginning-position) (1+ (line-end-position))))))
+    (transpose-regions (car region1) (cdr region1) (car region2) (cdr region2))
+    ;; TODO keep region
+    (when region-active (activate-mark))))
+
+(defun moon/move-down ()
+  "Move region or current line down one line."
+  (interactive)
+  (moon/transpose-region/line 0))
+
+(defun moon/move-up ()
+  "Move region or current line down one line."
+  (interactive)
+  (moon/transpose-region/line -1))
 
 ;;; config.el ends here
