@@ -38,7 +38,9 @@
 
 
 (use-package| rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :config (with-current-buffer (get-buffer-create "*scratch")
+            (rainbow-delimiters-mode)))
 
 (use-package| (rainbow-mode :system t)
   :commands rainbow-mode)
@@ -121,10 +123,9 @@ else return STR."
                      (,(length (gethash :warning diags-by-type)) " %d " warning "|")
                      (,(length (gethash :note diags-by-type)) " %d" success ""))))))
 
-(defvar moon-many-space "   ")
+(defvar moon-many-space "    ")
 
-(setq-default mode-line-format '(" "
-                                 (:eval (moon-root-lighter))
+(setq-default mode-line-format '((:eval (moon-root-lighter))
                                  ;; (:eval (moon-edit-lighter))
                                  vc-mode
                                  moon-many-space
@@ -134,11 +135,6 @@ else return STR."
                                  mode-line-modes
                                  moon-many-space
                                  (:eval (if (bound-and-true-p flymake-mode) (moon-flymake-mode-line) "OK"))
-                                 ;; makes mode line higher
-                                 (:eval (propertize " "
-                                                    'display '(height 1.4)))
-                                 ;; makes other text in the middle
-                                 (:eval (propertize " " 'display '(raise -0.3)))
                                  moon-many-space
                                  ;; misc info beg
                                  mode-line-misc-info
@@ -150,6 +146,11 @@ else return STR."
                                  moon-many-space
                                  "%p"
                                  ;; "  %l:%c"
+                                 ;; makes mode line higher
+                                 (:eval (propertize " "
+                                                    'display '(height 1.4)))
+                                 ;; makes other text in the middle
+                                 (:eval (propertize " " 'display '(raise -0.3)))
                                  mode-line-end-spaces))
 
 ;;;;
