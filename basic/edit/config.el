@@ -225,18 +225,18 @@
 
 (defun helpful-previous-helpful-buffer ()
   (interactive)
-  (let ((bufname (buffer-name)))
+  (let ((buf (current-buffer)))
     (previous-buffer)
     (while (and (not (eq major-mode 'helpful-mode))
-                (not (string= (buffer-name) bufname)))
+                (not (eq (current-buffer) buf)))
       (previous-buffer))))
 
 (defun helpful-next-helpful-buffer ()
   (interactive)
-  (let ((bufname (buffer-name)))
+  (let ((buf (current-buffer)))
     (next-buffer)
     (while (and (not (eq major-mode 'helpful-mode))
-                (not (string= (buffer-name) bufname)))
+                (not (eq (current-buffer) buf)))
       (next-buffer))))
 
 ;;; Config
