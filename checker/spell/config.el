@@ -4,6 +4,7 @@
   :hook (((fundamenta-mode text-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :config
+  (define-key flyspell-mouse-map [down-mouse-3] #'flyspell-correct-word)
   (setq flyspell-issue-message-flag nil)
   ;; (when (executable-find "hunspell")
   ;;   (setq-default ispell-program-name "hunspell")
