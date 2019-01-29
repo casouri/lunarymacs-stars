@@ -42,7 +42,7 @@
 (defun moon/new-blog (title)
   "Make a new blog post with TITLE."
   (interactive "M")
-  (let* ((year (shell-command-to-string "echo -n $(date +%Y)"))
+  (let* ((year (substring (current-time-string) 20))
          (dir-file-name (downcase (replace-regexp-in-string " " "-" title)))
          (dir-path (concat (format  "~/p/casouri/note/%s/"
                                     year)
