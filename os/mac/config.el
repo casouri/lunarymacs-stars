@@ -10,6 +10,8 @@
 
 ;; on mac, double click touch pad is considered mouse-3,
 ;; but most functions bound to mouse-2
-(define-key input-decode-map [mouse-3] [mouse-2])
+;; (define-key input-decode-map [down-mouse-3] [down-mouse-2])
+;; (define-key input-decode-map [mouse-3] [mouse-2])
+;; (define-key input-decode-map [up-mouse-3] [up-mouse-2])
 
 ;;; config.el ends here
