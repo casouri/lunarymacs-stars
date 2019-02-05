@@ -4,10 +4,9 @@
 
 (post-config| general
   (general-define-key
-   "s-b" #'awesome-tab-backward
-   "s-f" #'awesome-tab-forward
-   ;; "s-n" #'tabbar-forward-group
-   ;; "s-p" #'tabbar-backward-group
+   "s-b" #'winner-undo
+   "s-f" #'winner-redo
+   "s-y" #'moon-toggle-shell-window
    )
   (moon-default-leader
     "tb" #'awesome-tab-mode))
@@ -26,6 +25,12 @@
 
 (add-hook 'prog-mode-hook #'hs-minor-mode)
 
+;;;; Display buffer alist
+
+(setq display-buffer-alist
+      (append display-buffer-alist
+              '(("^\\*tex-shell\\*$" . (moon-display-buffer-in-shell-window . nil))
+                ("^\\*MATLAB\\*$" . (moon-display-buffer-in-shell-window . nil)))))
 
 ;;; Package
 
@@ -320,3 +325,42 @@ and saveing desktop."
       (setq moon-auto-highlight-timer (run-with-idle-timer 1 t #'moon-auto-highlight))
     (cancel-timer moon-auto-highlight-timer)))
 
+;;; shell-window
+
+(defvar moon-shell-window nil
+  "Thw window at the bottom dedicated to temporary shell buffers.")
+
+(defvar moon-shell-window-buffer nil
+  "Used to recover shell window with last displayed buffer.")
+
+(defun moon-toggle-shell-window (arg)
+  "Toggle display of shell window at the bottom.
+If called with ARG, maximize shell window."
+  (interactive "p")
+  (if (eq arg 4) ; C-u
+      (moon-maximize-shell-window)
+    (if (and moon-shell-window (window-live-p moon-shell-window))
+        (delete-window moon-shell-window)
+      (if moon-shell-window-buffer
+          (moon-display-buffer-in-shell-window
+           moon-shell-window-buffer
+           nil)
+        (message "No shell buffer to display")))))
+
+(defun moon-maximize-shell-window ()
+  "Make shell window take full screen.
+To go back, use `winnner-undo'."
+  (interactive)
+  (when moon-shell-window-buffer
+    (delete-other-windows)
+    (switch-to-buffer moon-shell-window-buffer)))
+
+(defun moon-display-buffer-in-shell-window (buffer alist)
+  "Display BUFFER in `moon-shell-window'.
+More on ALIST in `display-buffer-alist'."
+  (setq moon-shell-window-buffer buffer)
+  (display-buffer-at-bottom buffer (append '((window-height . 0.2)) alist))
+  ;; set `moon-shell-window'
+  (walk-windows (lambda (win) (when (eq (window-buffer win) buffer)
+                                (setq moon-shell-window win)))
+                'no-at-all))
