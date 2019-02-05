@@ -39,9 +39,10 @@
        spell
        :lang
        lsp
+       general
        assembly
        ;; arduino
-       general
+       matlab
        java
        common-lisp
        cc
