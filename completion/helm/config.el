@@ -99,7 +99,9 @@
 (defun helm-split-window-my-fn (window)
   "Replace `helm-split-window-preferred-function'.
 WINDOW."
-  (display-buffer-in-side-window "*scratch*" '((side . bottom))))
+  (let ((root-win (frame-root-window)))
+    (split-window root-win (floor (/ (window-height root-win)
+                                     4)))))
 
 (defun moon-helm-sort-buffer (old-func &rest args)
   "Push all starred buffers and aweshell buffers and magit buffers to the bottom and keep original sort order."
