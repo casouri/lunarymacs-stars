@@ -282,6 +282,17 @@ and saveing desktop."
   (interactive)
   (evil-ex-search-activate-highlight `(,(thing-at-point 'symbol) t t)))
 
+;;;; VC
+
+;; not autoloaded
+(use-package| diff-hl
+  :config
+  (unless window-system
+    (diff-hl-margin-mode))
+  (diff-hl-mode)
+  (setq diff-hl-draw-borders nil)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
 ;;; auto highlight
 
 (defvar moon-auto-highlight nil
@@ -309,14 +320,3 @@ and saveing desktop."
       (setq moon-auto-highlight-timer (run-with-idle-timer 1 t #'moon-auto-highlight))
     (cancel-timer moon-auto-highlight-timer)))
 
-;;
-;;;; VC
-
-;; not autoloaded
-(use-package| diff-hl
-  :config
-  (unless window-system
-    (diff-hl-margin-mode))
-  (diff-hl-mode)
-  (setq diff-hl-draw-borders nil)
-  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
