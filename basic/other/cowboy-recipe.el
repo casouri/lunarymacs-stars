@@ -128,5 +128,7 @@
          (pdf-tools . (:repo "politza/pdf-tools"))
          (company-auctex . (:repo "alexeyr/company-auctex"))
          (company-math . (:repo "vspinu/company-math" :dependency (math-symbol-lists)))
-         (math-symbol-lists . (:repo "vspinu/math-symbol-lists")))
+         (math-symbol-lists . (:repo "vspinu/math-symbol-lists"))
+         (matlab-emacs . (:http "https://git.code.sf.net/p/matlab-emacs/src"))
+         (webkit-katex-render . (:repo "fuxialexander/emacs-webkit-katex-render")))
        cowboy-recipe-alist))
