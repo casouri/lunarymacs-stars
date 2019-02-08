@@ -13,6 +13,7 @@
 (setq doc-view-resolution 320)
 
 (use-package| pdf-tools
+  :init (add-to-list 'moon-package-sub-dir-white-list "pdf-tools/lisp$")
   :mode "\\.pdf%"
   :commands pdf-view-mode)
 
