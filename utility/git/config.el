@@ -1,9 +1,11 @@
 ;; -*- lexical-binding: t -*-
 
 (use-package| magit
-  :init (add-to-list 'moon-package-sub-dir-white-list "magit/lisp$")
   :commands magit-status
   :config (define-key magit-mode-map (kbd "<tab>") 'magit-section-toggle))
+
+;; put outside so it is evaluated asap
+(add-to-list 'moon-package-sub-dir-white-list "magit/lisp$")
 
 (post-config| general
   (moon-default-leader
