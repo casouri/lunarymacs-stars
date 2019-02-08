@@ -7,6 +7,10 @@
    "s-b" #'winner-undo
    "s-f" #'winner-redo
    "s-y" #'moon-toggle-shell-window
+   "s-K" #'buf-move-up
+   "s-J" #'buf-move-down
+   "s-H" #'buf-move-left
+   "s-L" #'buf-move-right
    )
   (moon-default-leader
     "tb" #'awesome-tab-mode))
@@ -63,8 +67,6 @@
   (add-hook 'moon-load-theme-hook (lambda ()
                                     (global-highlight-parentheses-mode -1)
                                     (global-highlight-parentheses-mode))))
-
-(package| all-the-icons)
 
 ;;;; Mode-line
 
