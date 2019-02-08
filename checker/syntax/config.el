@@ -30,7 +30,6 @@
     ("q" nil "quit")))
 
 ;;;; flymake
-(add-hook 'moon-startup-hook-1
-          (lambda ()
-            (setq elisp-flymake-byte-compile-load-path
-                  (append elisp-flymake-byte-compile-load-path load-path))))
+(with-eval-after-load 'flymake
+  (setq elisp-flymake-byte-compile-load-path
+        (append elisp-flymake-byte-compile-load-path load-path)))
