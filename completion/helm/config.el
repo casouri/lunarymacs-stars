@@ -39,7 +39,7 @@
    [remap noop-show-kill-ring]       #'helm-show-kill-ring
    [remap projectile-switch-project] #'helm-projectile-switch-project
    [remap projectile-find-file]      #'helm-projectile-find-file
-   [remap imenu-anywhere]            #'helm-imenu-anywhere
+   [remap imenu]                     #'helm-imenu
    [remap execute-extended-command]  #'helm-M-x
    ))
 
@@ -62,8 +62,8 @@
    ;; helm-candidate-number-limit 50
    ;; helm-move-to-line-cycle-in-source t ; don't wrap item cycling
    helm-ff-file-name-history-use-recentf t
-   helm-autoresize-max-height 30
-   helm-autoresize-min-height 30
+   helm-autoresize-max-height 20
+   helm-autoresize-min-height 20
    helm-buffer-max-length 55
    helm-split-window-inside-p t
    helm-split-window-preferred-function #'helm-split-window-my-fn
@@ -101,7 +101,7 @@
 WINDOW."
   (let ((root-win (frame-root-window)))
     (split-window root-win (floor (/ (window-height root-win)
-                                     4)))))
+                                     5)))))
 
 (defun moon-helm-sort-buffer (old-func &rest args)
   "Push all starred buffers and aweshell buffers and magit buffers to the bottom and keep original sort order."
