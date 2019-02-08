@@ -30,6 +30,7 @@
     ("q" nil "quit")))
 
 ;;;; flymake
-(with-eval-after-load 'flymake
-  (setq elisp-flymake-byte-compile-load-path
-        (append elisp-flymake-byte-compile-load-path load-path)))
+(with-eval-after-load 'emacs-lisp-mode
+  (with-eval-after-load 'flymake
+    (setq elisp-flymake-byte-compile-load-path
+          (append elisp-flymake-byte-compile-load-path load-path))))
