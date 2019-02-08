@@ -38,8 +38,7 @@
   (general-define-key
    :keymaps 'helpful-mode-map
    "b" #'helpful-previous-helpful-buffer
-   "f" #'helpful-next-helpful-buffer
-   "q" #'delete-window)
+   "f" #'helpful-next-helpful-buffer)
   ;;;; Kill Ring Select
   (moon-cx-leader
     ;; C-y is too uncomfortable to reach
