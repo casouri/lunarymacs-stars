@@ -130,5 +130,6 @@
          (company-math . (:repo "vspinu/company-math" :dependency (math-symbol-lists)))
          (math-symbol-lists . (:repo "vspinu/math-symbol-lists"))
          (matlab-emacs . (:http "https://git.code.sf.net/p/matlab-emacs/src"))
-         (webkit-katex-render . (:repo "fuxialexander/emacs-webkit-katex-render")))
+         (webkit-katex-render . (:repo "fuxialexander/emacs-webkit-katex-render"))
+         (auctex . (:fetcher package)))
        cowboy-recipe-alist))
