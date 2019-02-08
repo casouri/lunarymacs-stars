@@ -78,14 +78,16 @@
 (put 'narrow-to-page 'disabled nil)
 
 ;;;; Cowboy recipe
-(when moon-setup
-  (moon-safe-load (expand-file-name "cowboy-recipe.el" (this-dir|))))
+(this-dir| this-dir
+           (when moon-setup
+             (moon-safe-load (expand-file-name "cowboy-recipe.el" this-dir))))
 
-(defun moon-load-cowboy ()
-  "Get cowboy ready."
-  (interactive)
-  (require 'cowboy)
-  (moon-safe-load (expand-file-name "cowboy-recipe.el" (this-dir|))))
+(this-dir| this-dir
+           (defun moon-load-cowboy ()
+             "Get cowboy ready."
+             (interactive)
+             (require 'cowboy)
+             (moon-safe-load (expand-file-name "cowboy-recipe.el" this-dir))))
 
 ;;;; Save history
 (savehist-mode)
