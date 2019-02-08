@@ -111,6 +111,8 @@
     "jma" #'moon/jump-to-autoload
     "jmd" #'moon/jump-to-autoload-dir
     "jmr" #'moon/jump-to-readme
+    ;; search
+    "si"  #'imenu
     )
 
   (general-define-key :states '(normal visual)
