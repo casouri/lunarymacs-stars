@@ -22,6 +22,7 @@
   :commands latex-preview-pane-mode)
 
 (use-package| company-math
+  :defer t
   :init (add-hook 'latex-mode-hook #'moon-latex-company-setup))
 
 (defun moon-latex-company-setup ()
@@ -46,14 +47,11 @@
 
 (defun moon-require-auctex ()
   "Require necessary files from auctex."
-  ;; that loads tex-site, not sure why auctex loads is this way
-  ;; for "undoing things"?
-  (let ((auctex-dir (save-window-excursion (with-current-buffer (find-library "latex")
-                                             default-directory))))
-    (load (concat auctex-dir "auctex.el") nil t t))
+  (require 'tex-site)
   (require 'latex)
   (require 'font-latex)
-  (require 'texmathp))
+  (require 'texmathp)
+  (require 'preview))
 
 ;;;; Function
 ;;
