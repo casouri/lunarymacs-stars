@@ -23,10 +23,11 @@
 
 (use-package| company-math
   :defer t
-  :init (add-hook 'latex-mode-hook #'moon-latex-company-setup))
+  :init (add-hook 'LaTeX-mode-hook #'moon-latex-company-setup))
 
 (defun moon-latex-company-setup ()
   (require 'company-math)
+  (message "woome")
   (setq-local company-backends
               (append '((company-math-symbols-latex company-latex-commands))
                       company-backends)))
