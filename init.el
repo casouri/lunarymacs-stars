@@ -117,11 +117,7 @@
  (setq scroll-margin 4)
 
  ;;;; Font
- ;; (moon-set-font| :family "Source Code Pro" :weight 'light :size 14)
- (moon-set-font| :family "SF Mono" :weight 'light :size 13)
- (add-hook 'after-make-frame-functions
-           (lambda (_) (moon-set-font| :family "SF Mono" :weight 'light :size 13)))
- ;; (moon-set-font| :family "Roboto Mono" :weight 'light :size 13)
+ (moon/load-font "sf-mono-13")
 
  ;;;;; Chinese
  (dolist (charset '(kana han cjk-misc))
