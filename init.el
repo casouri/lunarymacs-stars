@@ -120,13 +120,8 @@
  (moon/load-font "sf-mono-13")
 
  ;;;;; Chinese
- (dolist (charset '(kana han cjk-misc))
-   (set-fontset-font (frame-parameter nil 'font)
-                     charset (font-spec :family "Source Han Serif SC"
-                                        :size 13 ; 16
-                                        ;; :weight 'semi-bold
-                                        )))
- (add-to-list 'face-font-rescale-alist '("Source Han Serif SC" . 1.3))
+
+ (moon/load-cjk-font "source-han-serif-13")
 
  ;; 馬
  ;; WenYue GuDianMingChaoTi (Non-Commercial Use) W5
