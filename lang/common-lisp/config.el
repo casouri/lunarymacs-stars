@@ -31,6 +31,11 @@
 
 
 (use-package| sly
-  :mode "\\.lisp\\'")
+  :commands sly
+  :init
+  (add-hook 'common-lisp-mode-hook #'sly)
+  (setq inferior-lisp-program "/usr/local/bin/sbcl"))
+
+
 
 ;;; config.el ends here
