@@ -131,5 +131,6 @@
          (math-symbol-lists . (:repo "vspinu/math-symbol-lists"))
          (matlab-emacs . (:http "https://git.code.sf.net/p/matlab-emacs/src"))
          (webkit-katex-render . (:repo "fuxialexander/emacs-webkit-katex-render"))
-         (auctex . (:fetcher package)))
+         (auctex . (:fetcher package))
+         (fshell . (:repo "casouri/fshell")))
        cowboy-recipe-alist))
