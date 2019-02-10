@@ -26,19 +26,24 @@
        :utility
        ;; email
        markdown
-       eshell
+       ;; eshell
+       shell
        tex
        dir
        git
        org
+       pdf
        ;; imagemagick
        :checker
        syntax
        spell
        :lang
        lsp
-       ;; arduino
        general
+       assembly
+       ;; arduino
+       matlab
+       java
        common-lisp
        cc
        python
