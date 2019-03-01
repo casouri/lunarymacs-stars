@@ -249,6 +249,7 @@
                                  (append '((?` . ?'))
                                          electric-pair-text-pairs))))
 
+(add-hook 'fundamenta-mode-hook #'electric-quote-local-mode)
 
 (minibuffer-electric-default-mode 1)
 
