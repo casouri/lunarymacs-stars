@@ -34,7 +34,9 @@
 (setq display-buffer-alist
       (append display-buffer-alist
               '(("^\\*tex-shell\\*$" . (moon-display-buffer-in-shell-window . nil))
-                ("^\\*MATLAB\\*$" . (moon-display-buffer-in-shell-window . nil)))))
+                ("^\\*MATLAB\\*$" . (moon-display-buffer-in-shell-window . nil))
+                ("^\\*sly-mrepl for sbcl\\*$" . (moon-display-buffer-in-shell-window . nil))
+                )))
 
 ;;; Package
 
@@ -68,6 +70,12 @@
                                     (global-highlight-parentheses-mode -1)
                                     (global-highlight-parentheses-mode))))
 
+;;;; icons
+
+(add-to-list 'moon-package-sub-dir-white-list "icons-in-terminal/build$")
+(use-package| icons-in-terminal
+  :commands icons-in-terminal)
+
 ;;;; Mode-line
 
 (use-package| minions
@@ -98,6 +106,11 @@ else return STR."
                                      (define-key map (vector 'mode-line
                                                              mouse-wheel-down-event) #'flymake-goto-next-error)
                                      map))
+
+(defun moon-dedicated-window-mode-line ()
+  (if (window-dedicated-p)
+      "LOCK"
+    ""))
 
 (defun moon-flymake-mode-line ()
   (require 'subr-x)
@@ -133,6 +146,7 @@ else return STR."
 (defvar moon-many-space "    ")
 
 (setq-default mode-line-format '((:eval (moon-root-lighter))
+                                 (:eval (moon-dedicated-window-mode-line))
                                  ;; (:eval (moon-edit-lighter))
                                  vc-mode
                                  moon-many-space
@@ -343,11 +357,13 @@ If called with ARG, maximize shell window."
       (moon-maximize-shell-window)
     (if (and moon-shell-window (window-live-p moon-shell-window))
         (delete-window moon-shell-window)
-      (if moon-shell-window-buffer
-          (moon-display-buffer-in-shell-window
-           moon-shell-window-buffer
-           nil)
-        (message "No shell buffer to display")))))
+      (moon-display-buffer-in-shell-window
+       (or moon-shell-window-buffer
+           (get-buffer-create
+            (completing-read
+             "Choose a buffer: "
+             (mapcar #'buffer-name (buffer-list)))))
+       nil))))
 
 (defun moon-maximize-shell-window ()
   "Make shell window take full screen.
@@ -361,8 +377,10 @@ To go back, use `winnner-undo'."
   "Display BUFFER in `moon-shell-window'.
 More on ALIST in `display-buffer-alist'."
   (setq moon-shell-window-buffer buffer)
-  (display-buffer-at-bottom buffer (append '((window-height . 0.2)) alist))
+  ;; (display-buffer-in-side-window buffer (append alist '((side . bottom) (window-height . 0.2))))
+  (let ((win (display-buffer-at-bottom buffer (append alist '((window-height . 0.2))))))
+    (set-window-dedicated-p win t))
   ;; set `moon-shell-window'
   (walk-windows (lambda (win) (when (eq (window-buffer win) buffer)
                                 (setq moon-shell-window win)))
-                'no-at-all))
+                'no))
