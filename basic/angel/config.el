@@ -21,7 +21,8 @@
 
   (general-define-key
    :keymaps 'override
-   "C-'"   #'jump-char-forward
+   "C-'"   #'find-char
+   "C-M-;" #'find-char-backward-cmd
    "M-'"   #'avy-goto-char
    "C-M-;" #'inline-replace
    "M-f"   #'next-char
@@ -336,10 +337,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;; Jump char
 
-(use-package| (jump-char :fetcher github :repo lewang/jump-char)
-  :commands jump-char-forward
-  :init (setq jump-char-forward-key "'"
-              jump-char-backward-key ";"))
+(use-package| find-char)
 
 ;;; Inline replace
 
