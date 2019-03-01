@@ -58,7 +58,7 @@
  display-line-numbers-width          3
  ;; Popup window to right!
  split-height-threshold              nil
- ;; split-width-threshold               100
+ ;; split-width-threshold               200
  ns-use-proxy-icon                   nil
 
  ;; minibuffer
