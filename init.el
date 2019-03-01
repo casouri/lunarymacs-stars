@@ -118,6 +118,7 @@
 
  ;;;; Font
  (moon/load-font "sf-mono-13")
+ (moon/load-cjk-font "source-han-serif-13")
 
  ;;;;; Chinese
 
