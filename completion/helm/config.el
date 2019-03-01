@@ -17,6 +17,7 @@
   (moon-default-leader
     "fr" #'helm-recentf
     "ss" #'helm-swoop
+    "C-s" #'helm-swoop
     "si" #'helm-imenu
     "sI" #'helm-imenu-in-all-buffers
     "C-s" #'helm-swoop
