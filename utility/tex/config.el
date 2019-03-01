@@ -41,10 +41,20 @@
 (use-package| auctex
   :defer t
   :init
+  ;; (setq TeX-electric-math (cons "$" "$")) ; too slow
   (add-hook 'latex-mode-hook
             (lambda ()
               (moon-require-auctex)
-              (TeX-latex-mode))))
+              (TeX-latex-mode)
+              (electric-quote-local-mode -1))))
+
+(add-hook 'LaTeX-mode-hook
+          (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+          ;; (setq TeX-command-default "XeLaTeX")
+          (setq TeX-save-query nil)
+          ;; (setq TeX-show-compilation t)
+          ;; tex-insert-dollar is useless and slow
+          (define-key TeX-mode-map (kbd "$") nil))
 
 (defun moon-require-auctex ()
   "Require necessary files from auctex."
