@@ -25,8 +25,8 @@
 (use-package| eglot
   :defer t
   :config
-  ;; don't pop doc in minibuffer on hover
-  (add-to-list 'eglot-ignored-server-capabilites :hoverProvider))
+  ;; (add-to-list 'eglot-ignored-server-capabilites :hoverProvider)
+  (eldoc-box-hover-mode))
 
 (use-package| eldoc-box
   :commands (eldoc-box-hover-mode
