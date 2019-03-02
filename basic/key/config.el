@@ -68,8 +68,7 @@
     "g" '(:ignore t :which-key "git")
     "p" '(:ignore t :which-key "project")
     "u" '(:ignore t :which-key "utility")
-    "o" '(:ignore t :which-key "outline")
-    "C-o" '(:ignore t :which-key "open")
+    "o" '(:ignore t :which-key "open")
     ;; Themes
     "Tc" #'customize-themes
     ;; Frame
@@ -77,8 +76,12 @@
     ;; align
     "="  #'align-regexp
     ;; open
-    "C-o t"  #'moon/open-in-iterm
-    "C-o f"  #'moon/open-in-finder
+    "o t"  #'moon/open-in-iterm
+    "o f"  #'moon/open-in-finder
+    "o p"  '((lambda () (interactive) (find-file "~/p")) :which-key "open ~/p")
+    "o d"  '((lambda () (interactive) (find-file "~/Downloads")) :which-key "open ~/Downloads")
+    "o D"  '((lambda () (interactive) (find-file "~/Desktop/")) :which-key "open ~/Desktop")
+    "o h"  '((lambda () (interactive) (find-file "~/")) :which-key "open home dir")
     ;; file
     "fR"  #'moon/rename-file
     "fs"  #'save-buffer

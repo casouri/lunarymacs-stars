@@ -1,11 +1,6 @@
 ;;; Keys
 
 (post-config| general
-  (moon-default-leader
-    "ot" '((lambda () (interactive)
-             (find-file moon-todo-file)) :which-key "jump todo")
-    "oc" #'org-capture
-    "oa" #'org-agenda)
   (general-define-key
    :keymaps 'org-mode-map
    "C-c i" #'moon/insert-heading))
