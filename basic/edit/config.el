@@ -23,7 +23,9 @@
    "M-P" #'moon/move-up
    "M-N" #'moon/move-down
    ;;;; Hippie
-   "M-/" #'hippie-expand)
+   "M-/" #'hippie-expand
+   ;;;; Hungry delete
+   "<backspace>" #'moon-hungry-delete)
   ;;;; Expand Region
   (moon-g-leader
     "v" #'er/expand-region)
@@ -96,11 +98,6 @@
         undo-tree-visualizer-diff t
         undo-tree-auto-save-history t
         undo-tree-history-directory-alist `(("." . ,moon-cache-dir))))
-
-(use-package| hungry-delete
-  :commands hungry-delete-backward
-  :init
-  (global-set-key (kbd "<S-backspace>") #'hungry-delete-backward))
 
 ;;;; Navigation
 
@@ -380,5 +377,61 @@ Transpose down one line means COUNT = 0, look at source for the reason."
   "Move region or current line down one line."
   (interactive)
   (moon/transpose-region/line -1))
+
+;;;; smart-delete
+
+;; rainbow!
+'(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+
+(defun moon-hungry-delete ()
+  "Smart and clean delete.
+If we are at the beginning of a line, backspace
+deletes all whitespace before and after point
+and moves point to the previous line."
+  (interactive)
+  (if (derived-mode-p major-mode 'text-mode)
+      (call-interactively #'backward-delete-char-untabify)
+    (if (or (region-active-p)
+            (<= (car (syntax-ppss)) 0))
+        (if (member (char-before) '(?{ ?\[ ?\())
+            (call-interactively #'electric-pair-delete-pair)
+          (call-interactively #'backward-delete-char-untabify))
+      ;; case1: closing delimiter after point:
+      ;;        delete all excess white space and new line
+      ;;        before and after point
+      ;;        add newline and indent if is }
+      ;; case2: other stuff after point:
+      ;;        remove empty lines and indent
+      (let* ((point (point))
+             (bolt (save-excursion
+                     ;; `beginning-of-line-text' seems to ignore comment for some reason,
+                     (beginning-of-line)
+                     (skip-chars-forward " \t")
+                     (point)))
+             ;; beginning of the region that we are to delete
+             (beg (save-excursion (while (member (char-before) '(?\n ?\s ?\t))
+                                    (backward-char))
+                                  (point)))
+             ;; end of that region
+             (end (save-excursion (goto-char bolt)
+                                  (while (member (char-after) '(?\n ?\s ?\t))
+                                    (forward-char))
+                                  (point))))
+        (if (<= point bolt)
+            ;; actually decide to delete stuff
+            (progn
+              (delete-region beg end)
+              (unless (eql (char-after) ?\))
+                (call-interactively #'newline))
+              ;; so we did all this and ends up not changing anything
+              ;; why? because the user doesn't want to delete excess white space,
+              ;; but to delete back to previous line! do that.
+              (when (eql (point) end)
+                (delete-region beg end)
+                (insert ?\s)))
+          ;; not at beginning of text, just do normal delete
+          (if (member (char-before) '(?{ ?\[ ?\())
+              (call-interactively #'electric-pair-delete-pair)
+            (call-interactively #'backward-delete-char-untabify)))))))
 
 ;;; config.el ends here
