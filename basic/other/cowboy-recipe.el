@@ -135,5 +135,6 @@
          (fshell . (:repo "casouri/fshell"))
          (icons-in-terminal . (:repo "sebastiencs/icons-in-terminal" :dependency (font-lock+)))
          (font-lock+ . (:repo "emacsmirror/font-lock-plus"))
-         (find-char . (:repo "casouri/find-char")))
+         (find-char . (:repo "casouri/find-char"))
+         (yaml-mode . (:repo "yoshiki/yaml-mode")))
        cowboy-recipe-alist))
