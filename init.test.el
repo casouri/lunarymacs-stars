@@ -52,4 +52,5 @@
        javascript
        web
        lua
+       yaml
        )
