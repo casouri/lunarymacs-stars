@@ -118,12 +118,9 @@
  (setq scroll-margin 4)
 
  ;;;; Font
- (moon/load-font "sf-mono-13")
- (moon/load-cjk-font "source-han-serif-13")
+ (moon/load-font)
 
  ;;;;; Chinese
-
- (moon/load-cjk-font "source-han-serif-13")
 
  ;; 馬
  ;; WenYue GuDianMingChaoTi (Non-Commercial Use) W5
@@ -136,7 +133,14 @@
  ;; | 对齐 |
  ;; | good |
 
+ (moon/load-cjk-font)
 
+ (when moon-font
+   (add-to-list 'face-font-rescale-alist
+                (cons (plist-get (alist-get (intern moon-cjk-font)
+                                            moon-cjk-font-alist)
+                                 :family)
+                      1.3)))
 
  ;;;;; Emoji
  ;; (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji")
