@@ -49,12 +49,13 @@
               (electric-quote-local-mode -1))))
 
 (add-hook 'LaTeX-mode-hook
-          (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
-          ;; (setq TeX-command-default "XeLaTeX")
-          (setq TeX-save-query nil)
-          ;; (setq TeX-show-compilation t)
-          ;; tex-insert-dollar is useless and slow
-          (define-key TeX-mode-map (kbd "$") nil))
+          (lambda ()
+            (add-to-list 'TeX-command-list '("XeLaTeX" "%`xelatex%(mode)%' %t" TeX-run-TeX nil t))
+            ;; (setq TeX-command-default "XeLaTeX")
+            (setq TeX-save-query nil)
+            ;; (setq TeX-show-compilation t)
+            ;; tex-insert-dollar is useless and slow
+            (define-key TeX-mode-map (kbd "$") nil)))
 
 (defun moon-require-auctex ()
   "Require necessary files from auctex."
