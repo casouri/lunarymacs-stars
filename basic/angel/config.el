@@ -37,6 +37,9 @@
 
    "C-M-0" #'forward-sexp ; \)
    "C-M-9" #'backward-sexp ; ;\(
+   "C-M-p" #'moon-up-list-backward
+   "C-M-n" #'down-list
+
 
    "C-v"   #'set-mark-command
 
@@ -64,6 +67,13 @@
     "C-b" #'switch-to-buffer
     "C-;" #'goto-last-change
     "M-;" #'goto-last-change-reverse))
+
+(defun moon-up-list-backward ()
+  "`up-list' but up to the beginning instead of the end."
+  (interactive)
+  (up-list)
+  (backward-list))
+
 
 (defvar moon-scroll-map (let ((map (make-sparse-keymap)))
                           (define-key map (kbd "n") #'moon/scroll-down-reserve-point)
