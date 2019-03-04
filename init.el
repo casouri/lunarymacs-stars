@@ -93,6 +93,9 @@
   ;; (setq-default cursor-type 'bar)
 
   ;; (setq use-package-verbose t)
+
+  ;;;; Window margin
+  ;; (setq-default left-margin-width 3)
   )
 
 
