@@ -16,7 +16,4 @@
   :mode "\\.pdf%"
   :commands pdf-view-mode)
 
-;; put outside so it is evaluated asap
-(add-to-list 'moon-package-sub-dir-white-list "pdf-tools/lisp$")
-
 ;;; config.el ends here
