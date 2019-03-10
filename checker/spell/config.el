@@ -1,6 +1,6 @@
 ;; -*- lexical-binding: t -*-
 
-(use-package| (flyspell :system t)
+(use-package| flyspell
   :hook (((fundamenta-mode text-mode) . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :config
