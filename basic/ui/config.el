@@ -40,7 +40,7 @@
 
 ;;; Package
 
-(use-package| (doom-themes :repo "casouri/emacs-doom-themes")
+(use-package| doom-themes
   :config
   ;; (add-to-list 'moon-toggle-theme-list 'doom-one)
   (setq doom-cyberpunk-bg 'light)
@@ -53,7 +53,7 @@
   :config (with-current-buffer (get-buffer-create "*scratch")
             (rainbow-delimiters-mode)))
 
-(use-package| (rainbow-mode :system t)
+(use-package| rainbow-mode
   :commands rainbow-mode)
 
 (use-package| highlight-parentheses
