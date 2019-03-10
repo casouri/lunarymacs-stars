@@ -43,9 +43,10 @@
 (use-package| doom-themes
   :config
   ;; (add-to-list 'moon-toggle-theme-list 'doom-one)
-  (setq doom-cyberpunk-bg 'light)
-  (add-to-list 'moon-toggle-theme-list 'doom-one-light t)
-  (add-to-list 'moon-toggle-theme-list 'doom-cyberpunk))
+  (setq doom-cyberpunk-bg 'light))
+
+(add-to-list 'moon-toggle-theme-list 'doom-one-light t)
+(add-to-list 'moon-toggle-theme-list 'doom-cyberpunk)
 
 
 (use-package| rainbow-delimiters
