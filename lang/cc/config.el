@@ -21,7 +21,8 @@
      (push (cons mode 'lsp-format-buffer) moon-smart-format-alist)))
  (progn
    (add-hook 'c-mode #'eglot-ensure t)
-   (push '(c-mode . eglot-format-buffer) moon-smart-format-alist)))
+   ;; (push '(c-mode . eglot-format-buffer) moon-smart-format-alist)
+   ))
 
 ;; C/C++/Objective-C support
 ;; Install: brew tap twlz0ne/homebrew-ccls && brew install ccls
