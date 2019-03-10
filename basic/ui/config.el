@@ -245,7 +245,7 @@ else return STR."
 
 ;;;; Desktop resume
 
-(add-hook 'moon-startup-hook-2 #'moon-setup-save-session t)
+(add-hook 'moon-startup-hook-1 #'moon-setup-save-session)
 
 ;; copied from
 ;; https://gist.github.com/syl20bnr/4425094
