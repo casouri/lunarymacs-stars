@@ -14,5 +14,5 @@
     "gfc" #'magit-file-checkout
     "gfl" #'magit-log-buffer-file))
 
-(use-package| (magit-todos :repo "alphapapa/magit-todos" :fetcher github)
+(use-package| magit-todos
   :hook (magit-mode . magit-todos-mode))
