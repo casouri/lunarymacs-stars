@@ -107,9 +107,7 @@
 
  ;;;; theme
  (setq doom-cyberpunk-dark-mode-line nil)
- (if moon-theme
-     (moon-load-theme moon-theme t)
-   (moon-load-theme 'doom-cyberpunk t))
+ (moon-load-theme nil t)
  
  ;;;; Faster long lines
  (setq-default bidi-display-reordering nil)
