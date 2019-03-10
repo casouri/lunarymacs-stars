@@ -32,8 +32,8 @@
               (append '((company-math-symbols-latex company-latex-commands))
                       company-backends)))
 
-(use-package| webkit-katex-render
-  :commands webkit-katex-render-mode)
+;; (use-package| webkit-katex-render
+;;   :commands webkit-katex-render-mode)
 
 ;; (post-config| eglot
 ;;   (add-to-list 'eglot-server-programs '(latex-mode . ("digestif"))))
