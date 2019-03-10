@@ -134,7 +134,7 @@
 (use-package| outshine
   :commands outshine-cycle-buffer
   :init
-  (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+  (add-hook 'outline-minor-mode-hook 'outshine-mode)
   (add-hook 'prog-mode-hook 'outline-minor-mode)
   (defvar outline-minor-mode-prefix (kbd "C-c o")))
 
