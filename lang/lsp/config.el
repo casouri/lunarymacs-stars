@@ -24,8 +24,9 @@
 
 ;;; Config
 
-(moon-lsp/eglot
- (load| lsp)
- (load| eglot))
+;; make sure this runs after init.el is loaded
+(add-hook 'moon-startup-hook-2 (moon-lsp/eglot
+                                (load| lsp)
+                                (load| eglot)))
 
 ;;; config.el ends here
