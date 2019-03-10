@@ -73,9 +73,8 @@
 
 ;;;; icons
 
-(add-to-list 'moon-package-sub-dir-white-list "icons-in-terminal/build$")
-(use-package| icons-in-terminal
-  :commands icons-in-terminal)
+;; (use-package| icons-in-terminal
+;;   :commands icons-in-terminal)
 
 ;;;; Mode-line
 
