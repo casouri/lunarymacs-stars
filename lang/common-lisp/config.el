@@ -23,14 +23,5 @@
   :init
   (add-hook 'common-lisp-mode-hook #'aggressive-indent-mode))
 
-;;; Config
-
-(dolist (hook '(common-lisp-mode-hook
-                sly-mrepl-mode))
-  (add-hook hook (lambda () (local-set-key (kbd "<tab>") #'company-complete))))
-
-
-
-
 
 ;;; config.el ends here
