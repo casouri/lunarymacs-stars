@@ -60,8 +60,8 @@
 
 ;;;; Edit
 
-(use-package| (camelsnake-mode :fetcher github :repo "casouri/camelsnake-mode")
-  :commands camelsnake-mode)
+;; (use-package| (camelsnake-mode :fetcher github :repo "casouri/camelsnake-mode")
+;;   :commands camelsnake-mode)
 
 (use-package| ws-butler
   :defer 3
@@ -84,7 +84,7 @@
   er/mark-outside-pairs
   er/contract-region)
 
-(use-package| (isolate :fetcher github :repo "casouri/isolate")
+(use-package| isolate
   :commands (isolate-quick-add
              isolate-quick-change
              isolate-quick-delete
@@ -101,7 +101,7 @@
 
 ;;;; Navigation
 
-(use-package| (recentf-ext :system t)
+(use-package| recentf-ext
   :commands (recentf counsel-recentf))
 
 (use-package| avy
@@ -139,7 +139,7 @@
   (defvar outline-minor-mode-prefix (kbd "C-c o")))
 
 
-(use-package| (color-rg :fetcher github :repo "manateelazycat/color-rg")
+(use-package| color-rg
   :init
   (define-key isearch-mode-map (kbd "M-s M-s") 'isearch-toggle-color-rg)
   :commands (isearch-toggle-color-rg
