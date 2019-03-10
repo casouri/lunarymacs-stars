@@ -383,26 +383,45 @@ Transpose down one line means COUNT = 0, look at source for the reason."
 ;; rainbow!
 '(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
 
+
+(defvar moon-hungry-delete-black-list '(org-mode text-mode fundamental-mode markdown-mode)
+  "A list of major mode in where `moon-hungry-delete' should behave like normal delete.")
+
 (defun moon-hungry-delete ()
   "Smart and clean delete.
 If we are at the beginning of a line, backspace
 deletes all whitespace before and after point
 and moves point to the previous line."
   (interactive)
-  (if (derived-mode-p major-mode 'text-mode)
-      (call-interactively #'backward-delete-char-untabify)
+  (require 'cl-lib)
+  (cl-labels ((normal-delete () (if (region-active-p)
+                                    (delete-region (region-beginning) (region-end))
+                                  (if (and (not (eql (point) (point-max)))
+                                           (eql (alist-get (char-before) '((?{ . ?}) (?\[ . ?\])
+                                                                           (?\( . ?\)) (?\" . ?\")
+                                                                           (?\' . ?\') (?“ . ?”) (?‘ . ?’)))
+                                                (char-after)))
+                                      ;; if we are in the middle of a empty pair, i.e., "|" or (|)
+                                      ;; delete both
+                                      (progn (forward-char)
+                                             (backward-delete-char 2))
+                                    (call-interactively #'backward-delete-char-untabify)))))
     (if (or (region-active-p)
-            (<= (car (syntax-ppss)) 0))
-        (if (member (char-before) '(?{ ?\[ ?\())
-            (call-interactively #'electric-pair-delete-pair)
-          (call-interactively #'backward-delete-char-untabify))
-      ;; case1: closing delimiter after point:
-      ;;        delete all excess white space and new line
-      ;;        before and after point
-      ;;        add newline and indent if is }
-      ;; case2: other stuff after point:
-      ;;        remove empty lines and indent
-      (let* ((point (point))
+            (<= (car (syntax-ppss)) 0)
+            (minibufferp (current-buffer)))
+        ;; if we are at top-level
+        ;; do normal delete
+        (normal-delete)
+      ;; if the point is not before the line but inside it, do normal delete
+      ;; otherwise do hungry delete
+      ;;
+      ;; 1. we first delete all white spaces, then insert newline and indent properly
+      ;; 2. but if there is only a closing delimiter, i.e., } or ),
+      ;;    we don't insert new line.
+      ;; 3. if we ends up in the same place before hungry delete,
+      ;;    that means the user is trying to delete back to the previous line,
+      ;;    then do that.
+      (let* ((point (point)) ; staring point
              (bolt (save-excursion
                      ;; `beginning-of-line-text' seems to ignore comment for some reason,
                      (beginning-of-line)
@@ -424,14 +443,12 @@ and moves point to the previous line."
               (unless (eql (char-after) ?\))
                 (call-interactively #'newline))
               ;; so we did all this and ends up not changing anything
-              ;; why? because the user doesn't want to delete excess white space,
+              ;; why? because the user doesn't want to delete excess white space and add newline
               ;; but to delete back to previous line! do that.
               (when (eql (point) end)
                 (delete-region beg end)
                 (insert ?\s)))
           ;; not at beginning of text, just do normal delete
-          (if (member (char-before) '(?{ ?\[ ?\())
-              (call-interactively #'electric-pair-delete-pair)
-            (call-interactively #'backward-delete-char-untabify)))))))
+          (normal-delete))))))
 
 ;;; config.el ends here
