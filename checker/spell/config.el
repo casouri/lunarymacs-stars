@@ -17,13 +17,6 @@
   (moon-default-leader
     "ts" #'moon/toggle-spell-check))
 
-
-(use-package| flyspell-correct-ivy
-  :after (flyspell ivy)
-  :config
-  ;; https://www.emacswiki.org/emacs/FlySpell
-  (setq flyspell-issue-message-flag nil))
-
 (post-config| general
   (moon-default-leader
     "ef" #'flyspell-correct-previous
