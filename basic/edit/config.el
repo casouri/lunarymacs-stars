@@ -239,16 +239,15 @@
 
 ;;;; Default
 
-(electric-pair-mode 1)
+(electric-pair-mode)
 ;; (push '(?< . ?>) electric-pair-pairs)
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (setq-local electric-pair-text-pairs
                                  (append '((?` . ?'))
                                          electric-pair-text-pairs))))
 
-(add-hook 'fundamenta-mode-hook #'electric-quote-local-mode)
-
-(minibuffer-electric-default-mode 1)
+(electric-quote-mode)
+(minibuffer-electric-default-mode)
 
 ;; smooth scrolling
 (setq scroll-conservatively 101)
