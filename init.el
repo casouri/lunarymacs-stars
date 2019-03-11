@@ -159,4 +159,5 @@
  ;;
  ;;; customize ends here
  )
+
 (put 'erase-buffer 'disabled nil)
